@@ -434,10 +434,9 @@
     <label for="submitToggle" class="btn-secondary"><i class="ti ti-circle-plus"></i> Suggest a resource</label>
 
     <div class="submit-form-wrap">
-      <form action="https://formspree.io/f/mbdbkznw" method="POST">
+      <form id="suggestForm" onsubmit="return submitSuggestion(event);">
         <input type="hidden" name="_subject" value="New resource suggestion — Rights Connector Hub">
         <input type="hidden" name="source_page" value="Rights Connector Hub">
-        <input type="hidden" name="_next" value="rights_connector.html?submitted=1">
         <input type="text" name="_gotcha" class="gotcha-field" tabindex="-1" autocomplete="off">
 
         <div class="field">
@@ -494,7 +493,8 @@
           <label for="sEmail">Your email (optional — only if we have follow-up questions)</label>
           <input type="text" id="sEmail" name="email">
         </div>
-        <button type="submit" class="btn-primary" style="align-self:flex-start;"><i class="ti ti-send"></i> Submit for review</button>
+        <button type="submit" class="btn-primary" id="suggestBtn" style="align-self:flex-start;"><i class="ti ti-send"></i> Submit for review</button>
+        <span id="suggestStatus" style="font-size:13px;margin-top:6px;display:none;"></span>
       </form>
     </div>
   </div>
@@ -1038,6 +1038,41 @@ function copyPrepSummary(){
     alert('Copy failed — select the text manually and copy with Ctrl/Cmd+C.');
   }
   document.body.removeChild(ta);
+}
+
+function submitSuggestion(e){
+  e.preventDefault();
+  var form = document.getElementById('suggestForm');
+  var btn = document.getElementById('suggestBtn');
+  var status = document.getElementById('suggestStatus');
+  var orig = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = 'Sending…';
+  status.style.display = 'none';
+  fetch('https://formspree.io/f/mbdbkznw', {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(function(r){
+    if(r.ok){
+      form.reset();
+      document.getElementById('submitToggle').checked = false;
+      document.getElementById('submitSuccessBanner').className = 'success-banner show';
+      window.scrollTo({top:0, behavior:'smooth'});
+    } else {
+      status.style.color = 'var(--brick)';
+      status.textContent = 'Something went wrong — email hello@aricciviclabs.org directly.';
+      status.style.display = 'block';
+    }
+  }).catch(function(){
+    status.style.color = 'var(--brick)';
+    status.textContent = 'Network error — email hello@aricciviclabs.org directly.';
+    status.style.display = 'block';
+  }).then(function(){
+    btn.disabled = false;
+    btn.innerHTML = orig;
+  });
+  return false;
 }
 
 function checkSubmissionBanner(){
