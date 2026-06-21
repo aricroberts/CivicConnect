@@ -71,6 +71,14 @@
   #panel-results{display:none;}
   #step-results:checked ~ .panels #panel-results{display:block;}
   #step-results:checked ~ .panels #panel-quiz{display:none;}
+  #step-state-results:checked ~ .panels #panel-results{display:block;}
+  #step-state-results:checked ~ .panels #panel-quiz{display:none;}
+
+  .state-only-block{
+    margin-top:18px; padding-top:18px; border-top:1px dashed var(--border-d);
+    display:flex; flex-direction:column; align-items:flex-start; gap:8px;
+  }
+  .state-only-block .hint{margin-bottom:2px;}
 
   .quiz-block{margin-bottom:32px; margin-top:30px;}
   .quiz-block h2{font-family:'Libre Caslon Display', serif; font-size:19px; font-weight:400; margin-bottom:4px;}
@@ -299,6 +307,7 @@
 
   <input type="radio" class="tab-radio" id="step-quiz" name="steps" checked>
   <input type="radio" class="tab-radio" id="step-results" name="steps">
+  <input type="radio" class="tab-radio" id="step-state-results" name="steps">
 
   <header>
     <div class="hero">
@@ -358,8 +367,13 @@
 
       <div class="quiz-block">
         <h2>3. Where are you? <span style="font-weight:400;color:var(--ink3);">(optional)</span></h2>
-        <p class="hint">If we have state-specific resources for your situation, they'll show alongside the national ones.</p>
+        <p class="hint">If we have state-specific resources for your situation, they'll show alongside the national ones. If you're military, a veteran, or in law enforcement, pick that option instead of a state to surface community-specific resources.</p>
         <select id="stateInput"></select>
+
+        <div class="state-only-block">
+          <p class="hint">Don't have a specific situation in mind — just want to see what's available where you live?</p>
+          <label for="step-state-results" class="btn-secondary" id="seeStateResultsLabel"><i class="ti ti-map-pin"></i> Browse every organization for this selection</label>
+        </div>
       </div>
 
       <label for="step-results" class="btn-primary" id="seeResultsLabel"><i class="ti ti-search"></i> See organizations</label>
@@ -473,7 +487,9 @@
               <option>Immigration status / detention</option>
               <option>Privacy / surveillance</option>
               <option>Education / student rights</option>
+              <option>Current military service / military-connected</option>
               <option>Veterans' rights</option>
+              <option>Police accountability / law enforcement oversight</option>
             </optgroup>
             <optgroup label="Other pages">
               <option>Actively defending the Constitution</option>
@@ -618,6 +634,7 @@ function groupForCategory(catId){
 }
 
 function stateNameFor(abbr){
+  if(abbr === 'MILVET') return 'Military / Veteran / Law Enforcement';
   for(var i=0;i<STATES.length;i++){ if(STATES[i].v === abbr) return STATES[i].n; }
   return abbr;
 }
@@ -625,6 +642,7 @@ function stateNameFor(abbr){
 function buildStateOptions(){
   var sel = document.getElementById('stateInput');
   var html = '<option value="">National resources only</option>';
+  html += '<option value="MILVET">Military / Veteran / Law Enforcement community</option>';
   for(var i=0;i<STATES.length;i++){
     html += '<option value="'+STATES[i].v+'">'+STATES[i].n+'</option>';
   }
@@ -645,7 +663,9 @@ var CATEGORIES = [
   {id:'immigration', label:'Immigration status / detention', icon:'ti-passport', group:'protection'},
   {id:'privacy', label:'Privacy / surveillance', icon:'ti-eye-off', group:'protection'},
   {id:'education', label:'Education / student rights', icon:'ti-school', group:'protection'},
-  {id:'veterans', label:"Veterans' rights", icon:'ti-medal', group:'protection'}
+  {id:'military', label:'Current military service / military-connected', icon:'ti-shield', group:'protection'},
+  {id:'veterans', label:"Veterans' rights", icon:'ti-medal', group:'protection'},
+  {id:'policing', label:'Police accountability / law enforcement oversight', icon:'ti-alert-octagon', group:'protection'}
 ];
 
 var ORGS = [
@@ -724,6 +744,16 @@ var ORGS = [
   {id:'vfw', name:'VFW National Veterans Service', cats:['veterans'], type:'Service arm', scope:'National', url:'https://www.vfw.org', desc:'Claims-filing assistance through a congressionally chartered veterans organization.', urg:['now','soon','plan'], trans:0, note:'Not yet independently verified - recommend a research pass before fully trusting this entry.'},
   {id:'statesidelegal', name:'Stateside Legal', cats:['veterans'], type:'Legal information + referrals', scope:'National', url:'https://www.statesidelegal.org', desc:'Legal information and referral resources for veterans, servicemembers, and military families.', urg:['now','soon','plan'], trans:4, note:'Veteran-focused legal-information hub.'},
   {id:'swords', name:'Swords to Plowshares', cats:['veterans'], type:'Legal aid + services', scope:'State', states:['CA'], url:'https://www.swords-to-plowshares.org', desc:'California-based veteran legal services, benefits advocacy, housing, and supportive services.', urg:['now','soon','plan'], trans:4, note:'Direct-service veterans organization; state-specific usefulness.'},
+  {id:'nacvso', name:'National Association of County Veterans Service Officers (NACVSO)', cats:['veterans'], type:'Directory + accredited claims network', scope:'National', url:'https://www.nacvso.org', desc:'VA-accredited network of county-level Veterans Service Officers who help veterans and dependents prepare and file VA benefits claims at no charge.', urg:['now','soon','plan'], trans:5, note:'VA-recognized representative organization since 1993; member services are free to veterans.'},
+
+  {id:'moaa', name:'Military Officers Association of America (MOAA)', cats:['military','veterans'], type:'Membership association + advocacy', scope:'National', url:'https://www.moaa.org', desc:'Membership organization offering benefits counseling, career-transition assistance, and advocacy for active-duty, retired, and former military officers and their families.', urg:['now','soon','plan'], trans:4, note:'Self-described independent and nonpartisan; funded mainly by membership dues, donations, and corporate sponsorships.'},
+  {id:'militaryonesource', name:'Military OneSource', cats:['military'], type:'Government service', scope:'National', url:'https://www.militaryonesource.mil', desc:'Official 24/7 Department of Defense program offering confidential counseling, financial guidance, deployment support, and relocation help to active-duty, National Guard, and Reserve members and their families.', urg:['now','soon','plan'], trans:6, note:'Official Department of Defense program - federal government service.'},
+  {id:'bluestarfamilies', name:'Blue Star Families', cats:['military'], type:'Nonprofit + advocacy', scope:'National', url:'https://bluestarfam.org', desc:'Nonprofit network connecting military and veteran families to community support, research-backed advocacy, and programs addressing spouse employment, caregiving, and deployment-related strain.', urg:['soon','plan'], trans:4, note:'501(c)(3) self-described nonpartisan organization; funded by philanthropic grants, corporate partners, and individual donors.'},
+
+  {id:'badgeoflife', name:'Badge of Life', cats:['policing'], type:'Mental health + peer support', scope:'National', url:'https://badgeoflife.org', desc:'501(c)(3) providing peer support, training, and suicide-prevention resources for active and retired law enforcement officers.', urg:['now','soon','plan'], trans:4, note:'Officer-wellness nonprofit, not an oversight or accountability organization - distinct in purpose from NACOLE below.'},
+  {id:'nacole', name:'National Association for Civilian Oversight of Law Enforcement (NACOLE)', cats:['policing','racial'], type:'Professional association + resource center', scope:'National', url:'https://www.nacole.org', desc:'Nonprofit supporting independent civilian oversight boards that review police conduct, with training, best-practice guidance, and a directory of oversight agencies by jurisdiction.', urg:['now','soon','plan'], trans:4, note:'Established 1995; funded by membership dues, conference revenue, and DOJ COPS Office grants for some projects.'},
+  {id:'iacp', name:'International Association of Chiefs of Police (IACP)', cats:['policing'], type:'Professional organization', scope:'National', url:'https://www.theiacp.org', desc:'Professional association for police leadership focused on training, standards, and policy resources for law-enforcement executives and agencies - not a union or individual-officer defense group.', urg:['soon','plan'], trans:4, note:'501(c)(3) professional association for police leadership, not an oversight or accountability body.'},
+  {id:'nacole-directory', name:'Police Oversight Directory by Jurisdiction (NACOLE)', cats:['policing','racial'], type:'Directory', scope:'National', url:'https://www.nacole.org/police_oversight_by_jurisdiction_usa', desc:'Searchable list of civilian oversight and police-complaint agencies by city and state, for routing a complaint about police conduct to the right local body.', urg:['now','soon','plan'], trans:4, note:"Maintained by NACOLE; explicitly informational and non-exhaustive per the organization's own disclaimer."},
 
   {id:'pa-al', name:'Alabama Disabilities Advocacy Program', cats:['disability'], type:'Federally mandated P&A', scope:'State', states:['AL'], url:'http://adap.ua.edu/', desc:'Alabama protection and advocacy agency for disability-rights intake, systems advocacy, and rights enforcement.', urg:['now','soon','plan'], trans:6, note:'NDRN-listed Protection & Advocacy / Client Assistance Program member for Alabama.'},
   {id:'pa-ak', name:'Disability Law Center of Alaska', cats:['disability'], type:'Federally mandated P&A', scope:'State', states:['AK'], url:'http://www.dlcak.org/', desc:'Alaska protection and advocacy agency for disability-rights legal advocacy and client assistance.', urg:['now','soon','plan'], trans:6, note:'NDRN-listed Protection & Advocacy / Client Assistance Program member for Alaska.'},
@@ -865,6 +895,52 @@ function matchOrgs(cat, urg, stateVal){
   return {national: nationalMatches, state: stateMatches};
 }
 
+function matchMilVetOrgs(urg){
+  var matches = [];
+  for(var i=0;i<ORGS.length;i++){
+    var org = ORGS[i];
+    if(org.cats.indexOf('military') === -1 && org.cats.indexOf('veterans') === -1 && org.cats.indexOf('policing') === -1) continue;
+    if(org.urg.indexOf(urg) === -1) continue;
+    matches.push(org);
+  }
+  matches.sort(function(a,b){ return b.trans - a.trans; });
+  return matches;
+}
+
+// Builds a {primaryLabel, primary, secondaryLabel, secondary} view used by both
+// the results panel and the prep packet, so the two always stay in sync.
+function getResultSections(cat, urg, stateVal){
+  if(stateVal === 'MILVET'){
+    var milvetMatches = matchMilVetOrgs(urg);
+    var milvetIds = {};
+    for(var i=0;i<milvetMatches.length;i++){ milvetIds[milvetMatches[i].id] = true; }
+    var catMatches = matchOrgs(cat, urg, '').national;
+    var nationalOnly = [];
+    for(var j=0;j<catMatches.length;j++){ if(!milvetIds[catMatches[j].id]) nationalOnly.push(catMatches[j]); }
+    return {
+      primaryLabel: 'Military / Veteran / Law Enforcement organizations',
+      primary: milvetMatches,
+      secondaryLabel: 'National organizations',
+      secondary: nationalOnly
+    };
+  }
+  var matched = matchOrgs(cat, urg, stateVal);
+  if(stateVal){
+    return {
+      primaryLabel: stateNameFor(stateVal) + ' organizations',
+      primary: matched.state,
+      secondaryLabel: 'National organizations',
+      secondary: matched.national
+    };
+  }
+  return {
+    primaryLabel: null,
+    primary: [],
+    secondaryLabel: null,
+    secondary: matched.national
+  };
+}
+
 function renderResults(){
   var cat = getSelected('category');
   var urg = getSelected('urgency') || 'plan';
@@ -881,37 +957,112 @@ function renderResults(){
   }
   flagWrap.innerHTML = flagHtml;
 
-  var matched = matchOrgs(cat, urg, stateVal);
-  var nationalMatches = matched.national;
-  var stateMatches = matched.state;
-
+  var sections = getResultSections(cat, urg, stateVal);
   var container = document.getElementById('resultsContainer');
 
-  if(nationalMatches.length === 0 && stateMatches.length === 0){
+  if(sections.primary.length === 0 && sections.secondary.length === 0){
     container.innerHTML = '<div class="no-results">No close match yet for this combination - try "Researching" urgency to see all organizations in this category, or check back as we add more.</div>';
     return;
   }
 
   var html = '';
-  if(stateVal){
-    var stateName = stateNameFor(stateVal);
-    html += '<div class="cat-group"><div class="cat-group-label">'+stateName+' organizations</div>';
-    if(stateMatches.length > 0){
-      for(var s=0;s<stateMatches.length;s++){ html += orgCardHtml(stateMatches[s]); }
+  if(sections.primaryLabel){
+    html += '<div class="cat-group"><div class="cat-group-label">'+sections.primaryLabel+'</div>';
+    if(sections.primary.length > 0){
+      for(var s=0;s<sections.primary.length;s++){ html += orgCardHtml(sections.primary[s]); }
     } else {
-      html += '<div class="no-results" style="padding:6px 0 0;">No state-specific organizations added yet for '+stateName+' in this category — the national resources below may still help.</div>';
+      html += '<div class="no-results" style="padding:6px 0 0;">No organizations matched yet for this combination — the national resources below may still help.</div>';
     }
     html += '</div>';
-    html += '<div class="cat-group"><div class="cat-group-label">National organizations</div>';
-    for(var n=0;n<nationalMatches.length;n++){ html += orgCardHtml(nationalMatches[n]); }
-    html += '</div>';
-  } else {
-    for(var m=0;m<nationalMatches.length;m++){ html += orgCardHtml(nationalMatches[m]); }
+  }
+  if(sections.secondary.length > 0){
+    if(sections.secondaryLabel){
+      html += '<div class="cat-group"><div class="cat-group-label">'+sections.secondaryLabel+'</div>';
+      for(var n=0;n<sections.secondary.length;n++){ html += orgCardHtml(sections.secondary[n]); }
+      html += '</div>';
+    } else {
+      for(var m=0;m<sections.secondary.length;m++){ html += orgCardHtml(sections.secondary[m]); }
+    }
   }
   container.innerHTML = html;
 }
 
 var lastPrepData = null;
+
+function renderStateResults(){
+  var stateVal = document.getElementById('stateInput').value;
+  var flagWrap = document.getElementById('urgencyFlagWrap');
+  var container = document.getElementById('resultsContainer');
+
+  if(!stateVal){
+    flagWrap.innerHTML = '';
+    container.innerHTML = '<div class="no-results">Pick a state — or the Military / Veteran / Law Enforcement option — from the dropdown in step 3 first, then come back and browse. <label for="step-quiz" style="text-decoration:underline;cursor:pointer;">Go back and choose one</label></div>';
+    return;
+  }
+
+  if(stateVal === 'MILVET'){
+    flagWrap.innerHTML = '<div class="urgency-flag plan"><i class="ti ti-shield"></i> Showing every organization for the military, veteran, and law enforcement community, across all categories.</div>';
+    var milHtml = '';
+    var milSeen = {};
+    var milCatIds = ['military','veterans','policing'];
+    for(var mc=0; mc<milCatIds.length; mc++){
+      var milCatObj = null;
+      for(var ci=0; ci<CATEGORIES.length; ci++){ if(CATEGORIES[ci].id === milCatIds[mc]) milCatObj = CATEGORIES[ci]; }
+      var milMatches = [];
+      for(var mj=0; mj<ORGS.length; mj++){
+        var mo = ORGS[mj];
+        if(milSeen[mo.id]) continue;
+        if(mo.cats.indexOf(milCatIds[mc]) === -1) continue;
+        milMatches.push(mo);
+      }
+      if(milMatches.length === 0) continue;
+      milMatches.sort(function(a,b){ return b.trans - a.trans; });
+      milHtml += '<div class="cat-group"><div class="cat-group-label">'+escapeHtml(milCatObj ? milCatObj.label : milCatIds[mc])+'</div>';
+      for(var mk=0; mk<milMatches.length; mk++){ milHtml += orgCardHtml(milMatches[mk]); milSeen[milMatches[mk].id] = true; }
+      milHtml += '</div>';
+    }
+    container.innerHTML = milHtml || '<div class="no-results">No organizations found yet.</div>';
+    return;
+  }
+
+  var stateName = stateNameFor(stateVal);
+  flagWrap.innerHTML = '<div class="urgency-flag plan"><i class="ti ti-map-pin"></i> Showing every organization — state-specific and national — for '+escapeHtml(stateName)+', across all categories.</div>';
+
+  var html = '';
+  var seen = {};
+
+  var stateOnlyOrgs = [];
+  for(var i=0;i<ORGS.length;i++){
+    var org = ORGS[i];
+    if(org.states && org.states.length && org.states.indexOf(stateVal) !== -1){ stateOnlyOrgs.push(org); }
+  }
+  stateOnlyOrgs.sort(function(a,b){ return b.trans - a.trans; });
+
+  if(stateOnlyOrgs.length > 0){
+    html += '<div class="cat-group"><div class="cat-group-label">'+stateName+'-specific organizations</div>';
+    for(var s=0;s<stateOnlyOrgs.length;s++){ html += orgCardHtml(stateOnlyOrgs[s]); seen[stateOnlyOrgs[s].id] = true; }
+    html += '</div>';
+  }
+
+  for(var c=0;c<CATEGORIES.length;c++){
+    var cat = CATEGORIES[c];
+    var matches = [];
+    for(var j=0;j<ORGS.length;j++){
+      var o = ORGS[j];
+      if(seen[o.id]) continue;
+      if(o.cats.indexOf(cat.id) === -1) continue;
+      if(o.states && o.states.length) continue;
+      matches.push(o);
+    }
+    if(matches.length === 0) continue;
+    matches.sort(function(a,b){ return b.trans - a.trans; });
+    html += '<div class="cat-group"><div class="cat-group-label">'+escapeHtml(cat.label)+'</div>';
+    for(var k=0;k<matches.length;k++){ html += orgCardHtml(matches[k]); seen[matches[k].id] = true; }
+    html += '</div>';
+  }
+
+  container.innerHTML = html || '<div class="no-results">No organizations found yet.</div>';
+}
 
 function buildPrepData(){
   var catId = getSelected('category');
@@ -927,12 +1078,15 @@ function buildPrepData(){
   var done = document.getElementById('prepDone').value || '';
   var group = groupForCategory(catId);
   var tips = GROUP_TIPS[group] || GROUP_TIPS.work;
-  var matched = matchOrgs(catId, urg, stateVal);
+  var sections = getResultSections(catId, urg, stateVal);
+  var primarySectionLabel = sections.primaryLabel ?
+    (stateVal === 'MILVET' ? 'MILITARY / VETERAN / LAW ENFORCEMENT' : stateLabel.toUpperCase() + '-SPECIFIC') : '';
 
   return {
     catLabel: catLabel, urgLabel: urgLabel, stateVal: stateVal, stateLabel: stateLabel,
     desc: desc, contact: contact, deadline: deadline, done: done,
-    tips: tips, national: matched.national, state: matched.state,
+    tips: tips, national: sections.secondary, state: sections.primary,
+    primarySectionLabel: primarySectionLabel,
     generatedDate: new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'})
   };
 }
@@ -969,7 +1123,7 @@ function buildPrepInnerHtml(d){
 
   html += '<h4>Recommended organizations</h4>';
   if(d.state.length > 0){
-    html += '<div style="font-size:11px;color:var(--ink3);font-family:DM Mono,monospace;margin-bottom:8px;">'+escapeHtml(d.stateLabel)+'-SPECIFIC</div>';
+    html += '<div style="font-size:11px;color:var(--ink3);font-family:DM Mono,monospace;margin-bottom:8px;">'+escapeHtml(d.primarySectionLabel)+'</div>';
     for(var s=0;s<d.state.length;s++){ html += prepOrgMiniHtml(d.state[s]); }
   }
   if(d.national.length > 0){
@@ -1145,6 +1299,15 @@ checkSubmissionBanner();
 document.getElementById('step-results').addEventListener('change', function(){
   if(this.checked){
     renderResults();
+    var resultsPanel = document.getElementById('panel-results');
+    if(resultsPanel && resultsPanel.scrollIntoView){
+      resultsPanel.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+});
+document.getElementById('step-state-results').addEventListener('change', function(){
+  if(this.checked){
+    renderStateResults();
     var resultsPanel = document.getElementById('panel-results');
     if(resultsPanel && resultsPanel.scrollIntoView){
       resultsPanel.scrollIntoView({behavior:'smooth', block:'start'});
