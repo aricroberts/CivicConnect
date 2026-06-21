@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<link rel="icon" type="image/png" href="civil_rights_connector.png">
+<title>Civic Rights Connector · AricCivicLabs</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6EFDC; --paper2:#FFFBF1; --paper3:#EFE5C9;
+    --ink:#2A2018; --ink2:#6E5F4A; --ink3:#746352;
+    --navy:#1F3A5C; --navy-l:#2F5380; --brick:#A8412F; --brick-l:#C25A45;
+    --gold:#8F6418; --gold-l:#C99A40; --green:#3D7A57; --green-l:#4F9268;
+    --border:#E2D2A8; --border-d:#D3C193;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{color-scheme:light; background-color:#F6EFDC; min-height:100%;}
+  body{
+    background-color:#F6EFDC; color:var(--ink);
+    font-family:'DM Sans', sans-serif; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh; min-height:100dvh;
+  }
+  .serif{font-family:'Libre Caslon Display', serif;}
+  .mono{font-family:'DM Mono', monospace;}
+  .container{max-width:840px; margin:0 auto; padding:28px 20px 90px;}
+
+  header{padding:6px 0 22px;}
+  .hero{
+    background:var(--paper2); border:1px solid var(--border-d); border-top:7px solid var(--navy);
+    border-radius:14px; padding:34px 28px 30px; margin-bottom:4px;
+    text-align:center; display:flex; flex-direction:column; align-items:center;
+  }
+  .hero-logo{width:150px; height:auto; margin-bottom:20px;}
+  .eyebrow{font-family:'DM Mono', monospace; font-size:11.5px; letter-spacing:0.09em; text-transform:uppercase; color:var(--navy); margin-bottom:10px; font-weight:500;}
+  h1{font-family:'Libre Caslon Display', serif; font-size:46px; line-height:1.05; font-weight:400; letter-spacing:-0.01em; margin-bottom:12px; color:var(--ink);}
+  .subhead{color:var(--ink2); font-size:16px; max-width:560px;}
+  .rule{
+    height:3px; margin:20px 0 0; border-radius:2px;
+    background:linear-gradient(90deg, var(--navy) 0%, var(--navy) 46%, var(--gold) 50%, var(--brick) 54%, var(--brick) 100%);
+  }
+
+  .pillar-nav{display:flex; gap:8px; flex-wrap:wrap; margin:22px 0 6px;}
+  .pillar-nav a{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:13px; font-weight:600; text-decoration:none; color:var(--ink2);
+    border:1px solid var(--border-d); background:var(--paper2); border-radius:100px;
+    padding:8px 16px; transition:border-color .15s, color .15s;
+  }
+  .pillar-nav a:hover{border-color:var(--navy); color:var(--navy);}
+  .pillar-nav a.active{background:var(--navy); border-color:var(--navy); color:var(--paper2);}
+
+  .privacy-banner{
+    display:flex; gap:10px; align-items:flex-start;
+    background:var(--paper2); border:1px solid var(--border); border-radius:10px;
+    padding:13px 15px; margin-top:20px; font-size:13px; color:var(--ink2);
+  }
+  .privacy-banner i{color:var(--green); font-size:16px; margin-top:1px;}
+  .free-badge{
+    display:inline-flex; align-items:center; gap:6px; font-family:'DM Mono',monospace;
+    font-size:11px; letter-spacing:0.05em; text-transform:uppercase;
+    background:rgba(61,122,87,0.1); color:var(--green); border:1px solid rgba(61,122,87,0.3);
+    border-radius:100px; padding:5px 11px; margin-top:14px;
+  }
+
+  .tab-radio{display:none;}
+  #panel-results{display:none;}
+  #step-results:checked ~ .panels #panel-results{display:block;}
+  #step-results:checked ~ .panels #panel-quiz{display:none;}
+
+  .quiz-block{margin-bottom:32px; margin-top:30px;}
+  .quiz-block h2{font-family:'Libre Caslon Display', serif; font-size:19px; font-weight:400; margin-bottom:4px;}
+  .quiz-block .hint{font-size:13px; color:var(--ink3); margin-bottom:14px;}
+
+  .option-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:10px;}
+  .cat-group{margin-bottom:22px;}
+  .cat-group:last-child{margin-bottom:0;}
+  .cat-group-label{
+    font-family:'DM Sans',sans-serif; font-size:16px; font-weight:700;
+    color:var(--navy); margin-bottom:11px; padding-bottom:7px;
+    border-bottom:2px solid var(--border-d);
+  }
+  .opt-card{position:relative;}
+  .opt-card input{position:absolute; opacity:0; pointer-events:none;}
+  .opt-card label{
+    display:flex; flex-direction:column; gap:3px;
+    border:1px solid var(--border-d); background:var(--paper2); border-radius:10px;
+    padding:13px 14px; cursor:pointer; font-size:13.5px; font-weight:500; color:var(--ink);
+    transition:border-color .15s, background .15s;
+  }
+  .opt-card label .desc{font-weight:400; font-size:12px; color:var(--ink3);}
+  .opt-card input:checked + label{
+    border-color:var(--navy); background:rgba(31,58,92,0.06); color:var(--navy);
+  }
+  .opt-card input:focus-visible + label{outline:2px solid var(--navy); outline-offset:1px;}
+
+  .opt-card.urgency-now input:checked + label{border-color:var(--brick); background:rgba(168,65,47,0.07); color:var(--brick);}
+  .opt-card.urgency-soon input:checked + label{border-color:var(--gold); background:rgba(168,118,31,0.08); color:var(--gold);}
+  .opt-card.urgency-plan input:checked + label{border-color:var(--green); background:rgba(61,122,87,0.07); color:var(--green);}
+
+  input[type=text]{
+    width:100%; background:var(--paper2); border:1px solid var(--border-d); border-radius:8px;
+    padding:11px 13px; color:var(--ink); font-size:14px; font-family:inherit;
+  }
+  input[type=text]:focus{outline:2px solid var(--navy); outline-offset:0; border-color:var(--navy);}
+  input[type=text]::placeholder{color:var(--ink3);}
+
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    background:var(--navy); color:var(--paper2); font-weight:600; font-size:14.5px;
+    border:none; border-radius:9px; padding:13px 22px; margin-top:6px;
+  }
+  .btn-primary:hover{background:var(--navy-l);}
+  .btn-secondary{
+    display:inline-flex; align-items:center; gap:6px; cursor:pointer;
+    background:transparent; color:var(--ink2); font-size:13px; font-weight:500;
+    border:1px solid var(--border-d); border-radius:8px; padding:9px 14px;
+  }
+  .btn-secondary:hover{color:var(--ink); border-color:var(--ink3);}
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px; cursor:pointer;
+    color:var(--ink2); font-size:13px; margin-bottom:20px; text-decoration:none;
+  }
+  .back-link:hover{color:var(--ink);}
+
+  .spotlight-section{margin:34px 0 8px; padding-top:26px; border-top:1px solid var(--border);}
+  .spotlight-section h2{font-family:'Libre Caslon Display', serif; font-size:19px; font-weight:400; margin-bottom:4px;}
+  .spotlight-section .hint{font-size:13px; color:var(--ink3); margin-bottom:16px;}
+  .spotlight-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .spotlight-card{
+    display:block; text-decoration:none; color:var(--ink);
+    border:1px solid var(--border-d); background:var(--paper2); border-radius:12px;
+    padding:18px; transition:border-color .15s, transform .15s;
+  }
+  .spotlight-card:hover{border-color:var(--navy); transform:translateY(-1px);}
+  .spotlight-card .icon{font-size:20px; color:var(--navy); margin-bottom:10px; display:block;}
+  .spotlight-card .title{font-weight:600; font-size:14.5px; margin-bottom:5px;}
+  .spotlight-card .desc{font-size:12.5px; color:var(--ink3); line-height:1.5;}
+  @media (max-width:560px){ .spotlight-grid{grid-template-columns:1fr;} }
+
+  .urgency-flag{
+    display:inline-flex; align-items:center; gap:6px; font-family:'DM Mono',monospace;
+    font-size:12px; padding:7px 12px; border-radius:8px; margin-bottom:22px;
+  }
+  .urgency-flag.now{background:rgba(168,65,47,0.1); color:var(--brick); border:1px solid rgba(168,65,47,0.3);}
+  .urgency-flag.soon{background:rgba(168,118,31,0.1); color:var(--gold); border:1px solid rgba(168,118,31,0.3);}
+  .urgency-flag.plan{background:rgba(61,122,87,0.1); color:var(--green); border:1px solid rgba(61,122,87,0.3);}
+
+  .org-card{
+    border:1px solid var(--border-d); background:var(--paper2); border-radius:12px;
+    padding:16px 18px; margin-bottom:12px;
+  }
+  .org-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .org-name{font-size:15.5px; font-weight:600;}
+  .org-type{font-family:'DM Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink3); margin-top:2px;}
+  .org-desc{font-size:13.5px; color:var(--ink2); margin:8px 0 12px; line-height:1.55;}
+  .org-actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+  .org-link{
+    display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+    color:var(--paper2); background:var(--navy); border-radius:7px; padding:8px 14px; text-decoration:none;
+  }
+  .org-link:hover{background:var(--navy-l);}
+  .badge{
+    font-family:'DM Mono',monospace; font-size:10.5px; padding:4px 9px; border-radius:100px;
+    border:1px solid var(--border-d); color:var(--ink3);
+  }
+  .badge.verified{color:var(--green); border-color:rgba(61,122,87,0.4); background:rgba(61,122,87,0.08);}
+
+  .research-toggle{margin-top:12px;}
+  .research-toggle input{position:absolute; opacity:0; pointer-events:none;}
+  .research-toggle label{
+    display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--ink3);
+    cursor:pointer; font-family:'DM Mono',monospace;
+  }
+  .research-toggle label:hover{color:var(--ink2);}
+  .research-body{display:none; margin-top:10px; padding-top:10px; border-top:1px dashed var(--border-d); font-size:12.5px; color:var(--ink2);}
+  .research-toggle input:checked ~ .research-body{display:block;}
+  .research-body .score-row{display:flex; gap:14px; margin-bottom:8px; flex-wrap:wrap;}
+
+  .no-results{color:var(--ink3); font-size:14px; padding:20px 0;}
+
+  .prep-section{margin-top:36px; border-top:1px solid var(--border); padding-top:24px;}
+  .prep-section h3{font-family:'Libre Caslon Display', serif; font-size:18px; font-weight:400; margin-bottom:4px;}
+  .prep-section .hint{font-size:13px; color:var(--ink3); margin-bottom:14px;}
+  textarea{
+    width:100%; background:var(--paper2); border:1px solid var(--border-d); border-radius:8px;
+    padding:12px 13px; color:var(--ink); font-size:13.5px; font-family:inherit; resize:vertical;
+  }
+  textarea:focus{outline:2px solid var(--navy); border-color:var(--navy);}
+  .field{margin-bottom:12px;}
+  .field label{display:block; font-size:12.5px; color:var(--ink2); margin-bottom:5px; font-weight:500;}
+  #prepOutputWrap{display:none; margin-top:16px;}
+  #prepOutput{height:200px; font-family:'DM Mono',monospace; font-size:12.5px;}
+  .copy-row{display:flex; gap:10px; align-items:center; margin-top:10px;}
+  #copyStatus{font-size:12px; color:var(--green); display:none;}
+
+  footer{margin-top:50px; padding-top:18px; border-top:1px solid var(--border); font-size:12px; color:var(--ink3);}
+  footer a{color:var(--ink2);}
+
+  .suite-links{margin-top:46px; padding-top:24px; border-top:1px solid var(--border);}
+  .suite-links .label{font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink3); margin-bottom:12px;}
+  .suite-links-row{display:flex; gap:9px; flex-wrap:wrap;}
+  .suite-links-row a{
+    font-size:13px; font-weight:600; color:var(--ink2); text-decoration:none;
+    border:1px solid var(--border-d); background:var(--paper2); border-radius:100px; padding:7px 14px;
+  }
+  .suite-links-row a:hover{border-color:var(--navy); color:var(--navy);}
+
+  select{
+    width:100%; background:var(--paper2); border:1px solid var(--border-d); border-radius:8px;
+    padding:11px 13px; color:var(--ink); font-size:14px; font-family:inherit;
+  }
+  select:focus{outline:2px solid var(--navy); border-color:var(--navy);}
+
+  .submit-section{margin-top:36px; border-top:1px solid var(--border); padding-top:24px;}
+  .submit-section h3{font-family:'Libre Caslon Display', serif; font-size:18px; font-weight:400; margin-bottom:4px;}
+  .submit-section .hint{font-size:13px; color:var(--ink3); margin-bottom:14px;}
+  .submit-toggle-checkbox{position:absolute; opacity:0; pointer-events:none;}
+  .submit-form-wrap{display:none; margin-top:18px;}
+  #submitToggle:checked ~ .submit-form-wrap{display:block;}
+  .submit-form-wrap form{display:flex; flex-direction:column; gap:2px;}
+  .gotcha-field{position:absolute; left:-9999px; opacity:0;}
+
+  .success-banner{
+    display:none; gap:10px; align-items:flex-start;
+    background:rgba(61,122,87,0.1); border:1px solid rgba(61,122,87,0.3); border-radius:10px;
+    padding:13px 15px; margin:20px 0; font-size:13.5px; color:var(--ink);
+  }
+  .success-banner.show{display:flex;}
+  .success-banner i{color:var(--green); font-size:18px; margin-top:1px;}
+
+  @media (max-width:600px){
+    h1{font-size:32px;}
+    .hero{padding:24px 20px 22px;}
+    .hero-logo{width:120px;}
+    .option-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <input type="radio" class="tab-radio" id="step-quiz" name="steps" checked>
+  <input type="radio" class="tab-radio" id="step-results" name="steps">
+
+  <header>
+    <div class="hero">
+      <img class="hero-logo" src="civil_rights_connector.png" alt="Civic Rights Connector logo">
+      <div class="eyebrow">AricCivicLabs · Civic Participation &amp; Rights Access</div>
+      <h1>Civic Rights Connector</h1>
+      <p class="subhead">Find organizations that can actually help with what you're dealing with — matched by situation, not a wall of logos.</p>
+    </div>
+    <div class="rule"></div>
+
+    <nav class="pillar-nav">
+      <a href="rights_connector.html" class="active"><i class="ti ti-compass"></i> Find an organization</a>
+      <a href="rights_connector_constitution.html"><i class="ti ti-gavel"></i> Defending the Constitution</a>
+      <a href="rights_connector_communities.html"><i class="ti ti-building-community"></i> Communities over shareholders</a>
+    </nav>
+
+    <div class="privacy-banner">
+      <i class="ti ti-shield-lock"></i>
+      <div>Nothing you type here is saved, sent to a server, or tracked to you. Your answers stay in your browser and disappear when you close this tab.</div>
+    </div>
+    <div class="free-badge"><i class="ti ti-heart"></i> Always free — no account, no paywall</div>
+  </header>
+
+  <div id="submitSuccessBanner" class="success-banner">
+    <i class="ti ti-circle-check"></i>
+    <div><strong>Thanks — your suggestion was submitted.</strong> Every submission is reviewed before anything is added to the site, so it won't appear immediately.</div>
+  </div>
+
+  <div class="panels">
+
+    <section id="panel-quiz">
+
+      <div class="quiz-block" style="margin-top:8px;">
+        <h2>1. What's going on?</h2>
+        <p class="hint">Pick the situation closest to yours.</p>
+        <div id="categoryOptions"></div>
+      </div>
+
+      <div class="quiz-block">
+        <h2>2. How urgent is this?</h2>
+        <p class="hint">This changes which kind of help gets shown first.</p>
+        <div class="option-grid">
+          <div class="opt-card urgency-now">
+            <input type="radio" name="urgency" id="urg-now" value="now">
+            <label for="urg-now">Act now<span class="desc">Eviction notice, court date, active danger</span></label>
+          </div>
+          <div class="opt-card urgency-soon">
+            <input type="radio" name="urgency" id="urg-soon" value="soon">
+            <label for="urg-soon">Act soon<span class="desc">Building problem, deadline coming, no crisis yet</span></label>
+          </div>
+          <div class="opt-card urgency-plan">
+            <input type="radio" name="urgency" id="urg-plan" value="plan" checked>
+            <label for="urg-plan">Researching<span class="desc">No deadline, just want to understand options</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-block">
+        <h2>3. Where are you? <span style="font-weight:400;color:var(--ink3);">(optional)</span></h2>
+        <p class="hint">If we have state-specific resources for your situation, they'll show alongside the national ones.</p>
+        <select id="stateInput"></select>
+      </div>
+
+      <label for="step-results" class="btn-primary" id="seeResultsLabel"><i class="ti ti-search"></i> See organizations</label>
+
+      <div class="spotlight-section">
+        <h2>Looking for something more specific?</h2>
+        <p class="hint">These two topics get their own dedicated pages, since they don't fit a single urgency-driven situation.</p>
+        <div class="spotlight-grid">
+          <a class="spotlight-card" href="rights_connector_constitution.html">
+            <i class="ti ti-gavel icon"></i>
+            <div class="title">Actively defending the Constitution</div>
+            <div class="desc">Organizations litigating constitutional questions, grouped by where they sit on the political spectrum.</div>
+          </a>
+          <a class="spotlight-card" href="rights_connector_communities.html">
+            <i class="ti ti-building-community icon"></i>
+            <div class="title">Supporting communities instead of shareholders</div>
+            <div class="desc">Organizations working against corporate consolidation and for local economic power.</div>
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="panel-results">
+      <label for="step-quiz" class="back-link"><i class="ti ti-arrow-left"></i> Edit my answers</label>
+      <div id="urgencyFlagWrap"></div>
+      <div id="resultsContainer"></div>
+
+      <div class="prep-section">
+        <h3>Prep sheet for reaching out</h3>
+        <p class="hint">Writing your situation out from scratch is the hardest part. Answer a couple questions and get a clean summary to paste into an intake form or email.</p>
+        <div class="field">
+          <label for="prepDesc">In a sentence or two, what happened?</label>
+          <textarea id="prepDesc" rows="3" placeholder="e.g. My landlord gave me a 3-day notice after I asked for repairs..."></textarea>
+        </div>
+        <div class="field">
+          <label for="prepContact">Best way for an organization to reach you</label>
+          <input type="text" id="prepContact" placeholder="Phone or email">
+        </div>
+        <button type="button" class="btn-secondary" id="genPrepBtn"><i class="ti ti-file-text"></i> Generate prep sheet</button>
+
+        <div id="prepOutputWrap">
+          <textarea id="prepOutput" readonly></textarea>
+          <div class="copy-row">
+            <button type="button" class="btn-secondary" id="copyPrepBtn"><i class="ti ti-copy"></i> Copy to clipboard</button>
+            <span id="copyStatus">Copied</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="submit-section">
+    <h3>Know an organization that should be here?</h3>
+    <p class="hint">Every submission is reviewed by AricCivicLabs before anything is added — nothing publishes automatically.</p>
+
+    <input type="checkbox" id="submitToggle" class="submit-toggle-checkbox">
+    <label for="submitToggle" class="btn-secondary"><i class="ti ti-circle-plus"></i> Suggest a resource</label>
+
+    <div class="submit-form-wrap">
+      <form action="https://formspree.io/f/mbdbkznw" method="POST">
+        <input type="hidden" name="_subject" value="New resource suggestion — Rights Connector Hub">
+        <input type="hidden" name="source_page" value="Rights Connector Hub">
+        <input type="hidden" name="_next" value="rights_connector.html?submitted=1">
+        <input type="text" name="_gotcha" class="gotcha-field" tabindex="-1" autocomplete="off">
+
+        <div class="field">
+          <label for="sOrgName">Organization name *</label>
+          <input type="text" id="sOrgName" name="organization_name" required>
+        </div>
+        <div class="field">
+          <label for="sWebsite">Website *</label>
+          <input type="text" id="sWebsite" name="website" placeholder="https://..." required>
+        </div>
+        <div class="field">
+          <label for="sCategory">Which category fits best?</label>
+          <select id="sCategory" name="category">
+            <option value="">Not sure</option>
+            <optgroup label="Work &amp; Income">
+              <option>Workplace discrimination or harassment</option>
+              <option>Wage theft / labor rights</option>
+              <option>Public benefits denial</option>
+            </optgroup>
+            <optgroup label="Home">
+              <option>Housing, eviction, tenant rights</option>
+            </optgroup>
+            <optgroup label="Voice &amp; Participation">
+              <option>Voting access / election rights</option>
+              <option>Free speech / protest / assembly</option>
+            </optgroup>
+            <optgroup label="Identity &amp; Equal Treatment">
+              <option>LGBTQ+ rights</option>
+              <option>Reproductive rights</option>
+              <option>Racial justice / police accountability</option>
+              <option>Disability rights / accommodation</option>
+            </optgroup>
+            <optgroup label="Protection &amp; Access">
+              <option>Immigration status / detention</option>
+              <option>Privacy / surveillance</option>
+              <option>Education / student rights</option>
+              <option>Veterans' rights</option>
+            </optgroup>
+            <optgroup label="Other pages">
+              <option>Actively defending the Constitution</option>
+              <option>Supporting communities before shareholders</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sWhy">Why should this be included?</label>
+          <textarea id="sWhy" name="reason" rows="3" placeholder="What do they do, and who do they help?"></textarea>
+        </div>
+        <div class="field">
+          <label for="sName">Your name (optional)</label>
+          <input type="text" id="sName" name="submitter_name">
+        </div>
+        <div class="field">
+          <label for="sEmail">Your email (optional — only if we have follow-up questions)</label>
+          <input type="text" id="sEmail" name="email">
+        </div>
+        <button type="submit" class="btn-primary" style="align-self:flex-start;"><i class="ti ti-send"></i> Submit for review</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="suite-links">
+    <div class="label">More from AricCivicLabs</div>
+    <div class="suite-links-row">
+      <a href="https://aricciviclabs.org">AricCivicLabs.org</a>
+      <a href="https://receipts.aricciviclabs.org">receipts.</a>
+      <a href="https://transitions.aricciviclabs.org">Transitions</a>
+      <a href="https://inable.aricciviclabs.org">InAble</a>
+      <a href="https://meshforce.aricciviclabs.org">MeshForce</a>
+      <a href="https://theseam.aricciviclabs.org/seam.html">The Seam</a>
+    </div>
+  </div>
+
+  <footer>
+    Org research current as of June 2026. Organizations restructure intake processes — always confirm details on the organization's own site. Not legal advice. <a href="https://aricciviclabs.org/legal.html">Legal &amp; privacy</a>
+  </footer>
+</div>
+
+<script>
+
+var GROUPS = [
+  {id:'work', label:'Work &amp; Income'},
+  {id:'home', label:'Home'},
+  {id:'voice', label:'Voice &amp; Participation'},
+  {id:'identity', label:'Identity &amp; Equal Treatment'},
+  {id:'protection', label:'Protection &amp; Access'}
+];
+
+var STATES = [
+  {v:'AL',n:'Alabama'},{v:'AK',n:'Alaska'},{v:'AZ',n:'Arizona'},{v:'AR',n:'Arkansas'},
+  {v:'CA',n:'California'},{v:'CO',n:'Colorado'},{v:'CT',n:'Connecticut'},{v:'DE',n:'Delaware'},
+  {v:'DC',n:'District of Columbia'},{v:'FL',n:'Florida'},{v:'GA',n:'Georgia'},{v:'HI',n:'Hawaii'},
+  {v:'ID',n:'Idaho'},{v:'IL',n:'Illinois'},{v:'IN',n:'Indiana'},{v:'IA',n:'Iowa'},
+  {v:'KS',n:'Kansas'},{v:'KY',n:'Kentucky'},{v:'LA',n:'Louisiana'},{v:'ME',n:'Maine'},
+  {v:'MD',n:'Maryland'},{v:'MA',n:'Massachusetts'},{v:'MI',n:'Michigan'},{v:'MN',n:'Minnesota'},
+  {v:'MS',n:'Mississippi'},{v:'MO',n:'Missouri'},{v:'MT',n:'Montana'},{v:'NE',n:'Nebraska'},
+  {v:'NV',n:'Nevada'},{v:'NH',n:'New Hampshire'},{v:'NJ',n:'New Jersey'},{v:'NM',n:'New Mexico'},
+  {v:'NY',n:'New York'},{v:'NC',n:'North Carolina'},{v:'ND',n:'North Dakota'},{v:'OH',n:'Ohio'},
+  {v:'OK',n:'Oklahoma'},{v:'OR',n:'Oregon'},{v:'PA',n:'Pennsylvania'},{v:'RI',n:'Rhode Island'},
+  {v:'SC',n:'South Carolina'},{v:'SD',n:'South Dakota'},{v:'TN',n:'Tennessee'},{v:'TX',n:'Texas'},
+  {v:'UT',n:'Utah'},{v:'VT',n:'Vermont'},{v:'VA',n:'Virginia'},{v:'WA',n:'Washington'},
+  {v:'WV',n:'West Virginia'},{v:'WI',n:'Wisconsin'},{v:'WY',n:'Wyoming'}
+];
+
+function stateNameFor(abbr){
+  for(var i=0;i<STATES.length;i++){ if(STATES[i].v === abbr) return STATES[i].n; }
+  return abbr;
+}
+
+function buildStateOptions(){
+  var sel = document.getElementById('stateInput');
+  var html = '<option value="">National resources only</option>';
+  for(var i=0;i<STATES.length;i++){
+    html += '<option value="'+STATES[i].v+'">'+STATES[i].n+'</option>';
+  }
+  sel.innerHTML = html;
+}
+
+var CATEGORIES = [
+  {id:'workplace', label:'Workplace discrimination or harassment', icon:'ti-briefcase', group:'work'},
+  {id:'wages', label:'Wage theft / labor rights', icon:'ti-coin', group:'work'},
+  {id:'benefits', label:'Public benefits denial', icon:'ti-file-invoice', group:'work'},
+  {id:'housing', label:'Housing, eviction, tenant rights', icon:'ti-home', group:'home'},
+  {id:'voting', label:'Voting access / election rights', icon:'ti-checkbox', group:'voice'},
+  {id:'speech', label:'Free speech / protest / assembly', icon:'ti-microphone-2', group:'voice'},
+  {id:'lgbtq', label:'LGBTQ+ rights', icon:'ti-flag-3', group:'identity'},
+  {id:'reproductive', label:'Reproductive rights', icon:'ti-stethoscope', group:'identity'},
+  {id:'racial', label:'Racial justice / police accountability', icon:'ti-scale', group:'identity'},
+  {id:'disability', label:'Disability rights / accommodation', icon:'ti-accessible', group:'identity'},
+  {id:'immigration', label:'Immigration status / detention', icon:'ti-passport', group:'protection'},
+  {id:'privacy', label:'Privacy / surveillance', icon:'ti-eye-off', group:'protection'},
+  {id:'education', label:'Education / student rights', icon:'ti-school', group:'protection'},
+  {id:'veterans', label:"Veterans' rights", icon:'ti-medal', group:'protection'}
+];
+
+var ORGS = [
+  {id:'workplacefairness', name:'Workplace Fairness', cats:['workplace'], type:'Service / info', scope:'National', url:'https://www.workplacefairness.org', desc:'Free legal info and attorney directory by state and issue for workplace problems.', urg:['now','soon','plan'], trans:3, note:'No watchdog profile found either way - low-profile educational nonprofit.'},
+  {id:'eeoc', name:'EEOC', cats:['workplace'], type:'Government agency', scope:'National', url:'https://www.eeoc.gov', desc:'Official federal agency for filing employment discrimination complaints.', urg:['now','soon'], trans:6, note:'Federal agency - transparency question does not apply the same way as a nonprofit.'},
+  {id:'nela', name:'National Employment Lawyers Association', cats:['workplace'], type:'Attorney referral', scope:'National', url:'https://www.nela.org', desc:'Referral network of attorneys who represent employees, not employers.', urg:['now','soon','plan'], trans:4, note:'Professional bar association, transparent structure.'},
+
+  {id:'nelp', name:'National Employment Law Project', cats:['wages'], type:'Advocacy', scope:'National', url:'https://www.nelp.org', desc:'Worker-rights policy research and advocacy on wage theft and labor standards.', urg:['soon','plan'], trans:4, note:'Funded by AFL-CIO, SEIU, Ford Foundation - consistent with its labor-advocacy mission.'},
+  {id:'dol-whd', name:'DOL Wage and Hour Division', cats:['wages'], type:'Government agency', scope:'National', url:'https://www.dol.gov/agencies/whd', desc:'Official channel for filing a wage complaint against an employer.', urg:['now','soon'], trans:6, note:'Federal agency.'},
+
+  {id:'nhlp', name:'National Housing Law Project', cats:['housing'], type:'Advocacy', scope:'National', url:'https://www.nhlp.org', desc:'Housing policy advocacy and litigation support on eviction and tenant protections.', urg:['soon','plan'], trans:4, note:'Left-of-center funding and policy positions per independent watchdog review.'},
+  {id:'lawhelp', name:'LawHelp.org', cats:['housing'], type:'Directory', scope:'National', url:'https://www.lawhelp.org', desc:'Finds free or low-cost legal aid by state, including eviction-specific help.', urg:['now','soon','plan'], trans:5, note:'Routing directory, not an advocacy org.'},
+  {id:'lsc', name:'Legal Services Corporation', cats:['housing'], type:'Federally-funded', scope:'National', url:'https://www.lsc.gov', desc:'Congress-chartered nonprofit that funds local legal aid offices nationwide.', urg:['now','soon','plan'], trans:5, note:'Federally chartered, not privately funded advocacy.'},
+
+  {id:'brennan', name:'Brennan Center for Justice', cats:['voting'], type:'Advocacy', scope:'National', url:'https://www.brennancenter.org', desc:'Voting rights, rule of law, and election administration research and litigation.', urg:['soon','plan'], trans:4, note:'Funding confirmed left-of-center (Ford, Open Society, MacArthur, Tides).'},
+  {id:'aclu', name:'ACLU', cats:['voting','speech'], type:'Advocacy', scope:'National', url:'https://www.aclu.org', desc:'Broad civil liberties litigation across voting, speech, and constitutional rights.', urg:['now','soon','plan'], trans:4, note:'Public 990s; executive compensation has drawn some scrutiny. Currently reads as left-coded though historically broader.'},
+  {id:'ourvote', name:'866-OUR-VOTE / Election Protection', cats:['voting'], type:'Hotline coalition', scope:'National', url:'https://866ourvote.org', desc:'Live hotline for voting problems on Election Day and during registration periods.', urg:['now','soon'], trans:4, note:'Stated function is genuinely nonpartisan voter-protection service, though individual coalition partners lean left.'},
+
+  {id:'nilc', name:'National Immigration Law Center', cats:['immigration'], type:'Advocacy', scope:'National', url:'https://www.nilc.org', desc:'Policy advocacy and legal resources on immigrant access to programs and protections.', urg:['now','soon','plan'], trans:4, note:'Left-of-center funding confirmed by independent review.'},
+  {id:'aic', name:'American Immigration Council', cats:['immigration'], type:'Advocacy + legal aid', scope:'National', url:'https://www.americanimmigrationcouncil.org', desc:'Litigation, research, and legal resources on immigration enforcement and policy.', urg:['now','soon','plan'], trans:4, note:'Left-of-center funding (Ford, Open Society, Carnegie) confirmed.'},
+  {id:'ilrc', name:'Immigrant Legal Resource Center', cats:['immigration'], type:'Training / legal aid', scope:'National', url:'https://www.ilrc.org', desc:'Know-your-rights guides and legal training for immigrants and the attorneys who serve them.', urg:['now','soon','plan'], trans:3, note:'Coalition-embedded with NILC and similar groups; less standalone funding data available.'},
+
+  {id:'ndrn', name:'National Disability Rights Network', cats:['disability'], type:'Federally-mandated network', scope:'National', url:'https://www.ndrn.org', desc:"Routes you to your state's federally mandated Protection and Advocacy office for direct legal help.", urg:['now','soon','plan'], trans:6, note:'Structurally accountable through federal mandate - cleanest transparency score in this dataset.'},
+  {id:'dredf', name:'Disability Rights Education and Defense Fund', cats:['disability'], type:'Advocacy + legal aid', scope:'National', url:'https://dredf.org', desc:'Legal advocacy and policy work across employment, education, housing, and accessibility.', urg:['soon','plan'], trans:4, note:'Member of the left-progressive Leadership Conference coalition.'},
+
+  {id:'fire', name:'FIRE (Foundation for Individual Rights and Expression)', cats:['speech'], type:'Advocacy', scope:'National', url:'https://www.thefire.org', desc:'Free speech defense for students and, increasingly, the general public.', urg:['now','soon','plan'], trans:3, note:'Funded by Koch, Bradley, and Scaife foundations, but case docket reads more cross-ideological in practice than funding alone suggests. Verify domain before relying on this link.'},
+
+  {id:'aclu-wa', name:'ACLU of Washington', cats:['speech','voting'], type:'Advocacy', scope:'State', states:['WA'], url:'https://www.aclu-wa.org', desc:'State affiliate of the national ACLU, handling Washington-specific civil liberties litigation and advocacy.', urg:['now','soon','plan'], trans:4, note:'Confirmed state affiliate; shares the national ACLU\'s funding profile and mission.'},
+  {id:'aclu-nh', name:'ACLU of New Hampshire', cats:['speech','voting'], type:'Advocacy', scope:'State', states:['NH'], url:'https://www.aclu-nh.org', desc:'State affiliate of the national ACLU, handling New Hampshire-specific civil liberties litigation and advocacy.', urg:['now','soon','plan'], trans:4, note:'Confirmed state affiliate; shares the national ACLU\'s funding profile and mission.'},
+
+  {id:'lambdalegal', name:'Lambda Legal', cats:['lgbtq'], type:'Advocacy + litigation', scope:'National', url:'https://lambdalegal.org', desc:'Legal help line and litigation for LGBTQ+ and HIV-status discrimination.', urg:['now','soon','plan'], trans:5, note:'Openly self-describes as left-leaning advocacy - no gap between claim and reality.'},
+  {id:'nclr', name:'National Center for Lesbian Rights', cats:['lgbtq'], type:'Advocacy + litigation', scope:'National', url:'https://www.nclrights.org', desc:'Pro bono legal services and policy advocacy for LGBTQ+ rights, historically lesbian-focused.', urg:['now','soon','plan'], trans:4, note:'Left-of-center, consistent with stated mission.'},
+
+  {id:'crr', name:'Center for Reproductive Rights', cats:['reproductive'], type:'Litigation', scope:'National', url:'https://reproductiverights.org', desc:'Global legal advocacy organization litigating to protect abortion access.', urg:['now','soon','plan'], trans:5, note:'Independently rated B+ by CharityWatch - a nonpartisan financial rating.'},
+  {id:'naf', name:'National Abortion Federation', cats:['reproductive'], type:'Hotline + advocacy', scope:'National', url:'https://prochoice.org', desc:'Hotline providing referrals and financial assistance for abortion access.', urg:['now','soon'], trans:4, note:'Primarily a direct-service hotline; advocacy positions consistently favor abortion access.'},
+
+  {id:'naacpldf', name:'NAACP Legal Defense Fund', cats:['racial'], type:'Litigation', scope:'National', url:'https://www.naacpldf.org', desc:'Civil rights litigation with an 80+ year track record, from Brown v. Board onward.', urg:['soon','plan'], trans:5, note:'Long, consistent track record; left-of-center funding as expected for its mission.'},
+  {id:'colorofchange', name:'Color of Change', cats:['racial'], type:'Advocacy', scope:'National', url:'https://colorofchange.org', desc:'Campaigns on criminal justice reform and corporate/media accountability on racial issues.', urg:['soon','plan'], trans:3, note:'Watchdog review flags some more aggressive/contested campaign tactics alongside its core mission work.'},
+
+  {id:'nosscr', name:'NOSSCR', cats:['benefits'], type:'Attorney referral', scope:'National', url:'https://nosscr.org', desc:'Referral network for attorneys who handle Social Security disability appeals.', urg:['soon','plan'], trans:5, note:'Professional association with a transparently disclosed nonpartisan PAC.'},
+  {id:'benefitsgov', name:'Benefits.gov', cats:['benefits'], type:'Government tool', scope:'National', url:'https://www.benefits.gov', desc:'Official federal benefits eligibility screening tool.', urg:['now','soon','plan'], trans:6, note:'Federal government tool.'},
+
+  {id:'eff', name:'Electronic Frontier Foundation', cats:['privacy'], type:'Advocacy', scope:'National', url:'https://www.eff.org', desc:'Digital rights litigation and advocacy on surveillance, encryption, and online speech.', urg:['soon','plan'], trans:4, note:'Funded substantially by tech companies (Google, Facebook) - an industry-funding question more than a partisan one.'},
+  {id:'epic', name:'Electronic Privacy Information Center', cats:['privacy'], type:'Advocacy', scope:'National', url:'https://epic.org', desc:'Litigation and research on government and corporate data collection.', urg:['soon','plan'], trans:4, note:'States it takes no tech-industry funding (a real point in its favor); donor base otherwise leans left despite a nonpartisan self-description.'},
+
+  {id:'splc-press', name:'Student Press Law Center', cats:['education'], type:'Advocacy + legal aid', scope:'National', url:'https://splc.org', desc:'Free legal help and First Amendment resources for student journalists.', urg:['now','soon','plan'], trans:6, badge:'verified', note:'The one org in this whole dataset where a nonpartisan claim held up clean against independent review.'},
+  {id:'ncyl', name:'National Center for Youth Law', cats:['education'], type:'Legal aid + litigation', scope:'National', url:'https://youthlaw.org', desc:'Litigation and advocacy on education, foster care, and juvenile justice for young people.', urg:['soon','plan'], trans:4, note:'Left-of-center funding (Open Society, Ford, Kellogg) confirmed.'},
+
+  {id:'nvlsp', name:'National Veterans Legal Services Program', cats:['veterans'], type:'Legal aid', scope:'National', url:'https://nvlsp.org', desc:'Free legal help on denied VA claims, discharge upgrades, and burn pit claims.', urg:['now','soon','plan'], trans:5, note:'Pure service provider - no ideological funding flags surfaced.'},
+  {id:'vfw', name:'VFW National Veterans Service', cats:['veterans'], type:'Service arm', scope:'National', url:'https://www.vfw.org', desc:'Claims-filing assistance through a congressionally chartered veterans organization.', urg:['now','soon','plan'], trans:0, note:'Not yet independently verified - recommend a research pass before fully trusting this entry.'}
+];
+
+function buildCategoryOptions(){
+  var wrap = document.getElementById('categoryOptions');
+  var html = '';
+  var firstRendered = false;
+  for(var g=0; g<GROUPS.length; g++){
+    var group = GROUPS[g];
+    var inGroup = [];
+    for(var i=0;i<CATEGORIES.length;i++){
+      if(CATEGORIES[i].group === group.id) inGroup.push(CATEGORIES[i]);
+    }
+    if(inGroup.length === 0) continue;
+    html += '<div class="cat-group">';
+    html += '<div class="cat-group-label">'+group.label+'</div>';
+    html += '<div class="option-grid">';
+    for(var j=0;j<inGroup.length;j++){
+      var c = inGroup[j];
+      var checked = !firstRendered ? ' checked' : '';
+      firstRendered = true;
+      html += '<div class="opt-card">' +
+        '<input type="radio" name="category" id="cat-'+c.id+'" value="'+c.id+'"'+checked+'>' +
+        '<label for="cat-'+c.id+'"><i class="ti '+c.icon+'"></i><span>'+c.label+'</span></label>' +
+        '</div>';
+    }
+    html += '</div></div>';
+  }
+  wrap.innerHTML = html;
+}
+
+function getSelected(name){
+  var els = document.getElementsByName(name);
+  for(var i=0;i<els.length;i++){
+    if(els[i].checked) return els[i].value;
+  }
+  return null;
+}
+
+function escapeHtml(str){
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
+function orgCardHtml(org){
+  var researchId = 'research-' + org.id;
+  var badgeHtml = '';
+  if(org.badge === 'verified'){
+    badgeHtml = '<span class="badge verified">Verified nonpartisan</span>';
+  }
+  var html = '<div class="org-card">' +
+    '<div class="org-top">' +
+      '<div><div class="org-name">'+escapeHtml(org.name)+'</div><div class="org-type">'+escapeHtml(org.type)+' &middot; '+escapeHtml(org.scope)+'</div></div>' +
+      badgeHtml +
+    '</div>' +
+    '<div class="org-desc">'+escapeHtml(org.desc)+'</div>' +
+    '<div class="org-actions">' +
+      '<a class="org-link" href="'+org.url+'" target="_blank" rel="noopener"><i class="ti ti-external-link"></i> Visit site</a>' +
+    '</div>' +
+    '<div class="research-toggle">' +
+      '<input type="checkbox" id="'+researchId+'">' +
+      '<label for="'+researchId+'"><i class="ti ti-chevron-right"></i> Background &amp; funding</label>' +
+      '<div class="research-body">' +
+        '<div class="score-row"><span class="mono">Transparency score: '+org.trans+'/6</span></div>' +
+        '<div>'+escapeHtml(org.note)+'</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+  return html;
+}
+
+function renderResults(){
+  var cat = getSelected('category');
+  var urg = getSelected('urgency') || 'plan';
+  var stateVal = document.getElementById('stateInput').value;
+
+  var flagWrap = document.getElementById('urgencyFlagWrap');
+  var flagHtml = '';
+  if(urg === 'now'){
+    flagHtml = '<div class="urgency-flag now"><i class="ti ti-alert-triangle"></i> Showing options for an active, time-sensitive situation.</div>';
+  } else if(urg === 'soon'){
+    flagHtml = '<div class="urgency-flag soon"><i class="ti ti-clock"></i> Showing options for a building problem with no immediate deadline.</div>';
+  } else {
+    flagHtml = '<div class="urgency-flag plan"><i class="ti ti-bulb"></i> Showing options for researching and understanding your situation.</div>';
+  }
+  flagWrap.innerHTML = flagHtml;
+
+  var nationalMatches = [];
+  var stateMatches = [];
+  for(var i=0;i<ORGS.length;i++){
+    var org = ORGS[i];
+    if(org.cats.indexOf(cat) === -1) continue;
+    if(org.urg.indexOf(urg) === -1) continue;
+    if(org.states && org.states.length){
+      if(stateVal && org.states.indexOf(stateVal) !== -1){ stateMatches.push(org); }
+    } else {
+      nationalMatches.push(org);
+    }
+  }
+
+  var container = document.getElementById('resultsContainer');
+
+  if(nationalMatches.length === 0 && stateMatches.length === 0){
+    container.innerHTML = '<div class="no-results">No close match yet for this combination - try "Researching" urgency to see all organizations in this category, or check back as we add more.</div>';
+    return;
+  }
+
+  nationalMatches.sort(function(a,b){ return b.trans - a.trans; });
+  stateMatches.sort(function(a,b){ return b.trans - a.trans; });
+
+  var html = '';
+  if(stateVal){
+    var stateName = stateNameFor(stateVal);
+    html += '<div class="cat-group"><div class="cat-group-label">'+stateName+' organizations</div>';
+    if(stateMatches.length > 0){
+      for(var s=0;s<stateMatches.length;s++){ html += orgCardHtml(stateMatches[s]); }
+    } else {
+      html += '<div class="no-results" style="padding:6px 0 0;">No state-specific organizations added yet for '+stateName+' in this category — the national resources below may still help.</div>';
+    }
+    html += '</div>';
+    html += '<div class="cat-group"><div class="cat-group-label">National organizations</div>';
+    for(var n=0;n<nationalMatches.length;n++){ html += orgCardHtml(nationalMatches[n]); }
+    html += '</div>';
+  } else {
+    for(var m=0;m<nationalMatches.length;m++){ html += orgCardHtml(nationalMatches[m]); }
+  }
+  container.innerHTML = html;
+}
+
+function generatePrepSheet(){
+  var catId = getSelected('category');
+  var catLabel = catId;
+  for(var i=0;i<CATEGORIES.length;i++){ if(CATEGORIES[i].id===catId) catLabel = CATEGORIES[i].label; }
+  var urg = getSelected('urgency') || 'plan';
+  var urgLabel = urg === 'now' ? 'Urgent - active situation' : (urg === 'soon' ? 'Building problem, no immediate deadline' : 'Researching options');
+  var stateVal = document.getElementById('stateInput').value;
+  var stateLabel = stateVal ? stateNameFor(stateVal) : 'Not specified';
+  var desc = document.getElementById('prepDesc').value || '(describe what happened above before copying this)';
+  var contact = document.getElementById('prepContact').value || 'Not specified';
+
+  var lines = [];
+  lines.push('SITUATION SUMMARY - prepared with AricCivicLabs Rights Connector');
+  lines.push('----------------------------------------');
+  lines.push('Category: ' + catLabel);
+  lines.push('Urgency: ' + urgLabel);
+  lines.push('Location: ' + stateLabel);
+  lines.push('Best contact: ' + contact);
+  lines.push('');
+  lines.push('What happened:');
+  lines.push(desc);
+  lines.push('');
+  lines.push('Typically helpful to have ready when you reach out:');
+  lines.push('- Any dates involved (notices received, incidents, deadlines)');
+  lines.push('- Names of people or organizations involved');
+  lines.push('- Any documents you already have (notices, emails, letters)');
+  lines.push('- Whether you have already contacted anyone else about this');
+
+  document.getElementById('prepOutput').value = lines.join('\n');
+  document.getElementById('prepOutputWrap').style.display = 'block';
+}
+
+function copyPrepSheet(){
+  var ta = document.getElementById('prepOutput');
+  ta.select();
+  ta.setSelectionRange(0, 999999);
+  try{
+    document.execCommand('copy');
+    var status = document.getElementById('copyStatus');
+    status.style.display = 'inline';
+    setTimeout(function(){ status.style.display = 'none'; }, 2000);
+  }catch(e){
+    alert('Copy failed - select the text manually and copy with Ctrl/Cmd+C.');
+  }
+}
+
+function checkSubmissionBanner(){
+  var params = new URLSearchParams(window.location.search);
+  if(params.get('submitted') === '1'){
+    document.getElementById('submitSuccessBanner').className = 'success-banner show';
+    if(window.history && window.history.replaceState){
+      var cleanUrl = window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+  }
+}
+
+buildCategoryOptions();
+buildStateOptions();
+checkSubmissionBanner();
+
+document.getElementById('step-results').addEventListener('change', function(){
+  if(this.checked){
+    renderResults();
+    var resultsPanel = document.getElementById('panel-results');
+    if(resultsPanel && resultsPanel.scrollIntoView){
+      resultsPanel.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+});
+document.getElementById('step-quiz').addEventListener('change', function(){
+  if(this.checked){
+    var quizPanel = document.getElementById('panel-quiz');
+    if(quizPanel && quizPanel.scrollIntoView){
+      quizPanel.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+});
+document.getElementById('genPrepBtn').addEventListener('click', generatePrepSheet);
+document.getElementById('copyPrepBtn').addEventListener('click', copyPrepSheet);
+
+</script>
+</body>
+</html>

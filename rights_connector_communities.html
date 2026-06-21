@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<link rel="icon" type="image/png" href="communities_before_shareholders.png">
+<title>Supporting Communities Before Shareholders · AricCivicLabs</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6EFDC; --paper2:#FFFBF1;
+    --ink:#2A2018; --ink2:#6E5F4A; --ink3:#746352;
+    --navy:#1F3A5C; --navy-l:#2F5380; --brick:#A8412F; --brick-l:#C25A45;
+    --gold:#8F6418; --green:#3D7A57;
+    --border:#E2D2A8; --border-d:#D3C193;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{color-scheme:light; background-color:#F6EFDC; min-height:100%;}
+  body{
+    background-color:#F6EFDC; color:var(--ink);
+    font-family:'DM Sans', sans-serif; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh; min-height:100dvh;
+  }
+  .mono{font-family:'DM Mono', monospace;}
+  .container{max-width:840px; margin:0 auto; padding:28px 20px 90px;}
+
+  header{padding:6px 0 22px;}
+  .hero{
+    background:var(--paper2); border:1px solid var(--border-d); border-top:7px solid var(--green);
+    border-radius:14px; padding:34px 28px 30px; margin-bottom:4px;
+    text-align:center; display:flex; flex-direction:column; align-items:center;
+  }
+  .hero-logo{width:150px; height:auto; margin-bottom:20px;}
+  .eyebrow{font-family:'DM Mono', monospace; font-size:11.5px; letter-spacing:0.09em; text-transform:uppercase; color:var(--green); margin-bottom:10px; font-weight:500;}
+  h1{font-family:'Libre Caslon Display', serif; font-size:40px; line-height:1.1; font-weight:400; letter-spacing:-0.01em; margin-bottom:12px;}
+  .subhead{color:var(--ink2); font-size:16px; max-width:580px;}
+  .rule{
+    height:3px; margin:20px 0 0; border-radius:2px;
+    background:linear-gradient(90deg, var(--navy) 0%, var(--navy) 46%, var(--gold) 50%, var(--brick) 54%, var(--brick) 100%);
+  }
+
+  .pillar-nav{display:flex; gap:8px; flex-wrap:wrap; margin:22px 0 6px;}
+  .pillar-nav a{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:13px; font-weight:600; text-decoration:none; color:var(--ink2);
+    border:1px solid var(--border-d); background:var(--paper2); border-radius:100px;
+    padding:8px 16px; transition:border-color .15s, color .15s;
+  }
+  .pillar-nav a:hover{border-color:var(--navy); color:var(--navy);}
+  .pillar-nav a.active{background:var(--green); border-color:var(--green); color:var(--paper2);}
+
+  .privacy-banner{
+    display:flex; gap:10px; align-items:flex-start;
+    background:var(--paper2); border:1px solid var(--border); border-radius:10px;
+    padding:13px 15px; margin-top:20px; font-size:13px; color:var(--ink2);
+  }
+  .privacy-banner i{color:var(--green); font-size:16px; margin-top:1px;}
+  .free-badge{
+    display:inline-flex; align-items:center; gap:6px; font-family:'DM Mono',monospace;
+    font-size:11px; letter-spacing:0.05em; text-transform:uppercase;
+    background:rgba(61,122,87,0.1); color:var(--green); border:1px solid rgba(61,122,87,0.3);
+    border-radius:100px; padding:5px 11px; margin-top:14px;
+  }
+
+  .intro-note{
+    background:var(--paper2); border:1px solid var(--border); border-radius:10px;
+    padding:16px 18px; margin:28px 0 30px; font-size:13.5px; color:var(--ink2); line-height:1.6;
+  }
+  .intro-note strong{color:var(--ink);}
+
+  .faction-group{margin-bottom:30px;}
+  .faction-label{
+    font-family:'DM Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.05em;
+    margin-bottom:12px; padding-bottom:9px; border-bottom:2px solid var(--border-d);
+    display:flex; align-items:center; gap:8px;
+  }
+  .faction-dot{width:8px; height:8px; border-radius:50%; display:inline-block;}
+  .faction-label.left{color:var(--navy);}
+  .faction-label.left .faction-dot{background:var(--navy);}
+  .faction-label.right{color:var(--brick);}
+  .faction-label.right .faction-dot{background:var(--brick);}
+
+  .org-card{
+    border:1px solid var(--border-d); background:var(--paper2); border-radius:12px;
+    padding:16px 18px; margin-bottom:12px;
+  }
+  .org-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .org-name{font-size:15.5px; font-weight:600;}
+  .org-type{font-family:'DM Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink3); margin-top:2px;}
+  .org-desc{font-size:13.5px; color:var(--ink2); margin:8px 0 12px; line-height:1.55;}
+  .org-actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+  .org-link{
+    display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+    color:var(--paper2); background:var(--navy); border-radius:7px; padding:8px 14px; text-decoration:none;
+  }
+  .org-link:hover{background:var(--navy-l);}
+  .badge{
+    font-family:'DM Mono',monospace; font-size:10.5px; padding:4px 9px; border-radius:100px;
+    border:1px solid var(--border-d); color:var(--ink3);
+  }
+  .badge.left{color:var(--navy); border-color:rgba(31,58,92,0.35); background:rgba(31,58,92,0.07);}
+  .badge.right{color:var(--brick); border-color:rgba(168,65,47,0.35); background:rgba(168,65,47,0.07);}
+
+  .research-toggle{margin-top:12px;}
+  .research-toggle input{position:absolute; opacity:0; pointer-events:none;}
+  .research-toggle label{
+    display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--ink3);
+    cursor:pointer; font-family:'DM Mono',monospace;
+  }
+  .research-toggle label:hover{color:var(--ink2);}
+  .research-body{display:none; margin-top:10px; padding-top:10px; border-top:1px dashed var(--border-d); font-size:12.5px; color:var(--ink2);}
+  .research-toggle input:checked ~ .research-body{display:block;}
+  .research-body .score-row{display:flex; gap:14px; margin-bottom:8px; flex-wrap:wrap;}
+
+  .crosslink{
+    margin-top:40px; padding-top:24px; border-top:1px solid var(--border);
+    display:block; text-decoration:none; color:var(--ink);
+    border-radius:12px; padding:18px; border:1px solid var(--border-d); background:var(--paper2);
+  }
+  .crosslink:hover{border-color:var(--navy);}
+  .crosslink .title{font-weight:600; font-size:14.5px; margin-bottom:4px;}
+  .crosslink .desc{font-size:12.5px; color:var(--ink3);}
+
+  footer{margin-top:50px; padding-top:18px; border-top:1px solid var(--border); font-size:12px; color:var(--ink3);}
+  footer a{color:var(--ink2);}
+
+  .suite-links{margin-top:46px; padding-top:24px; border-top:1px solid var(--border);}
+  .suite-links .label{font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink3); margin-bottom:12px;}
+  .suite-links-row{display:flex; gap:9px; flex-wrap:wrap;}
+  .suite-links-row a{
+    font-size:13px; font-weight:600; color:var(--ink2); text-decoration:none;
+    border:1px solid var(--border-d); background:var(--paper2); border-radius:100px; padding:7px 14px;
+  }
+  .suite-links-row a:hover{border-color:var(--green); color:var(--green);}
+
+  select{
+    width:100%; background:var(--paper2); border:1px solid var(--border-d); border-radius:8px;
+    padding:11px 13px; color:var(--ink); font-size:14px; font-family:inherit;
+  }
+  select:focus{outline:2px solid var(--green); border-color:var(--green);}
+
+  .submit-section{margin-top:36px; border-top:1px solid var(--border); padding-top:24px;}
+  .submit-section h3{font-family:'Libre Caslon Display', serif; font-size:18px; font-weight:400; margin-bottom:4px;}
+  .submit-section .hint{font-size:13px; color:var(--ink3); margin-bottom:14px;}
+  .submit-toggle-checkbox{position:absolute; opacity:0; pointer-events:none;}
+  .submit-form-wrap{display:none; margin-top:18px;}
+  #submitToggle:checked ~ .submit-form-wrap{display:block;}
+  .submit-form-wrap form{display:flex; flex-direction:column; gap:2px;}
+  .gotcha-field{position:absolute; left:-9999px; opacity:0;}
+  .field{margin-bottom:12px;}
+  .field label{display:block; font-size:12.5px; color:var(--ink2); margin-bottom:5px; font-weight:500;}
+  textarea{
+    width:100%; background:var(--paper2); border:1px solid var(--border-d); border-radius:8px;
+    padding:12px 13px; color:var(--ink); font-size:13.5px; font-family:inherit; resize:vertical;
+  }
+  textarea:focus{outline:2px solid var(--green); border-color:var(--green);}
+  input[type=text]{
+    width:100%; background:var(--paper2); border:1px solid var(--border-d); border-radius:8px;
+    padding:11px 13px; color:var(--ink); font-size:14px; font-family:inherit;
+  }
+  input[type=text]:focus{outline:2px solid var(--green); border-color:var(--green);}
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    background:var(--green); color:var(--paper2); font-weight:600; font-size:14.5px;
+    border:none; border-radius:9px; padding:13px 22px;
+  }
+  .btn-primary:hover{background:var(--green-l);}
+  .btn-secondary{
+    display:inline-flex; align-items:center; gap:6px; cursor:pointer;
+    background:transparent; color:var(--ink2); font-size:13px; font-weight:500;
+    border:1px solid var(--border-d); border-radius:8px; padding:9px 14px;
+  }
+  .btn-secondary:hover{color:var(--ink); border-color:var(--ink3);}
+
+  .success-banner{
+    display:none; gap:10px; align-items:flex-start;
+    background:rgba(61,122,87,0.1); border:1px solid rgba(61,122,87,0.3); border-radius:10px;
+    padding:13px 15px; margin:20px 0; font-size:13.5px; color:var(--ink);
+  }
+  .success-banner.show{display:flex;}
+  .success-banner i{color:var(--green); font-size:18px; margin-top:1px;}
+
+  @media (max-width:600px){ h1{font-size:28px;} .hero{padding:24px 20px 22px;} .hero-logo{width:120px;} }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="hero">
+      <img class="hero-logo" src="communities_before_shareholders.png" alt="Supporting Communities Before Shareholders logo">
+      <div class="eyebrow">AricCivicLabs · Civic Participation &amp; Rights Access</div>
+      <h1>Supporting Communities Before Shareholders</h1>
+      <p class="subhead">Organizations working against corporate consolidation and for local economic power — shown across the political spectrum.</p>
+    </div>
+    <div class="rule"></div>
+
+    <nav class="pillar-nav">
+      <a href="rights_connector.html"><i class="ti ti-compass"></i> Find an organization</a>
+      <a href="rights_connector_constitution.html"><i class="ti ti-gavel"></i> Defending the Constitution</a>
+      <a href="rights_connector_communities.html" class="active"><i class="ti ti-building-community"></i> Communities over shareholders</a>
+    </nav>
+
+    <div class="privacy-banner">
+      <i class="ti ti-shield-lock"></i>
+      <div>Nothing on this page is saved or tracked. Your visit stays in your browser.</div>
+    </div>
+    <div class="free-badge"><i class="ti ti-heart"></i> Always free — no account, no paywall</div>
+  </header>
+
+  <div id="submitSuccessBanner" class="success-banner">
+    <i class="ti ti-circle-check"></i>
+    <div><strong>Thanks — your suggestion was submitted.</strong> Every submission is reviewed before anything is added to the site, so it won't appear immediately.</div>
+  </div>
+
+  <div class="intro-note">
+    This topic turned out less politically split than the Constitution page — most of these organizations approach corporate concentration from the left, antitrust-policy direction. <strong>One right-of-center small-business organization is included for balance</strong>, since "communities over distant shareholders" is a concern that shows up from more than one political direction, even if the loudest current advocacy on it leans one way.
+  </div>
+
+  <div id="resultsContainer"></div>
+
+  <a class="crosslink" href="rights_connector_constitution.html">
+    <div class="title"><i class="ti ti-gavel"></i> Looking for organizations on constitutional defense instead?</div>
+    <div class="desc">Visit the Defending the Constitution page →</div>
+  </a>
+
+  <div class="submit-section">
+    <h3>Know an organization that should be here?</h3>
+    <p class="hint">Every submission is reviewed by AricCivicLabs before anything is added — nothing publishes automatically.</p>
+
+    <input type="checkbox" id="submitToggle" class="submit-toggle-checkbox">
+    <label for="submitToggle" class="btn-secondary"><i class="ti ti-circle-plus"></i> Suggest a resource</label>
+
+    <div class="submit-form-wrap">
+      <form action="https://formspree.io/f/mbdbkznw" method="POST">
+        <input type="hidden" name="_subject" value="New resource suggestion — Communities Before Shareholders">
+        <input type="hidden" name="source_page" value="Communities Before Shareholders">
+        <input type="hidden" name="_next" value="rights_connector_communities.html?submitted=1">
+        <input type="text" name="_gotcha" class="gotcha-field" tabindex="-1" autocomplete="off">
+
+        <div class="field">
+          <label for="sOrgName">Organization name *</label>
+          <input type="text" id="sOrgName" name="organization_name" required>
+        </div>
+        <div class="field">
+          <label for="sWebsite">Website *</label>
+          <input type="text" id="sWebsite" name="website" placeholder="https://..." required>
+        </div>
+        <div class="field">
+          <label for="sFaction">Where would you place it on the spectrum?</label>
+          <select id="sFaction" name="spectrum_position">
+            <option value="">Not sure</option>
+            <option>Left-leaning</option>
+            <option>Right-leaning</option>
+            <option>Cross-ideological / contested</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sWhy">Why should this be included?</label>
+          <textarea id="sWhy" name="reason" rows="3" placeholder="What do they do for local economic power or corporate accountability?"></textarea>
+        </div>
+        <div class="field">
+          <label for="sName">Your name (optional)</label>
+          <input type="text" id="sName" name="submitter_name">
+        </div>
+        <div class="field">
+          <label for="sEmail">Your email (optional — only if we have follow-up questions)</label>
+          <input type="text" id="sEmail" name="email">
+        </div>
+        <button type="submit" class="btn-primary" style="align-self:flex-start;"><i class="ti ti-send"></i> Submit for review</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="suite-links">
+    <div class="label">More from AricCivicLabs</div>
+    <div class="suite-links-row">
+      <a href="https://aricciviclabs.org">AricCivicLabs.org</a>
+      <a href="https://receipts.aricciviclabs.org">receipts.</a>
+      <a href="https://transitions.aricciviclabs.org">Transitions</a>
+      <a href="https://inable.aricciviclabs.org">InAble</a>
+      <a href="https://meshforce.aricciviclabs.org">MeshForce</a>
+      <a href="https://theseam.aricciviclabs.org/seam.html">The Seam</a>
+    </div>
+  </div>
+
+  <footer>
+    Org research current as of June 2026. Organizations restructure intake processes — always confirm details on the organization's own site. Not legal advice. <a href="https://aricciviclabs.org/legal.html">Legal &amp; privacy</a>
+  </footer>
+</div>
+
+<script>
+
+var FACTION_LABELS = {left:'Left-leaning', right:'Right-leaning'};
+var BADGE_LABELS = {left:'Left-leaning', right:'Right-leaning'};
+
+var ORGS = [
+  {id:'ilsr', name:'Institute for Local Self-Reliance', badge:'left', type:'Research + advocacy', scope:'National', url:'https://ilsr.org', desc:'Local policy tools against corporate consolidation - the most city-level focused of this group.', trans:4, note:'Left-of-center funding, consistent antimonopoly mission.'},
+  {id:'aelp', name:'American Economic Liberties Project', badge:'left', type:'Policy advocacy', scope:'National', url:'https://www.economicliberties.us', desc:'Antimonopoly policy advocacy targeting concentrated corporate power.', trans:4, note:'Seed-funded by the Economic Security Project\'s Anti-Monopoly Fund.'},
+  {id:'omi', name:'Open Markets Institute', badge:'left', type:'Research', scope:'National', url:'https://www.openmarketsinstitute.org', desc:'Antitrust research and advocacy.', trans:4, note:'Left-of-center funding consistent with antimonopoly mission.'},
+
+  {id:'nfib', name:'National Federation of Independent Business', badge:'right', type:'Trade association', scope:'National', url:'https://www.nfib.com', desc:'Small-business advocacy - frames "communities over distant shareholders" from a small-business-owner angle.', trans:5, note:'Long-running, transparent trade association, traditionally conservative-aligned.'}
+];
+
+function escapeHtml(str){
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
+function badgeHtmlFor(org){
+  if(!org.badge) return '';
+  return '<span class="badge '+org.badge+'">'+BADGE_LABELS[org.badge]+'</span>';
+}
+
+function orgCardHtml(org){
+  var researchId = 'research-' + org.id;
+  var html = '<div class="org-card">' +
+    '<div class="org-top">' +
+      '<div><div class="org-name">'+escapeHtml(org.name)+'</div><div class="org-type">'+escapeHtml(org.type)+' &middot; '+escapeHtml(org.scope)+'</div></div>' +
+      badgeHtmlFor(org) +
+    '</div>' +
+    '<div class="org-desc">'+escapeHtml(org.desc)+'</div>' +
+    '<div class="org-actions">' +
+      '<a class="org-link" href="'+org.url+'" target="_blank" rel="noopener"><i class="ti ti-external-link"></i> Visit site</a>' +
+    '</div>' +
+    '<div class="research-toggle">' +
+      '<input type="checkbox" id="'+researchId+'">' +
+      '<label for="'+researchId+'"><i class="ti ti-chevron-right"></i> Background &amp; funding</label>' +
+      '<div class="research-body">' +
+        '<div class="score-row"><span class="mono">Transparency score: '+org.trans+'/6</span></div>' +
+        '<div>'+escapeHtml(org.note)+'</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+  return html;
+}
+
+function renderResults(){
+  var byFaction = {left:[], right:[]};
+  for(var j=0;j<ORGS.length;j++){
+    byFaction[ORGS[j].badge].push(ORGS[j]);
+  }
+  var order = ['left','right'];
+  var html = '';
+  for(var k=0;k<order.length;k++){
+    var key = order[k];
+    var group = byFaction[key];
+    if(group.length === 0) continue;
+    group.sort(function(a,b2){ return b2.trans - a.trans; });
+    html += '<div class="faction-group"><div class="faction-label '+key+'"><span class="faction-dot"></span>'+FACTION_LABELS[key]+'</div>';
+    for(var m=0;m<group.length;m++){ html += orgCardHtml(group[m]); }
+    html += '</div>';
+  }
+  document.getElementById('resultsContainer').innerHTML = html;
+}
+
+function checkSubmissionBanner(){
+  var params = new URLSearchParams(window.location.search);
+  if(params.get('submitted') === '1'){
+    document.getElementById('submitSuccessBanner').className = 'success-banner show';
+    if(window.history && window.history.replaceState){
+      var cleanUrl = window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+  }
+}
+
+renderResults();
+checkSubmissionBanner();
+
+</script>
+</body>
+</html>
