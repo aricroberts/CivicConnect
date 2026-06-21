@@ -184,8 +184,8 @@
   .no-results{color:var(--ink3); font-size:14px; padding:20px 0;}
 
   .prep-section{margin-top:36px; border-top:1px solid var(--border); padding-top:24px;}
-  .prep-section h3{font-family:'Libre Caslon Display', serif; font-size:18px; font-weight:400; margin-bottom:4px;}
-  .prep-section .hint{font-size:13px; color:var(--ink3); margin-bottom:14px;}
+  .prep-section h3{font-family:'Libre Caslon Display', serif; font-size:20px; font-weight:400; margin-bottom:4px;}
+  .prep-section .hint{font-size:13px; color:var(--ink3); margin-bottom:14px; max-width:560px;}
   textarea{
     width:100%; background:var(--paper2); border:1px solid var(--border-d); border-radius:8px;
     padding:12px 13px; color:var(--ink); font-size:13.5px; font-family:inherit; resize:vertical;
@@ -193,10 +193,62 @@
   textarea:focus{outline:2px solid var(--navy); border-color:var(--navy);}
   .field{margin-bottom:12px;}
   .field label{display:block; font-size:12.5px; color:var(--ink2); margin-bottom:5px; font-weight:500;}
-  #prepOutputWrap{display:none; margin-top:16px;}
-  #prepOutput{height:200px; font-family:'DM Mono',monospace; font-size:12.5px;}
-  .copy-row{display:flex; gap:10px; align-items:center; margin-top:10px;}
-  #copyStatus{font-size:12px; color:var(--green); display:none;}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media (max-width:560px){ .field-row{grid-template-columns:1fr;} }
+
+  #prepOutputWrap{display:none; margin-top:22px;}
+  .prep-actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:16px;}
+  #copyStatus{font-size:12px; color:var(--green); display:none; align-self:center;}
+
+  /* Branded document preview — mirrors the polish of the paid-tool exports */
+  .prep-doc{
+    background:var(--paper2); border:1px solid var(--border-d); border-radius:14px;
+    padding:0; overflow:hidden; box-shadow:0 4px 24px rgba(42,32,24,0.08);
+  }
+  .prep-doc-band{
+    background:var(--navy); padding:20px 26px; display:flex; align-items:center; gap:12px;
+  }
+  .prep-doc-band img{height:34px; width:auto;}
+  .prep-doc-band .doc-title{color:var(--paper2); font-family:'Libre Caslon Display',serif; font-size:18px;}
+  .prep-doc-band .doc-sub{color:rgba(255,251,241,0.65); font-size:11px; font-family:'DM Mono',monospace; margin-top:2px;}
+  .prep-doc-body{padding:26px 28px 30px;}
+  .prep-doc h4{
+    font-family:'DM Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em;
+    color:var(--navy); margin:26px 0 11px; padding-bottom:7px; border-bottom:2px solid var(--border-d);
+  }
+  .prep-doc h4:first-child{margin-top:0;}
+  .prep-doc-meta{display:grid; grid-template-columns:1fr 1fr; gap:10px 18px; font-size:13px;}
+  @media (max-width:560px){ .prep-doc-meta{grid-template-columns:1fr;} }
+  .prep-doc-meta .k{color:var(--ink3); font-size:11px; text-transform:uppercase; letter-spacing:0.04em; font-family:'DM Mono',monospace; margin-bottom:2px;}
+  .prep-doc-meta .v{color:var(--ink); font-weight:500;}
+  .prep-doc-narrative{font-size:13.5px; color:var(--ink2); line-height:1.65; white-space:pre-wrap;}
+  .prep-doc-checklist{list-style:none; padding:0; margin:0;}
+  .prep-doc-checklist li{
+    font-size:13.5px; color:var(--ink2); padding:7px 0 7px 26px; position:relative; line-height:1.5;
+    border-bottom:1px solid var(--border);
+  }
+  .prep-doc-checklist li:last-child{border-bottom:none;}
+  .prep-doc-checklist li:before{
+    content:'\2713'; position:absolute; left:0; top:7px; color:var(--green); font-weight:700; font-size:13px;
+  }
+  .prep-doc-tips{font-size:13.5px; color:var(--ink2); line-height:1.7; padding-left:18px; margin:0;}
+  .prep-doc-tips li{margin-bottom:6px;}
+  .prep-org-mini{
+    border:1px solid var(--border-d); border-radius:10px; padding:13px 15px; margin-bottom:10px; background:var(--paper);
+  }
+  .prep-org-mini .name{font-weight:600; font-size:14px; color:var(--ink);}
+  .prep-org-mini .name a{color:var(--navy); text-decoration:none;}
+  .prep-org-mini .name a:hover{text-decoration:underline;}
+  .prep-org-mini .meta{font-size:11px; color:var(--ink3); font-family:'DM Mono',monospace; margin:2px 0 6px;}
+  .prep-org-mini .desc{font-size:12.5px; color:var(--ink2); line-height:1.5;}
+  .prep-doc-footer{
+    margin-top:30px; padding-top:16px; border-top:1px solid var(--border-d);
+    font-size:11px; color:var(--ink3); line-height:1.6;
+  }
+  .prep-doc-disclaimer{
+    background:rgba(168,65,47,0.06); border:1px solid rgba(168,65,47,0.2); border-radius:8px;
+    padding:11px 14px; font-size:11.5px; color:var(--ink2); line-height:1.6; margin-top:16px;
+  }
 
   footer{margin-top:50px; padding-top:18px; border-top:1px solid var(--border); font-size:12px; color:var(--ink3);}
   footer a{color:var(--ink2);}
@@ -337,24 +389,37 @@
       <div id="resultsContainer"></div>
 
       <div class="prep-section">
-        <h3>Prep sheet for reaching out</h3>
-        <p class="hint">Writing your situation out from scratch is the hardest part. Answer a couple questions and get a clean summary to paste into an intake form or email.</p>
+        <h3>Your Rights Connector prep packet</h3>
+        <p class="hint">A real, branded document — not just a text dump. Pulls in your matched organizations, a tailored checklist, and general know-before-you-go guidance, ready to download, print, or paste into an intake form.</p>
+
         <div class="field">
-          <label for="prepDesc">In a sentence or two, what happened?</label>
-          <textarea id="prepDesc" rows="3" placeholder="e.g. My landlord gave me a 3-day notice after I asked for repairs..."></textarea>
+          <label for="prepDesc">In a few sentences, what happened?</label>
+          <textarea id="prepDesc" rows="4" placeholder="e.g. My landlord gave me a 3-day notice after I asked for repairs..."></textarea>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="prepContact">Best way for an organization to reach you</label>
+            <input type="text" id="prepContact" placeholder="Phone or email">
+          </div>
+          <div class="field">
+            <label for="prepDeadline">Important date or deadline (optional)</label>
+            <input type="text" id="prepDeadline" placeholder="e.g. Court date June 30">
+          </div>
         </div>
         <div class="field">
-          <label for="prepContact">Best way for an organization to reach you</label>
-          <input type="text" id="prepContact" placeholder="Phone or email">
+          <label for="prepDone">Anything you've already done about this? (optional)</label>
+          <textarea id="prepDone" rows="2" placeholder="e.g. Already emailed HR, filed a complaint, talked to a lawyer..."></textarea>
         </div>
-        <button type="button" class="btn-secondary" id="genPrepBtn"><i class="ti ti-file-text"></i> Generate prep sheet</button>
+
+        <button type="button" class="btn-primary" id="genPrepBtn"><i class="ti ti-file-text"></i> Generate my prep packet</button>
 
         <div id="prepOutputWrap">
-          <textarea id="prepOutput" readonly></textarea>
-          <div class="copy-row">
-            <button type="button" class="btn-secondary" id="copyPrepBtn"><i class="ti ti-copy"></i> Copy to clipboard</button>
+          <div class="prep-actions">
+            <button type="button" class="btn-secondary" id="downloadPrepBtn"><i class="ti ti-download"></i> Download full packet</button>
+            <button type="button" class="btn-secondary" id="copyPrepBtn"><i class="ti ti-copy"></i> Copy quick summary</button>
             <span id="copyStatus">Copied</span>
           </div>
+          <div class="prep-doc" id="prepDocPreview"></div>
         </div>
       </div>
     </section>
@@ -477,6 +542,81 @@ var STATES = [
   {v:'WV',n:'West Virginia'},{v:'WI',n:'Wisconsin'},{v:'WY',n:'Wyoming'}
 ];
 
+var GROUP_TIPS = {
+  work: {
+    gather: [
+      'Pay stubs, offer letters, or your employee handbook if relevant',
+      'Any written communication about the issue (emails, texts, Slack messages)',
+      'Dates and names for key conversations, including who was present',
+      'Names of any coworkers who witnessed what happened'
+    ],
+    know: [
+      'Many workplace complaints have strict filing deadlines — often 180–300 days from the incident for discrimination charges. Write down every date you can.',
+      'Retaliation for raising a concern in good faith is often illegal on its own, even if the underlying complaint isn\'t ultimately upheld.',
+      'You generally don\'t have to handle this alone — most worker-side organizations offer a confidential first conversation before you commit to anything.'
+    ]
+  },
+  home: {
+    gather: [
+      'Your lease or rental agreement',
+      'Every written notice from your landlord, including the envelope or message it arrived in',
+      'Photos of any conditions in dispute, dated if possible',
+      'Records of rent payments and any repair requests you made in writing'
+    ],
+    know: [
+      'Most areas require landlords to give written notice before any eviction, and "self-help" evictions — lockouts, shutting off utilities — are illegal almost everywhere.',
+      'Don\'t move out before understanding your options. Leaving early can sometimes weaken your legal position, even in a bad situation.',
+      'Free tenant legal aid exists in most states — it\'s worth a call even if you\'re not sure your situation "counts."'
+    ]
+  },
+  voice: {
+    gather: [
+      'The exact date, time, and location of what happened',
+      'Names or descriptions of any officials, staff, or organizations involved',
+      'Any documentation — photos, denial letters, polling place information',
+      'Whether you\'ve already reported it anywhere else'
+    ],
+    know: [
+      'Voting problems are often time-sensitive on purpose — same-day hotlines exist because same-day fixes are sometimes still possible.',
+      'You generally have the right to ask for a provisional ballot if your eligibility is questioned at the polls.',
+      'Speech and assembly issues frequently turn on exactly where something happened (public vs. private property) — note your location precisely.'
+    ]
+  },
+  identity: {
+    gather: [
+      'A simple timeline of what happened, in order',
+      'Names and roles of everyone involved',
+      'Any written communications related to the situation',
+      'Medical, accommodation, or benefits paperwork if relevant to your situation'
+    ],
+    know: [
+      'You don\'t have to accept an unfavorable outcome quietly. Most organizations in this category handle intake confidentially and won\'t take action without your consent.',
+      'Many of these issues have alternate paths — a formal legal complaint isn\'t always the first or only option; ask what a first conversation looks like.',
+      'If your situation also touches benefits, housing, or employment, it may be worth a second look at those categories too — issues often overlap.'
+    ]
+  },
+  protection: {
+    gather: [
+      'Any relevant case, file, or claim numbers',
+      'Immigration paperwork or your A-number, if applicable',
+      'School records, IEP/504 paperwork, or disciplinary notices if education-related',
+      'Military discharge paperwork (DD-214) if veterans-related'
+    ],
+    know: [
+      'These situations often involve a government agency with a formal appeal process and real deadlines — write down every date you\'re given, including ones told to you verbally.',
+      'Free or low-bono help exists for almost every category here — cost shouldn\'t be the reason you don\'t reach out.',
+      'If a deadline is approaching fast, say so clearly and early when you contact an organization — many triage urgent cases differently.'
+    ]
+  }
+};
+
+function groupForCategory(catId){
+  for(var i=0;i<CATEGORIES.length;i++){
+    if(CATEGORIES[i].id === catId) return CATEGORIES[i].group;
+  }
+  return 'work';
+}
+
 function stateNameFor(abbr){
   for(var i=0;i<STATES.length;i++){ if(STATES[i].v === abbr) return STATES[i].n; }
   return abbr;
@@ -512,50 +652,78 @@ var ORGS = [
   {id:'workplacefairness', name:'Workplace Fairness', cats:['workplace'], type:'Service / info', scope:'National', url:'https://www.workplacefairness.org', desc:'Free legal info and attorney directory by state and issue for workplace problems.', urg:['now','soon','plan'], trans:3, note:'No watchdog profile found either way - low-profile educational nonprofit.'},
   {id:'eeoc', name:'EEOC', cats:['workplace'], type:'Government agency', scope:'National', url:'https://www.eeoc.gov', desc:'Official federal agency for filing employment discrimination complaints.', urg:['now','soon'], trans:6, note:'Federal agency - transparency question does not apply the same way as a nonprofit.'},
   {id:'nela', name:'National Employment Lawyers Association', cats:['workplace'], type:'Attorney referral', scope:'National', url:'https://www.nela.org', desc:'Referral network of attorneys who represent employees, not employers.', urg:['now','soon','plan'], trans:4, note:'Professional bar association, transparent structure.'},
+  {id:'betterbalance', name:'A Better Balance', cats:['workplace'], type:'Legal helpline + advocacy', scope:'National', url:'https://www.abetterbalance.org', desc:'Legal helpline and resources for pregnancy, caregiving, paid leave, and workplace flexibility rights.', urg:['now','soon','plan'], trans:4, note:'Progressive worker-rights mission; practical help line makes it useful beyond policy advocacy.'},
+  {id:'legalmomentum', name:'Legal Momentum', cats:['workplace','education'], type:'Legal aid + advocacy', scope:'National', url:'https://www.legalmomentum.org', desc:'Gender justice legal organization handling workplace equality, education equity, and survivor protections.', urg:['soon','plan'], trans:4, note:'Long-running women\'s legal advocacy organization with a clear mission.'},
 
   {id:'nelp', name:'National Employment Law Project', cats:['wages'], type:'Advocacy', scope:'National', url:'https://www.nelp.org', desc:'Worker-rights policy research and advocacy on wage theft and labor standards.', urg:['soon','plan'], trans:4, note:'Funded by AFL-CIO, SEIU, Ford Foundation - consistent with its labor-advocacy mission.'},
   {id:'dol-whd', name:'DOL Wage and Hour Division', cats:['wages'], type:'Government agency', scope:'National', url:'https://www.dol.gov/agencies/whd', desc:'Official channel for filing a wage complaint against an employer.', urg:['now','soon'], trans:6, note:'Federal agency.'},
+  {id:'workerjustice', name:'Interfaith Worker Justice', cats:['wages'], type:'Worker center network', scope:'National', url:'https://iwj.org', desc:'Faith-rooted worker justice resources and local worker-center connections.', urg:['soon','plan'], trans:2, note:'Verify current local affiliate activity before relying on it.'},
+  {id:'jwjnational', name:'Jobs With Justice', cats:['wages'], type:'Worker advocacy network', scope:'National', url:'https://www.jwj.org', desc:'Labor-community network focused on wage theft, organizing rights, and workplace standards campaigns.', urg:['soon','plan'], trans:3, note:'Openly labor-aligned advocacy network.'},
 
   {id:'nhlp', name:'National Housing Law Project', cats:['housing'], type:'Advocacy', scope:'National', url:'https://www.nhlp.org', desc:'Housing policy advocacy and litigation support on eviction and tenant protections.', urg:['soon','plan'], trans:4, note:'Left-of-center funding and policy positions per independent watchdog review.'},
   {id:'lawhelp', name:'LawHelp.org', cats:['housing'], type:'Directory', scope:'National', url:'https://www.lawhelp.org', desc:'Finds free or low-cost legal aid by state, including eviction-specific help.', urg:['now','soon','plan'], trans:5, note:'Routing directory, not an advocacy org.'},
   {id:'lsc', name:'Legal Services Corporation', cats:['housing'], type:'Federally-funded', scope:'National', url:'https://www.lsc.gov', desc:'Congress-chartered nonprofit that funds local legal aid offices nationwide.', urg:['now','soon','plan'], trans:5, note:'Federally chartered, not privately funded advocacy.'},
+  {id:'justshelter', name:'Just Shelter', cats:['housing'], type:'Directory', scope:'National', url:'https://justshelter.org', desc:'Directory for tenant organizing, eviction defense, and emergency housing help by location.', urg:['now','soon','plan'], trans:3, note:'Routing directory; users should verify the local group it points them toward.'},
+  {id:'tenantstogether', name:'Tenants Together', cats:['housing'], type:'Tenant hotline + advocacy', scope:'State', states:['CA'], url:'https://www.tenantstogether.org', desc:'California tenant hotline, resources, and organizing support for renters facing landlord problems.', urg:['now','soon','plan'], trans:3, note:'State-specific tenant advocacy; useful if California is selected.'},
 
   {id:'brennan', name:'Brennan Center for Justice', cats:['voting'], type:'Advocacy', scope:'National', url:'https://www.brennancenter.org', desc:'Voting rights, rule of law, and election administration research and litigation.', urg:['soon','plan'], trans:4, note:'Funding confirmed left-of-center (Ford, Open Society, MacArthur, Tides).'},
   {id:'aclu', name:'ACLU', cats:['voting','speech'], type:'Advocacy', scope:'National', url:'https://www.aclu.org', desc:'Broad civil liberties litigation across voting, speech, and constitutional rights.', urg:['now','soon','plan'], trans:4, note:'Public 990s; executive compensation has drawn some scrutiny. Currently reads as left-coded though historically broader.'},
   {id:'ourvote', name:'866-OUR-VOTE / Election Protection', cats:['voting'], type:'Hotline coalition', scope:'National', url:'https://866ourvote.org', desc:'Live hotline for voting problems on Election Day and during registration periods.', urg:['now','soon'], trans:4, note:'Stated function is genuinely nonpartisan voter-protection service, though individual coalition partners lean left.'},
+  {id:'vote411', name:'Vote411', cats:['voting'], type:'Election info tool', scope:'National', url:'https://www.vote411.org', desc:'League of Women Voters tool for registration, polling place, ballot, and candidate information.', urg:['now','soon','plan'], trans:5, note:'Nonpartisan voter-information project from a civic organization.'},
+  {id:'fairvote', name:'FairVote', cats:['voting'], type:'Election reform advocacy', scope:'National', url:'https://fairvote.org', desc:'Resources on ranked-choice voting, proportional representation, and election-system reform.', urg:['soon','plan'], trans:4, note:'Reform advocacy rather than emergency voter protection.'},
 
   {id:'nilc', name:'National Immigration Law Center', cats:['immigration'], type:'Advocacy', scope:'National', url:'https://www.nilc.org', desc:'Policy advocacy and legal resources on immigrant access to programs and protections.', urg:['now','soon','plan'], trans:4, note:'Left-of-center funding confirmed by independent review.'},
   {id:'aic', name:'American Immigration Council', cats:['immigration'], type:'Advocacy + legal aid', scope:'National', url:'https://www.americanimmigrationcouncil.org', desc:'Litigation, research, and legal resources on immigration enforcement and policy.', urg:['now','soon','plan'], trans:4, note:'Left-of-center funding (Ford, Open Society, Carnegie) confirmed.'},
   {id:'ilrc', name:'Immigrant Legal Resource Center', cats:['immigration'], type:'Training / legal aid', scope:'National', url:'https://www.ilrc.org', desc:'Know-your-rights guides and legal training for immigrants and the attorneys who serve them.', urg:['now','soon','plan'], trans:3, note:'Coalition-embedded with NILC and similar groups; less standalone funding data available.'},
+  {id:'immigrationadvocates', name:'Immigration Advocates Network', cats:['immigration'], type:'Directory', scope:'National', url:'https://www.immigrationadvocates.org', desc:'Searchable directory of nonprofit immigration legal service providers by location and need.', urg:['now','soon','plan'], trans:5, note:'Directory project, not a single advocacy provider.'},
+  {id:'firrp', name:'Florence Immigrant & Refugee Rights Project', cats:['immigration'], type:'Legal aid', scope:'State', states:['AZ'], url:'https://firrp.org', desc:'Free legal and social services for detained adults, children, and families in Arizona immigration proceedings.', urg:['now','soon','plan'], trans:4, note:'State-specific service provider with a clear direct-aid mission.'},
 
   {id:'ndrn', name:'National Disability Rights Network', cats:['disability'], type:'Federally-mandated network', scope:'National', url:'https://www.ndrn.org', desc:"Routes you to your state's federally mandated Protection and Advocacy office for direct legal help.", urg:['now','soon','plan'], trans:6, note:'Structurally accountable through federal mandate - cleanest transparency score in this dataset.'},
   {id:'dredf', name:'Disability Rights Education and Defense Fund', cats:['disability'], type:'Advocacy + legal aid', scope:'National', url:'https://dredf.org', desc:'Legal advocacy and policy work across employment, education, housing, and accessibility.', urg:['soon','plan'], trans:4, note:'Member of the left-progressive Leadership Conference coalition.'},
+  {id:'jan', name:'Job Accommodation Network', cats:['disability','workplace'], type:'Government-funded guidance', scope:'National', url:'https://askjan.org', desc:'Practical accommodation ideas and ADA guidance for workers, employers, and service providers.', urg:['now','soon','plan'], trans:6, note:'Funded by the U.S. Department of Labor; not a litigation shop.'},
+  {id:'ada', name:'ADA National Network', cats:['disability'], type:'Technical assistance', scope:'National', url:'https://adata.org', desc:'Regional ADA centers answering accessibility, accommodation, and disability-rights questions.', urg:['now','soon','plan'], trans:6, note:'Federally supported technical-assistance network.'},
 
   {id:'fire', name:'FIRE (Foundation for Individual Rights and Expression)', cats:['speech'], type:'Advocacy', scope:'National', url:'https://www.thefire.org', desc:'Free speech defense for students and, increasingly, the general public.', urg:['now','soon','plan'], trans:3, note:'Funded by Koch, Bradley, and Scaife foundations, but case docket reads more cross-ideological in practice than funding alone suggests. Verify domain before relying on this link.'},
+  {id:'rcfp-main', name:'Reporters Committee for Freedom of the Press', cats:['speech','privacy'], type:'Legal hotline', scope:'National', url:'https://www.rcfp.org', desc:'Legal resources and emergency help for journalists facing press freedom, records, or newsgathering issues.', urg:['now','soon','plan'], trans:5, note:'Strong transparency and practical legal-help orientation.'},
+  {id:'nlg', name:'National Lawyers Guild', cats:['speech','racial'], type:'Legal observer + referrals', scope:'National', url:'https://www.nlg.org', desc:'Legal observer programs and referrals for protests, policing, and movement-related civil liberties issues.', urg:['now','soon','plan'], trans:3, note:'Openly left movement-lawyering organization; useful for protest support.'},
 
   {id:'aclu-wa', name:'ACLU of Washington', cats:['speech','voting'], type:'Advocacy', scope:'State', states:['WA'], url:'https://www.aclu-wa.org', desc:'State affiliate of the national ACLU, handling Washington-specific civil liberties litigation and advocacy.', urg:['now','soon','plan'], trans:4, note:'Confirmed state affiliate; shares the national ACLU\'s funding profile and mission.'},
   {id:'aclu-nh', name:'ACLU of New Hampshire', cats:['speech','voting'], type:'Advocacy', scope:'State', states:['NH'], url:'https://www.aclu-nh.org', desc:'State affiliate of the national ACLU, handling New Hampshire-specific civil liberties litigation and advocacy.', urg:['now','soon','plan'], trans:4, note:'Confirmed state affiliate; shares the national ACLU\'s funding profile and mission.'},
 
   {id:'lambdalegal', name:'Lambda Legal', cats:['lgbtq'], type:'Advocacy + litigation', scope:'National', url:'https://lambdalegal.org', desc:'Legal help line and litigation for LGBTQ+ and HIV-status discrimination.', urg:['now','soon','plan'], trans:5, note:'Openly self-describes as left-leaning advocacy - no gap between claim and reality.'},
   {id:'nclr', name:'National Center for Lesbian Rights', cats:['lgbtq'], type:'Advocacy + litigation', scope:'National', url:'https://www.nclrights.org', desc:'Pro bono legal services and policy advocacy for LGBTQ+ rights, historically lesbian-focused.', urg:['now','soon','plan'], trans:4, note:'Left-of-center, consistent with stated mission.'},
+  {id:'gladlaw', name:'GLAD Law', cats:['lgbtq'], type:'Legal help + litigation', scope:'Regional', url:'https://www.glad.org', desc:'Legal information line and impact litigation for LGBTQ+ people and people living with HIV, with a New England roots.', urg:['now','soon','plan'], trans:4, note:'Mission and advocacy position are explicit.'},
+  {id:'translawcenter', name:'Transgender Law Center', cats:['lgbtq'], type:'Legal resources + advocacy', scope:'National', url:'https://transgenderlawcenter.org', desc:'Legal information, policy advocacy, and movement support for transgender and gender-nonconforming people.', urg:['soon','plan'], trans:3, note:'Progressive trans-rights organization; confirm intake availability before sending urgent cases.'},
 
   {id:'crr', name:'Center for Reproductive Rights', cats:['reproductive'], type:'Litigation', scope:'National', url:'https://reproductiverights.org', desc:'Global legal advocacy organization litigating to protect abortion access.', urg:['now','soon','plan'], trans:5, note:'Independently rated B+ by CharityWatch - a nonpartisan financial rating.'},
   {id:'naf', name:'National Abortion Federation', cats:['reproductive'], type:'Hotline + advocacy', scope:'National', url:'https://prochoice.org', desc:'Hotline providing referrals and financial assistance for abortion access.', urg:['now','soon'], trans:4, note:'Primarily a direct-service hotline; advocacy positions consistently favor abortion access.'},
+  {id:'ifwhenhow', name:'If/When/How Repro Legal Helpline', cats:['reproductive'], type:'Legal helpline', scope:'National', url:'https://www.reprolegalhelpline.org', desc:'Confidential legal information for people with questions about abortion, pregnancy loss, or self-managed abortion.', urg:['now','soon','plan'], trans:4, note:'Specialized legal-information resource rather than broad policy shop.'},
+  {id:'plannedparenthood', name:'Planned Parenthood', cats:['reproductive'], type:'Health care + advocacy', scope:'National', url:'https://www.plannedparenthood.org', desc:'Clinics, referrals, sexual-health information, and reproductive-rights advocacy.', urg:['now','soon','plan'], trans:4, note:'Direct-service provider with openly pro-access advocacy.'},
 
   {id:'naacpldf', name:'NAACP Legal Defense Fund', cats:['racial'], type:'Litigation', scope:'National', url:'https://www.naacpldf.org', desc:'Civil rights litigation with an 80+ year track record, from Brown v. Board onward.', urg:['soon','plan'], trans:5, note:'Long, consistent track record; left-of-center funding as expected for its mission.'},
   {id:'colorofchange', name:'Color of Change', cats:['racial'], type:'Advocacy', scope:'National', url:'https://colorofchange.org', desc:'Campaigns on criminal justice reform and corporate/media accountability on racial issues.', urg:['soon','plan'], trans:3, note:'Watchdog review flags some more aggressive/contested campaign tactics alongside its core mission work.'},
+  {id:'civilrightsproject', name:'Civil Rights Project / Proyecto Derechos Civiles', cats:['racial','education'], type:'Research', scope:'National', url:'https://civilrightsproject.ucla.edu', desc:'Research on school segregation, educational equity, and civil-rights enforcement.', urg:['soon','plan'], trans:5, note:'University-based research center; useful for evidence and context.'},
+  {id:'policingequity', name:'Center for Policing Equity', cats:['racial'], type:'Research + data', scope:'National', url:'https://policingequity.org', desc:'Data and research support for reducing racial disparities in policing and public safety systems.', urg:['soon','plan'], trans:4, note:'Research and technical assistance rather than direct legal aid.'},
 
   {id:'nosscr', name:'NOSSCR', cats:['benefits'], type:'Attorney referral', scope:'National', url:'https://nosscr.org', desc:'Referral network for attorneys who handle Social Security disability appeals.', urg:['soon','plan'], trans:5, note:'Professional association with a transparently disclosed nonpartisan PAC.'},
   {id:'benefitsgov', name:'Benefits.gov', cats:['benefits'], type:'Government tool', scope:'National', url:'https://www.benefits.gov', desc:'Official federal benefits eligibility screening tool.', urg:['now','soon','plan'], trans:6, note:'Federal government tool.'},
+  {id:'cbpp', name:'Center on Budget and Policy Priorities', cats:['benefits'], type:'Policy research', scope:'National', url:'https://www.cbpp.org', desc:'Research and explainers on SNAP, Medicaid, tax credits, Social Security, and safety-net access.', urg:['soon','plan'], trans:4, note:'Left-of-center policy shop; good for understanding eligibility and policy context.'},
+  {id:'justiceinaging', name:'Justice in Aging', cats:['benefits'], type:'Legal advocacy', scope:'National', url:'https://justiceinaging.org', desc:'Legal resources on Medicare, Medicaid, SSI, nursing facilities, and benefits for older adults.', urg:['soon','plan'], trans:4, note:'Specialized poverty-law advocacy for older adults.'},
 
   {id:'eff', name:'Electronic Frontier Foundation', cats:['privacy'], type:'Advocacy', scope:'National', url:'https://www.eff.org', desc:'Digital rights litigation and advocacy on surveillance, encryption, and online speech.', urg:['soon','plan'], trans:4, note:'Funded substantially by tech companies (Google, Facebook) - an industry-funding question more than a partisan one.'},
   {id:'epic', name:'Electronic Privacy Information Center', cats:['privacy'], type:'Advocacy', scope:'National', url:'https://epic.org', desc:'Litigation and research on government and corporate data collection.', urg:['soon','plan'], trans:4, note:'States it takes no tech-industry funding (a real point in its favor); donor base otherwise leans left despite a nonpartisan self-description.'},
+  {id:'cdt', name:'Center for Democracy & Technology', cats:['privacy','speech'], type:'Policy advocacy', scope:'National', url:'https://cdt.org', desc:'Civil liberties policy work on privacy, online speech, AI, surveillance, and platform governance.', urg:['soon','plan'], trans:4, note:'Tech-policy nonprofit with visible funders; industry funding should be considered.'},
+  {id:'privacyrights', name:'Privacy Rights Clearinghouse', cats:['privacy'], type:'Consumer education', scope:'National', url:'https://privacyrights.org', desc:'Consumer guides and complaint navigation for data breaches, identity theft, and privacy problems.', urg:['now','soon','plan'], trans:4, note:'Practical education resource, not primarily litigation.'},
 
   {id:'splc-press', name:'Student Press Law Center', cats:['education'], type:'Advocacy + legal aid', scope:'National', url:'https://splc.org', desc:'Free legal help and First Amendment resources for student journalists.', urg:['now','soon','plan'], trans:6, badge:'verified', note:'The one org in this whole dataset where a nonpartisan claim held up clean against independent review.'},
   {id:'ncyl', name:'National Center for Youth Law', cats:['education'], type:'Legal aid + litigation', scope:'National', url:'https://youthlaw.org', desc:'Litigation and advocacy on education, foster care, and juvenile justice for young people.', urg:['soon','plan'], trans:4, note:'Left-of-center funding (Open Society, Ford, Kellogg) confirmed.'},
+  {id:'edlawcenter', name:'Education Law Center', cats:['education'], type:'Legal advocacy', scope:'National', url:'https://edlawcenter.org', desc:'School funding, special education, discipline, and equal educational opportunity legal resources.', urg:['soon','plan'], trans:4, note:'Education-equity legal advocacy with a clear progressive public-interest frame.'},
+  {id:'wrightslaw', name:'Wrightslaw', cats:['education','disability'], type:'Legal information', scope:'National', url:'https://www.wrightslaw.com', desc:'Detailed special-education law, IEP, and advocacy resources for families.', urg:['now','soon','plan'], trans:3, note:'Information resource rather than nonprofit legal aid; useful for self-prep.'},
 
   {id:'nvlsp', name:'National Veterans Legal Services Program', cats:['veterans'], type:'Legal aid', scope:'National', url:'https://nvlsp.org', desc:'Free legal help on denied VA claims, discharge upgrades, and burn pit claims.', urg:['now','soon','plan'], trans:5, note:'Pure service provider - no ideological funding flags surfaced.'},
-  {id:'vfw', name:'VFW National Veterans Service', cats:['veterans'], type:'Service arm', scope:'National', url:'https://www.vfw.org', desc:'Claims-filing assistance through a congressionally chartered veterans organization.', urg:['now','soon','plan'], trans:0, note:'Not yet independently verified - recommend a research pass before fully trusting this entry.'}
+  {id:'vfw', name:'VFW National Veterans Service', cats:['veterans'], type:'Service arm', scope:'National', url:'https://www.vfw.org', desc:'Claims-filing assistance through a congressionally chartered veterans organization.', urg:['now','soon','plan'], trans:0, note:'Not yet independently verified - recommend a research pass before fully trusting this entry.'},
+  {id:'statesidelegal', name:'Stateside Legal', cats:['veterans'], type:'Legal information + referrals', scope:'National', url:'https://www.statesidelegal.org', desc:'Legal information and referral resources for veterans, servicemembers, and military families.', urg:['now','soon','plan'], trans:4, note:'Veteran-focused legal-information hub.'},
+  {id:'swords', name:'Swords to Plowshares', cats:['veterans'], type:'Legal aid + services', scope:'State', states:['CA'], url:'https://www.swords-to-plowshares.org', desc:'California-based veteran legal services, benefits advocacy, housing, and supportive services.', urg:['now','soon','plan'], trans:4, note:'Direct-service veterans organization; state-specific usefulness.'}
 ];
 
 function buildCategoryOptions(){
@@ -627,6 +795,24 @@ function orgCardHtml(org){
   return html;
 }
 
+function matchOrgs(cat, urg, stateVal){
+  var nationalMatches = [];
+  var stateMatches = [];
+  for(var i=0;i<ORGS.length;i++){
+    var org = ORGS[i];
+    if(org.cats.indexOf(cat) === -1) continue;
+    if(org.urg.indexOf(urg) === -1) continue;
+    if(org.states && org.states.length){
+      if(stateVal && org.states.indexOf(stateVal) !== -1){ stateMatches.push(org); }
+    } else {
+      nationalMatches.push(org);
+    }
+  }
+  nationalMatches.sort(function(a,b){ return b.trans - a.trans; });
+  stateMatches.sort(function(a,b){ return b.trans - a.trans; });
+  return {national: nationalMatches, state: stateMatches};
+}
+
 function renderResults(){
   var cat = getSelected('category');
   var urg = getSelected('urgency') || 'plan';
@@ -643,18 +829,9 @@ function renderResults(){
   }
   flagWrap.innerHTML = flagHtml;
 
-  var nationalMatches = [];
-  var stateMatches = [];
-  for(var i=0;i<ORGS.length;i++){
-    var org = ORGS[i];
-    if(org.cats.indexOf(cat) === -1) continue;
-    if(org.urg.indexOf(urg) === -1) continue;
-    if(org.states && org.states.length){
-      if(stateVal && org.states.indexOf(stateVal) !== -1){ stateMatches.push(org); }
-    } else {
-      nationalMatches.push(org);
-    }
-  }
+  var matched = matchOrgs(cat, urg, stateVal);
+  var nationalMatches = matched.national;
+  var stateMatches = matched.state;
 
   var container = document.getElementById('resultsContainer');
 
@@ -662,9 +839,6 @@ function renderResults(){
     container.innerHTML = '<div class="no-results">No close match yet for this combination - try "Researching" urgency to see all organizations in this category, or check back as we add more.</div>';
     return;
   }
-
-  nationalMatches.sort(function(a,b){ return b.trans - a.trans; });
-  stateMatches.sort(function(a,b){ return b.trans - a.trans; });
 
   var html = '';
   if(stateVal){
@@ -685,40 +859,174 @@ function renderResults(){
   container.innerHTML = html;
 }
 
-function generatePrepSheet(){
+var lastPrepData = null;
+
+function buildPrepData(){
   var catId = getSelected('category');
   var catLabel = catId;
   for(var i=0;i<CATEGORIES.length;i++){ if(CATEGORIES[i].id===catId) catLabel = CATEGORIES[i].label; }
   var urg = getSelected('urgency') || 'plan';
-  var urgLabel = urg === 'now' ? 'Urgent - active situation' : (urg === 'soon' ? 'Building problem, no immediate deadline' : 'Researching options');
+  var urgLabel = urg === 'now' ? 'Urgent — active situation' : (urg === 'soon' ? 'Building problem, no immediate deadline' : 'Researching options');
   var stateVal = document.getElementById('stateInput').value;
   var stateLabel = stateVal ? stateNameFor(stateVal) : 'Not specified';
-  var desc = document.getElementById('prepDesc').value || '(describe what happened above before copying this)';
+  var desc = document.getElementById('prepDesc').value || '(not described)';
   var contact = document.getElementById('prepContact').value || 'Not specified';
+  var deadline = document.getElementById('prepDeadline').value || '';
+  var done = document.getElementById('prepDone').value || '';
+  var group = groupForCategory(catId);
+  var tips = GROUP_TIPS[group] || GROUP_TIPS.work;
+  var matched = matchOrgs(catId, urg, stateVal);
 
-  var lines = [];
-  lines.push('SITUATION SUMMARY - prepared with AricCivicLabs Rights Connector');
-  lines.push('----------------------------------------');
-  lines.push('Category: ' + catLabel);
-  lines.push('Urgency: ' + urgLabel);
-  lines.push('Location: ' + stateLabel);
-  lines.push('Best contact: ' + contact);
-  lines.push('');
-  lines.push('What happened:');
-  lines.push(desc);
-  lines.push('');
-  lines.push('Typically helpful to have ready when you reach out:');
-  lines.push('- Any dates involved (notices received, incidents, deadlines)');
-  lines.push('- Names of people or organizations involved');
-  lines.push('- Any documents you already have (notices, emails, letters)');
-  lines.push('- Whether you have already contacted anyone else about this');
+  return {
+    catLabel: catLabel, urgLabel: urgLabel, stateVal: stateVal, stateLabel: stateLabel,
+    desc: desc, contact: contact, deadline: deadline, done: done,
+    tips: tips, national: matched.national, state: matched.state,
+    generatedDate: new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'})
+  };
+}
 
-  document.getElementById('prepOutput').value = lines.join('\n');
+function prepOrgMiniHtml(org){
+  return '<div class="prep-org-mini">' +
+    '<div class="name"><a href="'+org.url+'" target="_blank" rel="noopener">'+escapeHtml(org.name)+'</a></div>' +
+    '<div class="meta">'+escapeHtml(org.type)+' &middot; '+escapeHtml(org.scope)+' &middot; Transparency '+org.trans+'/6</div>' +
+    '<div class="desc">'+escapeHtml(org.desc)+'</div>' +
+  '</div>';
+}
+
+function buildPrepInnerHtml(d){
+  var html = '';
+  html += '<div class="prep-doc-band"><img src="civil_rights_connector.png" alt=""><div><div class="doc-title">Situation Prep Packet</div><div class="doc-sub">Prepared '+d.generatedDate+' &middot; AricCivicLabs Rights Connector</div></div></div>';
+  html += '<div class="prep-doc-body">';
+
+  html += '<h4>Your situation</h4>';
+  html += '<div class="prep-doc-meta">';
+  html += '<div><div class="k">Category</div><div class="v">'+escapeHtml(d.catLabel)+'</div></div>';
+  html += '<div><div class="k">Urgency</div><div class="v">'+escapeHtml(d.urgLabel)+'</div></div>';
+  html += '<div><div class="k">Location</div><div class="v">'+escapeHtml(d.stateLabel)+'</div></div>';
+  html += '<div><div class="k">Best contact</div><div class="v">'+escapeHtml(d.contact)+'</div></div>';
+  if(d.deadline){ html += '<div><div class="k">Important date</div><div class="v">'+escapeHtml(d.deadline)+'</div></div>'; }
+  html += '</div>';
+
+  html += '<h4>What happened</h4>';
+  html += '<div class="prep-doc-narrative">'+escapeHtml(d.desc)+'</div>';
+
+  if(d.done){
+    html += '<h4>Already done</h4>';
+    html += '<div class="prep-doc-narrative">'+escapeHtml(d.done)+'</div>';
+  }
+
+  html += '<h4>Recommended organizations</h4>';
+  if(d.state.length > 0){
+    html += '<div style="font-size:11px;color:var(--ink3);font-family:DM Mono,monospace;margin-bottom:8px;">'+escapeHtml(d.stateLabel)+'-SPECIFIC</div>';
+    for(var s=0;s<d.state.length;s++){ html += prepOrgMiniHtml(d.state[s]); }
+  }
+  if(d.national.length > 0){
+    html += '<div style="font-size:11px;color:var(--ink3);font-family:DM Mono,monospace;margin:'+(d.state.length>0?'14px':'0')+' 0 8px;">NATIONAL</div>';
+    for(var n=0;n<d.national.length;n++){ html += prepOrgMiniHtml(d.national[n]); }
+  }
+  if(d.state.length === 0 && d.national.length === 0){
+    html += '<div class="prep-doc-narrative">No organizations matched yet — check the Rights Connector again later as more are added.</div>';
+  }
+
+  html += '<h4>Before you reach out, gather:</h4>';
+  html += '<ul class="prep-doc-checklist">';
+  for(var g=0; g<d.tips.gather.length; g++){ html += '<li>'+escapeHtml(d.tips.gather[g])+'</li>'; }
+  html += '</ul>';
+
+  html += '<h4>Know before you go</h4>';
+  html += '<ul class="prep-doc-tips">';
+  for(var k=0; k<d.tips.know.length; k++){ html += '<li>'+escapeHtml(d.tips.know[k])+'</li>'; }
+  html += '</ul>';
+
+  html += '<div class="prep-doc-disclaimer"><strong>Not legal advice.</strong> This packet is a self-prepared organizational tool based on general, publicly available information. It does not constitute legal advice and is not a substitute for consulting a qualified attorney or the organizations listed above, who can speak to the specifics of your situation and jurisdiction.</div>';
+
+  html += '<div class="prep-doc-footer">Generated free of charge by the AricCivicLabs Rights Connector — civic.aricciviclabs.org. Nothing in this packet was saved, sent to a server, or tracked.</div>';
+
+  html += '</div>';
+  return html;
+}
+
+function generatePrepPacket(){
+  var data = buildPrepData();
+  lastPrepData = data;
+  document.getElementById('prepDocPreview').innerHTML = buildPrepInnerHtml(data);
   document.getElementById('prepOutputWrap').style.display = 'block';
 }
 
-function copyPrepSheet(){
-  var ta = document.getElementById('prepOutput');
+function buildStandaloneDoc(d){
+  var css = "body{margin:0;background:#F6EFDC;font-family:'DM Sans',Arial,sans-serif;color:#2A2018;padding:30px 16px;}"+
+    ".wrap{max-width:640px;margin:0 auto;background:#FFFBF1;border:1px solid #D3C193;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(42,32,24,0.1);}"+
+    ".prep-doc-band{background:#1F3A5C;padding:24px 28px;display:flex;align-items:center;gap:14px;}"+
+    ".prep-doc-band img{height:38px;width:auto;}"+
+    ".prep-doc-band .doc-title{color:#FFFBF1;font-family:Georgia,serif;font-size:20px;}"+
+    ".prep-doc-band .doc-sub{color:rgba(255,251,241,0.65);font-size:11px;font-family:'Courier New',monospace;margin-top:3px;}"+
+    ".prep-doc-body{padding:28px 30px 34px;}"+
+    "h4{font-family:'Courier New',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.06em;color:#1F3A5C;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #D3C193;}"+
+    "h4:first-child{margin-top:0;}"+
+    ".prep-doc-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;font-size:13px;}"+
+    ".prep-doc-meta .k{color:#746352;font-size:11px;text-transform:uppercase;letter-spacing:0.04em;font-family:'Courier New',monospace;margin-bottom:3px;}"+
+    ".prep-doc-meta .v{color:#2A2018;font-weight:600;}"+
+    ".prep-doc-narrative{font-size:14px;color:#6E5F4A;line-height:1.7;white-space:pre-wrap;}"+
+    ".prep-doc-checklist{list-style:none;padding:0;margin:0;}"+
+    ".prep-doc-checklist li{font-size:14px;color:#6E5F4A;padding:8px 0 8px 26px;position:relative;line-height:1.5;border-bottom:1px solid #E2D2A8;}"+
+    ".prep-doc-checklist li:before{content:'\\2713';position:absolute;left:0;top:8px;color:#3D7A57;font-weight:700;}"+
+    ".prep-doc-tips{font-size:14px;color:#6E5F4A;line-height:1.75;padding-left:20px;margin:0;}"+
+    ".prep-doc-tips li{margin-bottom:7px;}"+
+    ".prep-org-mini{border:1px solid #D3C193;border-radius:10px;padding:14px 16px;margin-bottom:11px;background:#F6EFDC;}"+
+    ".prep-org-mini .name{font-weight:700;font-size:14.5px;color:#2A2018;}"+
+    ".prep-org-mini .name a{color:#1F3A5C;text-decoration:none;}"+
+    ".prep-org-mini .meta{font-size:11px;color:#746352;font-family:'Courier New',monospace;margin:3px 0 7px;}"+
+    ".prep-org-mini .desc{font-size:13px;color:#6E5F4A;line-height:1.55;}"+
+    ".prep-doc-disclaimer{background:rgba(168,65,47,0.07);border:1px solid rgba(168,65,47,0.25);border-radius:9px;padding:13px 16px;font-size:12.5px;color:#6E5F4A;line-height:1.6;margin-top:18px;}"+
+    ".prep-doc-footer{margin-top:32px;padding-top:18px;border-top:1px solid #D3C193;font-size:11.5px;color:#746352;line-height:1.6;}"+
+    "@media print{body{background:#fff;padding:0;}.wrap{box-shadow:none;border:none;}}";
+
+  var inner = buildPrepInnerHtml(d).replace(/var\(--ink3\)/g, '#746352');
+
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Situation Prep Packet — AricCivicLabs Rights Connector</title>'+
+    '<style>'+css+'</style></head><body><div class="wrap">'+inner+'</div></body></html>';
+}
+
+function downloadPrepDoc(){
+  if(!lastPrepData) return;
+  var doc = buildStandaloneDoc(lastPrepData);
+  var blob = new Blob([doc], {type:'text/html'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'rights-connector-prep-packet-' + new Date().toISOString().slice(0,10) + '.html';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function copyPrepSummary(){
+  if(!lastPrepData) return;
+  var d = lastPrepData;
+  var lines = [];
+  lines.push('SITUATION SUMMARY — prepared with AricCivicLabs Rights Connector');
+  lines.push('----------------------------------------');
+  lines.push('Category: ' + d.catLabel);
+  lines.push('Urgency: ' + d.urgLabel);
+  lines.push('Location: ' + d.stateLabel);
+  lines.push('Best contact: ' + d.contact);
+  if(d.deadline){ lines.push('Important date: ' + d.deadline); }
+  lines.push('');
+  lines.push('What happened:');
+  lines.push(d.desc);
+  if(d.done){
+    lines.push('');
+    lines.push('Already done:');
+    lines.push(d.done);
+  }
+  lines.push('');
+  lines.push('Typically helpful to have ready when you reach out:');
+  for(var i=0;i<d.tips.gather.length;i++){ lines.push('- ' + d.tips.gather[i]); }
+
+  var ta = document.createElement('textarea');
+  ta.value = lines.join('\n');
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
   ta.select();
   ta.setSelectionRange(0, 999999);
   try{
@@ -727,8 +1035,9 @@ function copyPrepSheet(){
     status.style.display = 'inline';
     setTimeout(function(){ status.style.display = 'none'; }, 2000);
   }catch(e){
-    alert('Copy failed - select the text manually and copy with Ctrl/Cmd+C.');
+    alert('Copy failed — select the text manually and copy with Ctrl/Cmd+C.');
   }
+  document.body.removeChild(ta);
 }
 
 function checkSubmissionBanner(){
@@ -763,8 +1072,9 @@ document.getElementById('step-quiz').addEventListener('change', function(){
     }
   }
 });
-document.getElementById('genPrepBtn').addEventListener('click', generatePrepSheet);
-document.getElementById('copyPrepBtn').addEventListener('click', copyPrepSheet);
+document.getElementById('genPrepBtn').addEventListener('click', generatePrepPacket);
+document.getElementById('downloadPrepBtn').addEventListener('click', downloadPrepDoc);
+document.getElementById('copyPrepBtn').addEventListener('click', copyPrepSummary);
 
 </script>
 </body>
