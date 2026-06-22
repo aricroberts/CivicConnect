@@ -188,7 +188,42 @@
   .success-banner.show{display:flex;}
   .success-banner i{color:var(--green); font-size:18px; margin-top:1px;}
 
-  @media (max-width:600px){ h1{font-size:30px;} .hero{padding:24px 20px 22px;} .hero-logo{width:120px;} }
+  /* Scope bar */
+  .scope-bar{
+    background:var(--paper2); border:1px solid var(--border-d); border-radius:10px;
+    padding:18px; margin:22px 0 26px;
+  }
+  .scope-row{display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:end;}
+  .scope-group{display:flex; flex-direction:column; gap:6px;}
+  .scope-label{
+    display:flex; align-items:center; gap:6px;
+    font-size:12.5px; font-weight:600; color:var(--ink);
+    text-transform:uppercase; letter-spacing:0.02em;
+  }
+  select.scope-select{
+    width:100%; background:#fff; border:1px solid var(--border-d); border-radius:8px;
+    padding:10px 13px; color:var(--ink); font-size:14px; font-family:inherit;
+  }
+  select.scope-select:focus{outline:2px solid var(--brick); border-color:var(--brick);}
+  .view-btns{display:flex; gap:8px; flex-wrap:wrap;}
+  .view-btn{
+    background:#fff; border:1px solid var(--border-d); border-radius:8px;
+    padding:8px 13px; font-size:12.5px; font-weight:500; color:var(--ink2);
+    cursor:pointer; font-family:inherit; transition:all .15s;
+  }
+  .view-btn:hover{border-color:var(--ink2); color:var(--ink);}
+  .view-btn.active{background:var(--brick); border-color:var(--brick); color:#fff;}
+  .scope-empty{
+    display:flex; align-items:flex-start; gap:11px;
+    background:var(--paper2); border:1px solid var(--border); border-radius:10px;
+    padding:18px; color:var(--ink2); font-size:13.5px; line-height:1.55;
+  }
+  .scope-empty i{font-size:18px; color:var(--ink3); margin-top:1px; flex-shrink:0;}
+
+  @media (max-width:600px){
+    h1{font-size:30px;} .hero{padding:24px 20px 22px;} .hero-logo{width:120px;}
+    .scope-row{grid-template-columns:1fr;}
+  }
 </style>
 </head>
 <body>
@@ -223,6 +258,22 @@
 
   <div class="intro-note">
     These organizations approach constitutional defense from different points across the political spectrum. <strong>None of them is neutral by default</strong> — most have a clear position, and a couple claim neutrality that independent research treats as contested. Each card shows where it sits and why, so you can pick the one that actually matches your concern.
+  </div>
+
+  <div class="scope-bar">
+    <div class="scope-row">
+      <div class="scope-group">
+        <label class="scope-label"><i class="ti ti-map-pin"></i> Browse by scope</label>
+        <select id="scopeSelect" class="scope-select"></select>
+      </div>
+      <div class="scope-group">
+        <label class="scope-label"><i class="ti ti-layout-columns"></i> View</label>
+        <div class="view-btns">
+          <button class="view-btn active" data-view="faction">By political alignment</button>
+          <button class="view-btn" data-view="all">All organizations</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="resultsContainer"></div>
@@ -299,8 +350,31 @@
 
 <script>
 
+var STATES = [
+  {code:'AL',name:'Alabama'},{code:'AK',name:'Alaska'},{code:'AZ',name:'Arizona'},
+  {code:'AR',name:'Arkansas'},{code:'CA',name:'California'},{code:'CO',name:'Colorado'},
+  {code:'CT',name:'Connecticut'},{code:'DE',name:'Delaware'},{code:'FL',name:'Florida'},
+  {code:'GA',name:'Georgia'},{code:'HI',name:'Hawaii'},{code:'ID',name:'Idaho'},
+  {code:'IL',name:'Illinois'},{code:'IN',name:'Indiana'},{code:'IA',name:'Iowa'},
+  {code:'KS',name:'Kansas'},{code:'KY',name:'Kentucky'},{code:'LA',name:'Louisiana'},
+  {code:'ME',name:'Maine'},{code:'MD',name:'Maryland'},{code:'MA',name:'Massachusetts'},
+  {code:'MI',name:'Michigan'},{code:'MN',name:'Minnesota'},{code:'MS',name:'Mississippi'},
+  {code:'MO',name:'Missouri'},{code:'MT',name:'Montana'},{code:'NE',name:'Nebraska'},
+  {code:'NV',name:'Nevada'},{code:'NH',name:'New Hampshire'},{code:'NJ',name:'New Jersey'},
+  {code:'NM',name:'New Mexico'},{code:'NY',name:'New York'},{code:'NC',name:'North Carolina'},
+  {code:'ND',name:'North Dakota'},{code:'OH',name:'Ohio'},{code:'OK',name:'Oklahoma'},
+  {code:'OR',name:'Oregon'},{code:'PA',name:'Pennsylvania'},{code:'RI',name:'Rhode Island'},
+  {code:'SC',name:'South Carolina'},{code:'SD',name:'South Dakota'},{code:'TN',name:'Tennessee'},
+  {code:'TX',name:'Texas'},{code:'UT',name:'Utah'},{code:'VT',name:'Vermont'},
+  {code:'VA',name:'Virginia'},{code:'WA',name:'Washington'},{code:'WV',name:'West Virginia'},
+  {code:'WI',name:'Wisconsin'},{code:'WY',name:'Wyoming'}
+];
+
 var FACTION_LABELS = {left:'Left-leaning', right:'Right-leaning', cross:'Cross-ideological / contested'};
 var BADGE_LABELS = {verified:'Verified nonpartisan', contested:'Self-described nonpartisan, contested', left:'Left-leaning', right:'Right-leaning'};
+
+var currentScope = 'national';
+var currentView = 'faction';
 
 var ORGS = [
   {id:'cac', name:'Constitutional Accountability Center', badge:'left', type:'Litigation + think tank', scope:'National', url:'https://www.theusconstitution.org', desc:'Progressive reading of constitutional text and history with an active Supreme Court and appellate docket.', trans:5, note:'Self-describes openly as advancing a "progressive promise" - no gap between claim and reality.'},
@@ -362,25 +436,75 @@ function orgCardHtml(org){
   return html;
 }
 
-function renderResults(){
-  var byFaction = {left:[], right:[], cross:[]};
-  for(var j=0;j<ORGS.length;j++){
-    var b = ORGS[j].badge;
-    var bucket = (b === 'left') ? 'left' : (b === 'right') ? 'right' : 'cross';
-    byFaction[bucket].push(ORGS[j]);
+function stateNameFor(code){
+  for(var i=0;i<STATES.length;i++){ if(STATES[i].code === code) return STATES[i].name; }
+  return code;
+}
+
+function buildScopeOptions(){
+  var sel = document.getElementById('scopeSelect');
+  var html = '<option value="national">National</option>';
+  html += '<option value="MILVET">Military / Law Enforcement</option>';
+  html += '<optgroup label="States">';
+  for(var i=0;i<STATES.length;i++){
+    html += '<option value="'+STATES[i].code+'">'+STATES[i].name+'</option>';
   }
-  var order = ['left','right','cross'];
+  html += '</optgroup>';
+  sel.innerHTML = html;
+}
+
+function renderByScopeAndView(){
+  var container = document.getElementById('resultsContainer');
+  var orgs = [];
+
+  if(currentScope === 'national'){
+    for(var i=0;i<ORGS.length;i++){
+      if(ORGS[i].scope === 'National') orgs.push(ORGS[i]);
+    }
+  } else if(currentScope === 'MILVET'){
+    for(var i=0;i<ORGS.length;i++){
+      if(ORGS[i].scope === 'Military') orgs.push(ORGS[i]);
+    }
+  } else {
+    for(var i=0;i<ORGS.length;i++){
+      var o = ORGS[i];
+      if(o.scope === 'State' && o.states && o.states.indexOf(currentScope) !== -1) orgs.push(o);
+    }
+  }
+
+  if(orgs.length === 0){
+    var label = currentScope === 'national' ? 'national' :
+      currentScope === 'MILVET' ? 'military / law enforcement' :
+      stateNameFor(currentScope);
+    container.innerHTML = '<div class="scope-empty"><i class="ti ti-clock"></i>No '+escapeHtml(label)+'-specific organizations added yet for this topic. Know one? Use the "Suggest a resource" form below.</div>';
+    return;
+  }
+
   var html = '';
-  for(var k=0;k<order.length;k++){
-    var key = order[k];
-    var group = byFaction[key];
-    if(group.length === 0) continue;
-    group.sort(function(a,b2){ return b2.trans - a.trans; });
-    html += '<div class="faction-group"><div class="faction-label '+key+'"><span class="faction-dot"></span>'+FACTION_LABELS[key]+'</div>';
-    for(var m=0;m<group.length;m++){ html += orgCardHtml(group[m]); }
-    html += '</div>';
+  if(currentView === 'faction'){
+    var byFaction = {left:[], right:[], cross:[]};
+    for(var j=0;j<orgs.length;j++){
+      var b = orgs[j].badge;
+      var bucket = (b === 'left') ? 'left' : (b === 'right') ? 'right' : 'cross';
+      byFaction[bucket].push(orgs[j]);
+    }
+    byFaction.left.sort(function(a,b2){ return b2.trans - a.trans; });
+    byFaction.right.sort(function(a,b2){ return b2.trans - a.trans; });
+    byFaction.cross.sort(function(a,b2){ return b2.trans - a.trans; });
+    var order = ['left','right','cross'];
+    for(var k=0;k<order.length;k++){
+      var key = order[k];
+      var group = byFaction[key];
+      if(group.length === 0) continue;
+      html += '<div class="faction-group"><div class="faction-label '+key+'"><span class="faction-dot"></span>'+FACTION_LABELS[key]+'</div>';
+      for(var m=0;m<group.length;m++){ html += orgCardHtml(group[m]); }
+      html += '</div>';
+    }
+  } else {
+    orgs.sort(function(a,b){ return b.trans - a.trans; });
+    for(var n=0;n<orgs.length;n++){ html += orgCardHtml(orgs[n]); }
   }
-  document.getElementById('resultsContainer').innerHTML = html;
+  container.innerHTML = html;
 }
 
 function checkSubmissionBanner(){
@@ -388,14 +512,31 @@ function checkSubmissionBanner(){
   if(params.get('submitted') === '1'){
     document.getElementById('submitSuccessBanner').className = 'success-banner show';
     if(window.history && window.history.replaceState){
-      var cleanUrl = window.location.pathname;
-      window.history.replaceState({}, document.title, cleanUrl);
+      window.history.replaceState({}, document.title, window.location.pathname);
     }
   }
 }
 
-renderResults();
+buildScopeOptions();
+renderByScopeAndView();
 checkSubmissionBanner();
+
+document.getElementById('scopeSelect').addEventListener('change', function(e){
+  currentScope = e.target.value;
+  renderByScopeAndView();
+});
+
+var viewBtns = document.querySelectorAll('.view-btn');
+for(var vi=0;vi<viewBtns.length;vi++){
+  viewBtns[vi].addEventListener('click', function(e){
+    var old = document.querySelector('.view-btn.active');
+    if(old) old.classList.remove('active');
+    e.target.classList.add('active');
+    currentView = e.target.getAttribute('data-view');
+    renderByScopeAndView();
+  });
+}
+
 
 </script>
 </body>
