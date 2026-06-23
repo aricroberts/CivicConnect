@@ -314,7 +314,7 @@
       <img class="hero-logo" src="civil_rights_connector.png" alt="Civic Rights Connector logo">
       <div class="eyebrow">AricCivicLabs · Civic Participation &amp; Rights Access</div>
       <h1>Civic Rights Connector</h1>
-      <p class="subhead">Find organizations that can actually help with what you're dealing with — matched by situation, not a wall of logos.</p>
+      <p class="subhead">Find organizations that can actually help — matched by situation. Immigration enforcement, ICE detention, healthcare access, homelessness, police accountability, and benefit denials are all covered.</p>
     </div>
     <div class="rule"></div>
 
@@ -465,13 +465,26 @@
           <label for="sCategory">Which category fits best?</label>
           <select id="sCategory" name="category">
             <option value="">Not sure</option>
+            <optgroup label="Protection &amp; Liberty">
+              <option>Immigration status / detention</option>
+              <option>Unlawful detention / false imprisonment / ICE</option>
+              <option>Police accountability / law enforcement oversight</option>
+              <option>Privacy / surveillance</option>
+              <option>Education / student rights</option>
+              <option>Current military service / military-connected</option>
+              <option>Veterans' rights</option>
+            </optgroup>
+            <optgroup label="Health &amp; Safety Access">
+              <option>Healthcare costs / Medicaid / vaccine access</option>
+            </optgroup>
+            <optgroup label="Home &amp; Shelter">
+              <option>Housing, eviction, tenant rights</option>
+              <option>Homelessness / shelter access</option>
+            </optgroup>
             <optgroup label="Work &amp; Income">
               <option>Workplace discrimination or harassment</option>
               <option>Wage theft / labor rights</option>
               <option>Public benefits denial</option>
-            </optgroup>
-            <optgroup label="Home">
-              <option>Housing, eviction, tenant rights</option>
             </optgroup>
             <optgroup label="Voice &amp; Participation">
               <option>Voting access / election rights</option>
@@ -482,14 +495,6 @@
               <option>Reproductive rights</option>
               <option>Racial justice / police accountability</option>
               <option>Disability rights / accommodation</option>
-            </optgroup>
-            <optgroup label="Protection &amp; Access">
-              <option>Immigration status / detention</option>
-              <option>Privacy / surveillance</option>
-              <option>Education / student rights</option>
-              <option>Current military service / military-connected</option>
-              <option>Veterans' rights</option>
-              <option>Police accountability / law enforcement oversight</option>
             </optgroup>
             <optgroup label="Other pages">
               <option>Actively defending the Constitution</option>
@@ -535,11 +540,12 @@
 <script>
 
 var GROUPS = [
+  {id:'protection', label:'Protection &amp; Liberty'},
+  {id:'health', label:'Health &amp; Safety Access'},
+  {id:'home', label:'Home &amp; Shelter'},
   {id:'work', label:'Work &amp; Income'},
-  {id:'home', label:'Home'},
   {id:'voice', label:'Voice &amp; Participation'},
-  {id:'identity', label:'Identity &amp; Equal Treatment'},
-  {id:'protection', label:'Protection &amp; Access'}
+  {id:'identity', label:'Identity &amp; Equal Treatment'}
 ];
 
 var STATES = [
@@ -574,15 +580,32 @@ var GROUP_TIPS = {
   },
   home: {
     gather: [
-      'Your lease or rental agreement',
+      'Your lease or rental agreement, or any written proof of where you have been staying',
       'Every written notice from your landlord, including the envelope or message it arrived in',
       'Photos of any conditions in dispute, dated if possible',
-      'Records of rent payments and any repair requests you made in writing'
+      'Records of rent payments and any repair requests you made in writing',
+      'If you are unhoused: any official notices about encampment removals, citations, or property confiscations'
     ],
     know: [
       'Most areas require landlords to give written notice before any eviction, and "self-help" evictions — lockouts, shutting off utilities — are illegal almost everywhere.',
       'Don\'t move out before understanding your options. Leaving early can sometimes weaken your legal position, even in a bad situation.',
+      'Encampment sweeps and anti-camping enforcement are actively being litigated in federal courts. If your belongings were seized or destroyed, that may be actionable — contact a homelessness law organization.',
       'Free tenant legal aid exists in most states — it\'s worth a call even if you\'re not sure your situation "counts."'
+    ]
+  },
+  health: {
+    gather: [
+      'Your insurance card, Medicaid/Medicare number, or enrollment paperwork',
+      'Denial letters, Explanation of Benefits (EOB) statements, or coverage notices',
+      'Medical records, prescription information, or letters from your doctor if relevant',
+      'Any written communications with your insurer, Medicaid office, or state health agency',
+      'Dates and details of any vaccine access denial, program disenrollment, or coverage termination'
+    ],
+    know: [
+      'Coverage denials can almost always be appealed — in writing, within a specific window. Ask for the denial reason in writing and the deadline to appeal the decision.',
+      'Medicaid and CHIP have federal rules that states must follow. If your coverage was cut, reduced, or your enrollment was wrongly terminated, a legal advocate may be able to challenge it.',
+      'Federal vaccine programs, including the Vaccines for Children program, have legal protections on access. Changes to these programs must follow federal administrative law — legal challenges are possible.',
+      'Healthcare cost and benefit access issues often overlap with immigration status — the organizations here know how to navigate that intersection.'
     ]
   },
   voice: {
@@ -613,14 +636,17 @@ var GROUP_TIPS = {
   },
   protection: {
     gather: [
-      'Any relevant case, file, or claim numbers',
-      'Immigration paperwork or your A-number, if applicable',
+      'Any relevant case, file, or claim numbers — especially your immigration A-number if you or a family member is involved in an immigration case',
+      'The name of the detention facility, the date of arrest or detention, and any paperwork given at the time of detention',
+      'Name, badge number, and agency of any law enforcement officer involved in an encounter — including ICE, Border Patrol, or local police',
       'School records, IEP/504 paperwork, or disciplinary notices if education-related',
       'Military discharge paperwork (DD-214) if veterans-related'
     ],
     know: [
+      'If you or someone you know has been detained by ICE or is in an immigration detention facility, act the same day — immigration attorneys specifically triage emergency detention calls and can sometimes intervene quickly.',
+      'You have the right to remain silent with any law enforcement, including ICE. You do not have to answer questions about citizenship or immigration status. You have the right to speak to an attorney.',
+      'Deaths, serious injuries, or civil rights violations caused by law enforcement — including ICE — can be the basis for civil rights lawsuits, even when criminal charges are not filed. Document everything you can remember.',
       'These situations often involve a government agency with a formal appeal process and real deadlines — write down every date you\'re given, including ones told to you verbally.',
-      'Free or low-bono help exists for almost every category here — cost shouldn\'t be the reason you don\'t reach out.',
       'If a deadline is approaching fast, say so clearly and early when you contact an organization — many triage urgent cases differently.'
     ]
   }
@@ -650,22 +676,25 @@ function buildStateOptions(){
 }
 
 var CATEGORIES = [
+  {id:'immigration', label:'Immigration status / detention', icon:'ti-passport', group:'protection'},
+  {id:'detention', label:'Unlawful detention / false imprisonment / ICE', icon:'ti-lock', group:'protection'},
+  {id:'policing', label:'Police accountability / law enforcement oversight', icon:'ti-alert-octagon', group:'protection'},
+  {id:'privacy', label:'Privacy / surveillance', icon:'ti-eye-off', group:'protection'},
+  {id:'education', label:'Education / student rights', icon:'ti-school', group:'protection'},
+  {id:'military', label:'Current military service / military-connected', icon:'ti-shield', group:'protection'},
+  {id:'veterans', label:"Veterans' rights", icon:'ti-medal', group:'protection'},
+  {id:'healthcare', label:'Healthcare costs / Medicaid / vaccine access', icon:'ti-hospital', group:'health'},
+  {id:'housing', label:'Housing, eviction, tenant rights', icon:'ti-home', group:'home'},
+  {id:'homelessness', label:'Homelessness / shelter access', icon:'ti-tent', group:'home'},
   {id:'workplace', label:'Workplace discrimination or harassment', icon:'ti-briefcase', group:'work'},
   {id:'wages', label:'Wage theft / labor rights', icon:'ti-coin', group:'work'},
   {id:'benefits', label:'Public benefits denial', icon:'ti-file-invoice', group:'work'},
-  {id:'housing', label:'Housing, eviction, tenant rights', icon:'ti-home', group:'home'},
   {id:'voting', label:'Voting access / election rights', icon:'ti-checkbox', group:'voice'},
   {id:'speech', label:'Free speech / protest / assembly', icon:'ti-microphone-2', group:'voice'},
   {id:'lgbtq', label:'LGBTQ+ rights', icon:'ti-flag-3', group:'identity'},
   {id:'reproductive', label:'Reproductive rights', icon:'ti-stethoscope', group:'identity'},
   {id:'racial', label:'Racial justice / police accountability', icon:'ti-scale', group:'identity'},
-  {id:'disability', label:'Disability rights / accommodation', icon:'ti-accessible', group:'identity'},
-  {id:'immigration', label:'Immigration status / detention', icon:'ti-passport', group:'protection'},
-  {id:'privacy', label:'Privacy / surveillance', icon:'ti-eye-off', group:'protection'},
-  {id:'education', label:'Education / student rights', icon:'ti-school', group:'protection'},
-  {id:'military', label:'Current military service / military-connected', icon:'ti-shield', group:'protection'},
-  {id:'veterans', label:"Veterans' rights", icon:'ti-medal', group:'protection'},
-  {id:'policing', label:'Police accountability / law enforcement oversight', icon:'ti-alert-octagon', group:'protection'}
+  {id:'disability', label:'Disability rights / accommodation', icon:'ti-accessible', group:'identity'}
 ];
 
 var ORGS = [
@@ -691,54 +720,23 @@ var ORGS = [
   {id:'ourvote', name:'866-OUR-VOTE / Election Protection', cats:['voting'], type:'Hotline coalition', scope:'National', url:'https://866ourvote.org', desc:'Live hotline for voting problems on Election Day and during registration periods.', urg:['now','soon'], trans:4, note:'Stated function is genuinely nonpartisan voter-protection service, though individual coalition partners lean left.'},
   {id:'vote411', name:'Vote411', cats:['voting'], type:'Election info tool', scope:'National', url:'https://www.vote411.org', desc:'League of Women Voters tool for registration, polling place, ballot, and candidate information.', urg:['now','soon','plan'], trans:5, note:'Nonpartisan voter-information project from a civic organization.'},
   {id:'fairvote', name:'FairVote', cats:['voting'], type:'Election reform advocacy', scope:'National', url:'https://fairvote.org', desc:'Resources on ranked-choice voting, proportional representation, and election-system reform.', urg:['soon','plan'], trans:4, note:'Reform advocacy rather than emergency voter protection.'},
-  {id:'aaaj-voting', name:'Asian Americans Advancing Justice', cats:['voting','immigration','racial'], type:'Voting rights + legal aid', scope:'National', url:'https://www.advancingjustice-aajc.org', desc:'Voting rights advocacy, language access assistance, election protection, and civil-rights legal support for Asian American and Pacific Islander communities.', urg:['now','soon','plan'], trans:4, note:'Well-established AAPI civil rights organization with visible programs and legal capacity.'},
-  {id:'aaldef', name:'Asian American Legal Defense and Education Fund', cats:['voting','racial'], type:'Voting rights + election protection', scope:'National', url:'https://www.aaldef.org', desc:'Election protection, voting rights litigation, and language access advocacy for Asian American communities on Election Day and throughout the registration process.', urg:['now','soon'], trans:4, note:'Long-running AAPI legal organization with a clear civic mission.'},
-  {id:'apiavote', name:'APIAVote', cats:['voting','racial'], type:'Voter engagement', scope:'National', url:'https://www.apiavote.org', desc:'Voter registration, turnout, and multilingual voting resources for Asian American and Pacific Islander communities; coordinates with local civic groups.', urg:['now','soon','plan'], trans:4, note:'AAPI civic engagement organization; nonpartisan voter participation focus.'},
-  {id:'nativevote', name:'Native Vote', cats:['voting','racial'], type:'Voter engagement', scope:'National', url:'https://www.nativevote.org', desc:'Voter registration, turnout, and voter protection resources for Native American and Alaska Native communities facing unique geographic and jurisdictional barriers to voting.', urg:['now','soon','plan'], trans:4, note:'Focused on a population that faces some of the highest structural barriers to voting access.'},
-  {id:'narf-voting', name:'Native American Rights Fund', cats:['voting','racial'], type:'Voting rights litigation', scope:'National', url:'https://www.narf.org', desc:'Legal litigation to protect Native American voting rights, tribal sovereignty, and access to the ballot — has won landmark cases on voting access in Indian Country.', urg:['soon','plan'], trans:5, note:'Transparent, well-established Native rights litigation organization.'},
-  {id:'nul', name:'National Urban League', cats:['voting','racial'], type:'Civic engagement + advocacy', scope:'National', url:'https://nul.org', desc:'Civil rights and economic empowerment organization providing voter registration, civic education, and advocacy resources for Black communities nationwide.', urg:['now','soon','plan'], trans:5, note:'One of the oldest civil rights organizations in the US; strong accountability and track record.'},
-  {id:'bvm', name:'Black Voters Matter', cats:['voting','racial'], type:'Voter engagement + advocacy', scope:'National', url:'https://blackvotersmatterfund.org', desc:'Grassroots voter mobilization, civic engagement, and voter protection in Black communities, particularly in the South.', urg:['now','soon','plan'], trans:3, note:'Grassroots advocacy organization; left-leaning civic engagement focus.'},
-  {id:'mifamiliavota', name:'Mi Familia Vota', cats:['voting','racial'], type:'Voter engagement', scope:'National', url:'https://mifamiliavota.org', desc:'Voter registration and turnout operations for Latino, immigrant, and communities of color in key states including Arizona, Nevada, Texas, and Florida.', urg:['now','soon','plan'], trans:4, note:'Latino civic engagement organization with multi-state field operations.'},
-  {id:'votolatino', name:'Voto Latino', cats:['voting','racial'], type:'Voter registration + engagement', scope:'National', url:'https://votolatino.org', desc:'Technology-driven voter registration, civic education, and turnout resources for Latino communities; runs major registration campaigns nationally.', urg:['now','soon','plan'], trans:4, note:'National Latino voter engagement organization; left-leaning in practice.'},
-  {id:'svrep', name:'Southwest Voter Registration Education Project', cats:['voting','racial'], type:'Voter registration + education', scope:'National', url:'https://svrep.org', desc:'Oldest Latino voter registration and civic participation organization in the US; focuses on registration drives, education, and community power in underserved communities.', urg:['now','soon','plan'], trans:4, note:'Long-running Latino civic participation organization.'},
-  {id:'aai-voting', name:'Arab American Institute', cats:['voting','racial'], type:'Civic engagement', scope:'National', url:'https://www.aaiusa.org', desc:'Voter engagement, civic participation resources, and advocacy for Arab American communities facing barriers to political participation.', urg:['now','soon','plan'], trans:4, note:'Arab American civic participation organization with a clear mission.'},
-  {id:'lawyerscommittee-hub', name:'Lawyers\' Committee for Civil Rights Under Law', cats:['voting','racial'], type:'Legal aid + election protection', scope:'National', url:'https://www.lawyerscommittee.org', desc:'Runs the nonpartisan Election Protection hotline (866-OUR-VOTE) and provides civil-rights legal support on voting discrimination and racial equity.', urg:['now','soon','plan'], trans:4, note:'Major civil rights organization with bipartisan founding; runs the main US election protection hotline.'},
-  {id:'campaignlegal', name:'Campaign Legal Center', cats:['voting'], type:'Litigation + advocacy', scope:'National', url:'https://campaignlegal.org', desc:'Voting rights litigation, campaign finance law, redistricting, and election administration accountability — one of the most active voting-rights litigators.', urg:['soon','plan'], trans:4, note:'Nonpartisan stated mission; cross-ideological docket though litigation often reads left-center.'},
 
   {id:'nilc', name:'National Immigration Law Center', cats:['immigration'], type:'Advocacy', scope:'National', url:'https://www.nilc.org', desc:'Policy advocacy and legal resources on immigrant access to programs and protections.', urg:['now','soon','plan'], trans:4, note:'Left-of-center funding confirmed by independent review.'},
   {id:'aic', name:'American Immigration Council', cats:['immigration'], type:'Advocacy + legal aid', scope:'National', url:'https://www.americanimmigrationcouncil.org', desc:'Litigation, research, and legal resources on immigration enforcement and policy.', urg:['now','soon','plan'], trans:4, note:'Left-of-center funding (Ford, Open Society, Carnegie) confirmed.'},
   {id:'ilrc', name:'Immigrant Legal Resource Center', cats:['immigration'], type:'Training / legal aid', scope:'National', url:'https://www.ilrc.org', desc:'Know-your-rights guides and legal training for immigrants and the attorneys who serve them.', urg:['now','soon','plan'], trans:3, note:'Coalition-embedded with NILC and similar groups; less standalone funding data available.'},
   {id:'immigrationadvocates', name:'Immigration Advocates Network', cats:['immigration'], type:'Directory', scope:'National', url:'https://www.immigrationadvocates.org', desc:'Searchable directory of nonprofit immigration legal service providers by location and need.', urg:['now','soon','plan'], trans:5, note:'Directory project, not a single advocacy provider.'},
   {id:'firrp', name:'Florence Immigrant & Refugee Rights Project', cats:['immigration'], type:'Legal aid', scope:'State', states:['AZ'], url:'https://firrp.org', desc:'Free legal and social services for detained adults, children, and families in Arizona immigration proceedings.', urg:['now','soon','plan'], trans:4, note:'State-specific service provider with a clear direct-aid mission.'},
-  {id:'nijc', name:'National Immigrant Justice Center', cats:['immigration'], type:'Legal aid + detention', scope:'National', url:'https://www.immigrantjustice.org', desc:'Legal representation for immigrants in detention, deportation defense, and civil-rights violations during ICE enforcement.', urg:['now','soon','plan'], trans:4, note:'Long-running detention and deportation defense organization.'},
-  {id:'ijc', name:'Immigration Justice Campaign', cats:['immigration'], type:'Pro bono network', scope:'National', url:'https://www.immigrationjustice.us', desc:'Pro bono attorney network providing free legal representation for detained immigrants in removal proceedings.', urg:['now','soon'], trans:4, note:'Coordinates volunteer attorney representation for detained immigrants.'},
-  {id:'ffi', name:'Freedom for Immigrants', cats:['immigration'], type:'Detention hotline + support', scope:'National', url:'https://www.freedomforimmigrants.org', desc:'ICE detention hotline, visitation networks, and advocacy for people detained during immigration enforcement proceedings.', urg:['now','soon'], trans:4, note:'Direct detention support and advocacy.'},
-  {id:'dwn', name:'Detention Watch Network', cats:['immigration'], type:'Monitoring + advocacy', scope:'National', url:'https://www.detentionwatchnetwork.org', desc:'Monitors detention conditions, publishes reports on abuses, and connects people to local advocacy resources nationwide.', urg:['soon','plan'], trans:4, note:'Coalition-based detention monitoring and advocacy.'},
-  {id:'kind', name:'Kids in Need of Defense (KIND)', cats:['immigration'], type:'Legal aid for children', scope:'National', url:'https://supportkind.org', desc:'Free legal assistance for unaccompanied immigrant children facing removal proceedings — specializes in child immigration cases.', urg:['now','soon'], trans:5, note:'Clear mission; strong nonprofit governance profile.'},
-  {id:'ycicr', name:'Young Center for Immigrant Children\'s Rights', cats:['immigration'], type:'Child advocate', scope:'National', url:'https://www.theyoungcenter.org', desc:'Appoints trained child advocates to represent the best interests of unaccompanied immigrant children in legal proceedings.', urg:['now','soon'], trans:5, note:'Peer-reviewed child advocacy model with strong accountability.'},
-  {id:'hrf', name:'Human Rights First', cats:['immigration'], type:'Asylum + detention advocacy', scope:'National', url:'https://humanrightsfirst.org', desc:'Asylum and immigration detention advocacy, civil-rights documentation, and support for people seeking refuge from persecution.', urg:['soon','plan'], trans:4, note:'Nonpartisan stated mission; foundation funding consistent with human-rights work.'},
-  {id:'acacia', name:'Acacia Center for Justice', cats:['immigration'], type:'Legal defense network', scope:'National', url:'https://acaciacenter.org', desc:'Coordinates a national network of immigration legal defense programs providing legal orientation and representation for detained individuals.', urg:['now','soon'], trans:4, note:'Umbrella network for immigration legal defense programs.'},
-  {id:'maldef', name:'Mexican American Legal Defense and Educational Fund (MALDEF)', cats:['immigration','racial','voting'], type:'Civil rights litigation', scope:'National', url:'https://www.maldef.org', desc:'Civil-rights litigation on immigration enforcement, racial discrimination, voting access, and educational equity for Latino communities.', urg:['soon','plan'], trans:4, note:'Long-running civil rights organization with a consistent mission.'},
-  {id:'cair', name:'Council on American-Islamic Relations (CAIR)', cats:['immigration','racial'], type:'Civil rights + legal aid', scope:'National', url:'https://www.cair.com', desc:'Civil-rights complaints, legal referrals, and advocacy for Muslims and others facing discrimination, surveillance, hate crimes, or immigration enforcement.', urg:['now','soon','plan'], trans:3, note:'Watchdog reviews flag contested funding sources; direct civil-rights intake and legal services are well-documented.'},
-  {id:'immdef', name:'Immigrant Defenders Law Center (ImmDef)', cats:['immigration'], type:'Legal aid', scope:'Regional', states:['CA'], url:'https://www.immdef.org', desc:'Free legal representation for detained and non-detained immigrants in Southern California, including San Diego County deportation defense.', urg:['now','soon'], trans:4, note:'Well-established Southern California immigration legal defender.'},
-  {id:'pangea', name:'Pangea Legal Services', cats:['immigration'], type:'Legal aid', scope:'Regional', states:['CA'], url:'https://www.pangealegal.org', desc:'Deportation defense and detained-removal cases for immigrants in the Bay Area and Northern California.', urg:['now','soon'], trans:4, note:'Northern California immigration legal services.'},
-  {id:'ccij', name:'California Collaborative for Immigrant Justice', cats:['immigration'], type:'Detention visitation + advocacy', scope:'State', states:['CA'], url:'https://ccijustice.org', desc:'Detention visitation programs, legal access advocacy, and support for immigrants held in California detention facilities.', urg:['now','soon'], trans:4, note:'California-specific detention access and advocacy.'},
-  {id:'publiccounsel-imm', name:'Public Counsel Immigrants\' Rights Project', cats:['immigration'], type:'Free legal services', scope:'State', states:['CA'], url:'https://publiccounsel.org', desc:'Free immigration legal services in Southern California — family reunification, asylum, and deportation defense from a major public interest law firm.', urg:['now','soon','plan'], trans:5, note:'Major LA-area public interest law firm with strong accountability.'},
-  {id:'amica', name:'Amica Center for Immigrant Rights', cats:['immigration'], type:'Legal aid + detention', scope:'Regional', states:['DC','MD','VA'], url:'https://amicacenter.org', desc:'Legal orientation, bond hearings, and deportation defense for immigrants detained in DC, Maryland, and Virginia facilities.', urg:['now','soon'], trans:4, note:'DC-area detention defense organization.'},
-  {id:'pirc', name:'Pennsylvania Immigration Resource Center (PIRC)', cats:['immigration'], type:'Legal aid', scope:'State', states:['PA'], url:'https://pirclaw.org', desc:'Legal orientation, representation, and bond assistance for immigrants detained in Pennsylvania removal proceedings.', urg:['now','soon'], trans:4, note:'Pennsylvania-specific immigration legal defense.'},
-  {id:'rmian', name:'Rocky Mountain Immigrant Advocacy Network (RMIAN)', cats:['immigration'], type:'Legal aid', scope:'State', states:['CO'], url:'https://rmian.org', desc:'Legal representation for immigrants detained in Colorado, including bond hearings and deportation defense.', urg:['now','soon'], trans:4, note:'Colorado-specific immigration legal defense.'},
-  {id:'nwirp', name:'Northwest Immigrant Rights Project', cats:['immigration'], type:'Legal aid', scope:'State', states:['WA'], url:'https://www.nwirp.org', desc:'Full-spectrum immigration legal aid in Washington State — deportation defense, detained representation, and know-your-rights resources.', urg:['now','soon','plan'], trans:4, note:'Long-running Washington State immigration legal services organization.'},
+
+  {id:'nijc', name:'National Immigrant Justice Center', cats:['immigration','detention'], type:'Legal aid + litigation', scope:'National', url:'https://immigrantjustice.org', desc:'Free legal representation and litigation for immigrants in detention — ICE detention defense, deportation defense, and asylum representation. One of the largest immigration legal aid organizations in the U.S.', urg:['now','soon','plan'], trans:4, note:'Left-of-center funding profile consistent with immigration legal aid mission; strong track record on detention defense and civil rights litigation.'},
+  {id:'dwn', name:'Detention Watch Network', cats:['immigration','detention'], type:'Advocacy + legal support', scope:'National', url:'https://www.detentionwatchnetwork.org', desc:'National coalition documenting and challenging immigration detention abuses — ICE detention conditions, unlawful holds, due process violations, and deaths in custody.', urg:['now','soon'], trans:3, note:'Coalition organization focused on exposing immigration detention abuses; progressively funded and mission-consistent. Primarily advocacy/documentation rather than direct legal representation.'},
+  {id:'campaignzero', name:'Campaign Zero', cats:['policing','racial'], type:'Research + policy advocacy', scope:'National', url:'https://campaignzero.org', desc:'Data-driven research on police violence and accountability — tracks officer-involved shootings, contract provisions shielding officers, and policy gaps across departments nationwide. Useful for documenting patterns and understanding accountability mechanisms.', urg:['soon','plan'], trans:3, note:'Progressive racial-justice policy advocacy; tracks police killings and accountability gaps with accessible public data. Not a direct-service legal aid organization.'},
+  {id:'npap', name:'National Police Accountability Project (NPAP)', cats:['policing','racial','detention'], type:'Attorney referral + advocacy', scope:'National', url:'https://www.nlg-npap.org', desc:'Network of civil rights attorneys who handle police misconduct, excessive force, unlawful detention, and deaths in custody — affiliated with the National Lawyers Guild. Can provide referrals to attorneys in specific states.', urg:['now','soon'], trans:3, note:'Progressive attorney network affiliated with the NLG; case referrals for police misconduct and civil rights violations including wrongful death and false imprisonment claims.'},
+  {id:'nhelp', name:'National Health Law Program (NHeLP)', cats:['healthcare','benefits'], type:'Legal advocacy', scope:'National', url:'https://healthlaw.org', desc:'Legal advocacy on Medicaid, CHIP, healthcare access, and health equity for low-income individuals — including coverage denials, benefit cuts, and immigration-related healthcare access barriers. Active on vaccine program funding and access.', urg:['now','soon','plan'], trans:4, note:'Progressive healthcare-access legal advocacy; strong work on Medicaid access and coverage denials; left-of-center funding consistent with mission.'},
+  {id:'familiesusa', name:'Families USA', cats:['healthcare'], type:'Policy advocacy', scope:'National', url:'https://familiesusa.org', desc:'Healthcare consumer advocacy on coverage access, affordability, Medicaid expansion, and pharmaceutical pricing — including active work on the impact of federal cuts to health programs and vaccine funding.', urg:['soon','plan'], trans:4, note:'Progressive healthcare advocacy organization focused on ACA, Medicaid, and insurance access; left-of-center funding consistent with mission.'},
+  {id:'nhlc', name:'National Homelessness Law Center', cats:['homelessness','housing'], type:'Legal advocacy + litigation', scope:'National', url:'https://homelesslaw.org', desc:'Legal advocacy challenging the criminalization of homelessness — anti-camping laws, encampment sweeps, property confiscation, and denial of shelter access. Has litigated major cases including at the Supreme Court level.', urg:['now','soon','plan'], trans:4, note:'Progressive legal advocacy on homelessness rights; consistent left-of-center funding with mission; worked on landmark Supreme Court cases on shelter rights.'},
+  {id:'nch', name:'National Coalition for the Homeless', cats:['homelessness'], type:'Advocacy + directory', scope:'National', url:'https://nationalhomeless.org', desc:'Policy advocacy and directory of state and local resources for people experiencing homelessness — including rights guides, shelter navigation, and advocacy against encampment criminalization.', urg:['now','soon','plan'], trans:3, note:'Long-running homelessness advocacy organization; limited standalone financial transparency data available; mission-consistent progressive advocacy.'},
 
   {id:'ndrn', name:'National Disability Rights Network', cats:['disability'], type:'Federally-mandated network', scope:'National', url:'https://www.ndrn.org', desc:"Routes you to your state's federally mandated Protection and Advocacy office for direct legal help.", urg:['now','soon','plan'], trans:6, note:'Structurally accountable through federal mandate - cleanest transparency score in this dataset.'},
-  {id:'arc', name:'The Arc of the United States', cats:['disability'], type:'Advocacy + services', scope:'National', url:'https://thearc.org', desc:'Largest organization for people with intellectual and developmental disabilities; fights institutionalization and supports community living and self-determination.', urg:['soon','plan'], trans:5, note:'Long-running, transparent national disability advocacy organization.'},
-  {id:'tash-org', name:'TASH', cats:['disability'], type:'Advocacy', scope:'National', url:'https://tash.org', desc:'Advances inclusion and self-determination for people with the most significant disabilities; actively opposes segregation and institutionalization.', urg:['soon','plan'], trans:4, note:'Disability-inclusion advocacy consistent with anti-institutionalization mission.'},
-  {id:'cpr-disability', name:'Center for Public Representation', cats:['disability'], type:'Litigation', scope:'National', url:'https://www.centerforpublicrep.org', desc:'Litigation challenging unnecessary institutionalization and advancing community integration for people with disabilities under the Olmstead decision.', urg:['soon','plan'], trans:4, note:'Disability litigation organization with a clear anti-segregation mission.'},
-  {id:'bazelon', name:'Bazelon Center for Mental Health Law', cats:['disability'], type:'Advocacy + litigation', scope:'National', url:'https://bazelon.org', desc:'Mental disability rights litigation and policy work opposing forced institutionalization and guardianship, advancing community living and autonomy.', urg:['soon','plan'], trans:4, note:'Long-running mental health legal advocacy organization.'},
-  {id:'cdr', name:'Center for Disability Rights', cats:['disability'], type:'Independent living advocacy', scope:'National', url:'https://cdrnys.org', desc:'Advocates against nursing home placement, for community-based living options, and for personal autonomy and self-determination for people with disabilities.', urg:['soon','plan'], trans:4, note:'Disability rights organization focused on independent living and opposing institutionalization.'},
-  {id:'adapt-org', name:'ADAPT', cats:['disability'], type:'Direct action advocacy', scope:'National', url:'https://adapt.org', desc:'Grassroots disability rights organization with a history of opposing institutionalization and campaigning for community-based personal assistance services.', urg:['soon','plan'], trans:3, note:'Activist organization; verify current intake/service availability before routing urgent cases.'},
-  {id:'ncil', name:'National Council on Independent Living', cats:['disability'], type:'Policy advocacy', scope:'National', url:'https://www.ncil.org', desc:'Nationwide network of Independent Living Centers advocating for disability rights, community integration, and alternatives to institutional care.', urg:['soon','plan'], trans:5, note:'Federally recognized Independent Living network with transparent governance.'},
-  {id:'mindfreedom', name:'MindFreedom International', cats:['disability'], type:'Advocacy + peer support', scope:'National', url:'https://mindfreedom.org', desc:'Advocates against forced psychiatric treatment and coercive institutionalization; supports survivor-led alternatives to traditional psychiatric care.', urg:['soon','plan'], trans:3, note:'Psychiatric survivor advocacy organization; verify current activity before routing urgent cases.'},
-  {id:'natl-empowerment', name:'National Empowerment Center', cats:['disability'], type:'Peer support + recovery', scope:'National', url:'https://www.power2u.org', desc:'Peer-run alternatives to psychiatric hospitalization, recovery resources, and advocacy for person-directed mental health support without coercion.', urg:['soon','plan'], trans:4, note:'Peer-led mental health recovery organization focused on noncoercive alternatives to institutional care.'},
   {id:'dredf', name:'Disability Rights Education and Defense Fund', cats:['disability'], type:'Advocacy + legal aid', scope:'National', url:'https://dredf.org', desc:'Legal advocacy and policy work across employment, education, housing, and accessibility.', urg:['soon','plan'], trans:4, note:'Member of the left-progressive Leadership Conference coalition.'},
   {id:'jan', name:'Job Accommodation Network', cats:['disability','workplace'], type:'Government-funded guidance', scope:'National', url:'https://askjan.org', desc:'Practical accommodation ideas and ADA guidance for workers, employers, and service providers.', urg:['now','soon','plan'], trans:6, note:'Funded by the U.S. Department of Labor; not a litigation shop.'},
   {id:'ada', name:'ADA National Network', cats:['disability'], type:'Technical assistance', scope:'National', url:'https://adata.org', desc:'Regional ADA centers answering accessibility, accommodation, and disability-rights questions.', urg:['now','soon','plan'], trans:6, note:'Federally supported technical-assistance network.'},
@@ -746,14 +744,6 @@ var ORGS = [
   {id:'fire', name:'FIRE (Foundation for Individual Rights and Expression)', cats:['speech'], type:'Advocacy', scope:'National', url:'https://www.thefire.org', desc:'Free speech defense for students and, increasingly, the general public.', urg:['now','soon','plan'], trans:3, note:'Funded by Koch, Bradley, and Scaife foundations, but case docket reads more cross-ideological in practice than funding alone suggests. Verify domain before relying on this link.'},
   {id:'rcfp-main', name:'Reporters Committee for Freedom of the Press', cats:['speech','privacy'], type:'Legal hotline', scope:'National', url:'https://www.rcfp.org', desc:'Legal resources and emergency help for journalists facing press freedom, records, or newsgathering issues.', urg:['now','soon','plan'], trans:5, note:'Strong transparency and practical legal-help orientation.'},
   {id:'nlg', name:'National Lawyers Guild', cats:['speech','racial'], type:'Legal observer + referrals', scope:'National', url:'https://www.nlg.org', desc:'Legal observer programs and referrals for protests, policing, and movement-related civil liberties issues.', urg:['now','soon','plan'], trans:3, note:'Openly left movement-lawyering organization; useful for protest support.'},
-  {id:'snopes', name:'Snopes', cats:['speech'], type:'Fact-checking / media literacy', scope:'National', url:'https://www.snopes.com', desc:'Established fact-checking site covering viral claims, misinformation, political statements, and urban legends.', urg:['now','soon','plan'], trans:4, note:'One of the original and most widely cited independent fact-checking services.'},
-  {id:'factcheckorg', name:'FactCheck.org', cats:['speech'], type:'Fact-checking / media literacy', scope:'National', url:'https://www.factcheck.org', desc:'Nonpartisan political fact-checking on claims by candidates, officeholders, and political advertising; run by the Annenberg Public Policy Center.', urg:['now','soon','plan'], trans:5, note:'University-affiliated, nonpartisan political fact-checking since 2003.'},
-  {id:'politifact', name:'PolitiFact', cats:['speech'], type:'Fact-checking / media literacy', scope:'National', url:'https://www.politifact.com', desc:'Rates the accuracy of political claims using a Truth-O-Meter scale; covers statements by politicians, media figures, and advocacy organizations.', urg:['now','soon','plan'], trans:4, note:'Owned by Poynter Institute; IFCN signatory with publicly disclosed methodology.'},
-  {id:'reuters-fc', name:'Reuters Fact Check', cats:['speech'], type:'Fact-checking / media literacy', scope:'National', url:'https://www.reuters.com/fact-check', desc:'Verifies viral news stories, images, and political claims; covers domestic and international misinformation by a major global wire service.', urg:['now','soon','plan'], trans:5, note:'Part of Reuters News; editorially independent fact-checking with global reach.'},
-  {id:'ap-fc', name:'AP Fact Check', cats:['speech'], type:'Fact-checking / media literacy', scope:'National', url:'https://apnews.com/hub/ap-fact-check', desc:'Verifies political claims, viral stories, and misleading imagery from a global newswire covering domestic and international misinformation.', urg:['now','soon','plan'], trans:5, note:'Associated Press fact-checking; globally trusted wire service with broad reach.'},
-  {id:'fullfact', name:'Full Fact', cats:['speech'], type:'Fact-checking / media literacy', scope:'National', url:'https://fullfact.org', desc:'Independent UK-based fact-checker covering political claims and public health information; useful model for cross-national misinformation context.', urg:['now','soon','plan'], trans:5, note:'Independent charity with transparent funding and methodology; IFCN signatory.'},
-  {id:'mediabias', name:'Media Bias / Fact Check', cats:['speech','privacy'], type:'Source credibility ratings', scope:'National', url:'https://mediabiasfactcheck.com', desc:'Rates news sources and websites by factual reporting quality and political bias — useful for evaluating the credibility of news sources.', urg:['now','soon','plan'], trans:3, note:'Independent review site; methodology not always fully documented, but widely cited in media literacy contexts.'},
-  {id:'poynter', name:'Poynter Institute', cats:['speech'], type:'Journalism standards + fact-checking oversight', scope:'National', url:'https://www.poynter.org', desc:'Journalism ethics organization that manages the International Fact-Checking Network (IFCN) and publishes media literacy and press standards resources.', urg:['soon','plan'], trans:5, note:'Respected journalism standards body; manages global fact-checking network certification.'},
 
   {id:'aclu-wa', name:'ACLU of Washington', cats:['speech','voting'], type:'Advocacy', scope:'State', states:['WA'], url:'https://www.aclu-wa.org', desc:'State affiliate of the national ACLU, handling Washington-specific civil liberties litigation and advocacy.', urg:['now','soon','plan'], trans:4, note:'Confirmed state affiliate; shares the national ACLU\'s funding profile and mission.'},
   {id:'aclu-nh', name:'ACLU of New Hampshire', cats:['speech','voting'], type:'Advocacy', scope:'State', states:['NH'], url:'https://www.aclu-nh.org', desc:'State affiliate of the national ACLU, handling New Hampshire-specific civil liberties litigation and advocacy.', urg:['now','soon','plan'], trans:4, note:'Confirmed state affiliate; shares the national ACLU\'s funding profile and mission.'},
@@ -777,13 +767,6 @@ var ORGS = [
   {id:'benefitsgov', name:'Benefits.gov', cats:['benefits'], type:'Government tool', scope:'National', url:'https://www.benefits.gov', desc:'Official federal benefits eligibility screening tool.', urg:['now','soon','plan'], trans:6, note:'Federal government tool.'},
   {id:'cbpp', name:'Center on Budget and Policy Priorities', cats:['benefits'], type:'Policy research', scope:'National', url:'https://www.cbpp.org', desc:'Research and explainers on SNAP, Medicaid, tax credits, Social Security, and safety-net access.', urg:['soon','plan'], trans:4, note:'Left-of-center policy shop; good for understanding eligibility and policy context.'},
   {id:'justiceinaging', name:'Justice in Aging', cats:['benefits'], type:'Legal advocacy', scope:'National', url:'https://justiceinaging.org', desc:'Legal resources on Medicare, Medicaid, SSI, nursing facilities, and benefits for older adults.', urg:['soon','plan'], trans:4, note:'Specialized poverty-law advocacy for older adults.'},
-  {id:'feedingamerica', name:'Feeding America', cats:['benefits'], type:'Food bank network', scope:'National', url:'https://www.feedingamerica.org', desc:'Largest domestic hunger-relief organization — network of 200+ food banks and 60,000+ food pantries and meal programs nationwide; use their food bank locator to find local help.', urg:['now','soon','plan'], trans:5, note:'Well-established nonprofit with transparent financials; Charity Navigator four-star rating.'},
-  {id:'nokidhungry', name:'No Kid Hungry', cats:['benefits'], type:'Child hunger advocacy', scope:'National', url:'https://www.nokidhungry.org', desc:'Connects children to free meals programs, school breakfast, and summer food sites; provides grants to fight childhood hunger nationwide.', urg:['now','soon','plan'], trans:5, note:'Program of Share Our Strength; widely recognized and independently rated.'},
-  {id:'frac', name:'Food Research & Action Center (FRAC)', cats:['benefits'], type:'Policy + benefits access', scope:'National', url:'https://www.frac.org', desc:'Policy research and advocacy on SNAP, school meals, WIC, and anti-hunger programs; publishes guides on accessing federal nutrition benefits.', urg:['soon','plan'], trans:4, note:'Left-of-center policy organization with a consistent anti-hunger mission.'},
-  {id:'moawamerica', name:'Meals on Wheels America', cats:['benefits'], type:'Senior nutrition network', scope:'National', url:'https://www.mealsonwheelsamerica.org', desc:'Nationwide network of local Meals on Wheels programs delivering meals, safety checks, and social connection to homebound seniors.', urg:['now','soon','plan'], trans:5, note:'Federated nonprofit with transparent governance and strong track record.'},
-  {id:'benefitsdatatrust', name:'Benefits Data Trust', cats:['benefits'], type:'Benefits enrollment + outreach', scope:'National', url:'https://bdtrust.org', desc:'Helps individuals and families identify and enroll in government benefits they qualify for — including SNAP, Medicaid, CHIP, LIHEAP, and SSI.', urg:['now','soon','plan'], trans:4, note:'Data-driven benefits enrollment organization with multi-state programs.'},
-  {id:'usda-snap', name:'USDA SNAP Program', cats:['benefits'], type:'Government benefit', scope:'National', url:'https://www.fns.usda.gov/snap', desc:'Official federal Supplemental Nutrition Assistance Program (food stamps) — apply for benefits, check eligibility, and find your state\'s application portal.', urg:['now','soon','plan'], trans:6, note:'Federal government program.'},
-  {id:'whyhunger', name:'WhyHunger', cats:['benefits'], type:'Food access + community resources', scope:'National', url:'https://whyhunger.org', desc:'Food assistance directory, mutual aid network connections, and community food system resources — links people to local pantries, programs, and community gardens.', urg:['now','soon','plan'], trans:4, note:'Long-running hunger relief and community food access organization.'},
 
   {id:'eff', name:'Electronic Frontier Foundation', cats:['privacy'], type:'Advocacy', scope:'National', url:'https://www.eff.org', desc:'Digital rights litigation and advocacy on surveillance, encryption, and online speech.', urg:['soon','plan'], trans:4, note:'Funded substantially by tech companies (Google, Facebook) - an industry-funding question more than a partisan one.'},
   {id:'epic', name:'Electronic Privacy Information Center', cats:['privacy'], type:'Advocacy', scope:'National', url:'https://epic.org', desc:'Litigation and research on government and corporate data collection.', urg:['soon','plan'], trans:4, note:'States it takes no tech-industry funding (a real point in its favor); donor base otherwise leans left despite a nonpartisan self-description.'},
@@ -802,14 +785,6 @@ var ORGS = [
   {id:'nacvso', name:'National Association of County Veterans Service Officers (NACVSO)', cats:['veterans'], type:'Directory + accredited claims network', scope:'National', url:'https://www.nacvso.org', desc:'VA-accredited network of county-level Veterans Service Officers who help veterans and dependents prepare and file VA benefits claims at no charge.', urg:['now','soon','plan'], trans:5, note:'VA-recognized representative organization since 1993; member services are free to veterans.'},
 
   {id:'moaa', name:'Military Officers Association of America (MOAA)', cats:['military','veterans'], type:'Membership association + advocacy', scope:'National', url:'https://www.moaa.org', desc:'Membership organization offering benefits counseling, career-transition assistance, and advocacy for active-duty, retired, and former military officers and their families.', urg:['now','soon','plan'], trans:4, note:'Self-described independent and nonpartisan; funded mainly by membership dues, donations, and corporate sponsorships.'},
-  {id:'orders-project', name:'The Orders Project', cats:['military'], type:'Legal referral + counsel', scope:'National', url:'https://www.theordersproject.org', desc:'Connects service members with attorneys when they have questions about the legality of orders they\'ve been given — confidential, free legal consultation on military law.', urg:['now','soon'], trans:4, note:'Focused on military members questioning potentially unlawful orders; provides access to independent military law counsel.'},
-  {id:'mltf', name:'Military Law Task Force', cats:['military'], type:'Legal information + support', scope:'National', url:'https://www.nlg-mltf.org', desc:'Independent military law information, servicemember rights support, and referrals to attorneys on matters of military law, conscientious objection, and unlawful orders.', urg:['now','soon','plan'], trans:3, note:'Part of the National Lawyers Guild; openly left-aligned but provides substantive servicemember legal information.'},
-  {id:'gi-rights', name:'GI Rights Network', cats:['military'], type:'Counseling + hotline', scope:'National', url:'https://girightshotline.org', desc:'Hotline counseling for service members on rights, discharge options, conscientious objection, and concerns about unlawful orders or command misconduct.', urg:['now','soon'], trans:4, note:'Counseling-focused, not legal representation; provides information and referrals for servicemember rights questions.'},
-  {id:'mwp', name:'Military Whistleblower Project', cats:['military','veterans'], type:'Whistleblower support', scope:'National', url:'https://www.nlg-mltf.org/military-whistleblower-project', desc:'Supports service members and veterans filing protected disclosures about unlawful conduct, waste, fraud, abuse, and retaliation through official and protected channels.', urg:['now','soon','plan'], trans:3, note:'Operated under the National Lawyers Guild Military Law Task Force; provides guidance on whistleblower protections.'},
-  {id:'protect-defenders', name:'Protect Our Defenders', cats:['military'], type:'Advocacy + legal services', scope:'National', url:'https://www.protectourdefenders.com', desc:'The leading national organization for military sexual assault survivors — free legal services, constitutional due-process advocacy, and command accountability reform.', urg:['now','soon','plan'], trans:4, note:'Progressive gender-justice mission; direct legal services to survivors make it a practical resource alongside its advocacy role.'},
-  {id:'leapusa', name:'Law Enforcement Action Partnership (LEAP)', cats:['policing'], type:'Professional advocacy', scope:'National', url:'https://lawenforcementactionpartnership.org', desc:'Current and former law enforcement officers advocating for constitutional policing, ethical decision-making, and reform — supports officers who support accountability.', urg:['soon','plan'], trans:4, note:'Bipartisan stated mission; promotes reforms often associated with left-leaning policy positions.'},
-  {id:'npap', name:'National Police Accountability Project', cats:['policing','racial'], type:'Legal referrals + accountability', scope:'National', url:'https://www.nlg-npap.org', desc:'Connects people harmed by police misconduct to attorneys who handle civil-rights litigation; also supports officers facing retaliation for reporting misconduct.', urg:['now','soon'], trans:3, note:'Part of the National Lawyers Guild; openly left movement-law orientation.'},
-  {id:'govacct', name:'Government Accountability Project', cats:['military','policing'], type:'Whistleblower protection', scope:'National', url:'https://whistleblower.org', desc:'Legal support, policy advocacy, and referrals for government, military, and law enforcement whistleblowers facing retaliation for reporting misconduct or illegal conduct.', urg:['now','soon','plan'], trans:5, note:'Long-running nonpartisan whistleblower protection organization with strong transparency.'},
   {id:'militaryonesource', name:'Military OneSource', cats:['military'], type:'Government service', scope:'National', url:'https://www.militaryonesource.mil', desc:'Official 24/7 Department of Defense program offering confidential counseling, financial guidance, deployment support, and relocation help to active-duty, National Guard, and Reserve members and their families.', urg:['now','soon','plan'], trans:6, note:'Official Department of Defense program - federal government service.'},
   {id:'bluestarfamilies', name:'Blue Star Families', cats:['military'], type:'Nonprofit + advocacy', scope:'National', url:'https://bluestarfam.org', desc:'Nonprofit network connecting military and veteran families to community support, research-backed advocacy, and programs addressing spouse employment, caregiving, and deployment-related strain.', urg:['soon','plan'], trans:4, note:'501(c)(3) self-described nonpartisan organization; funded by philanthropic grants, corporate partners, and individual donors.'},
 
