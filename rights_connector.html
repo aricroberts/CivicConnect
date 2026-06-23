@@ -1202,9 +1202,28 @@ function renderStateResults(){
   var flagWrap = document.getElementById('urgencyFlagWrap');
   var container = document.getElementById('resultsContainer');
 
+  // ── National browse (empty stateVal = "National resources only") ──
   if(!stateVal){
-    flagWrap.innerHTML = '';
-    container.innerHTML = '<div class="no-results">Pick a state — or the Military / Veteran / Law Enforcement option — from the dropdown in step 3 first, then come back and browse. <label for="step-quiz" style="text-decoration:underline;cursor:pointer;">Go back and choose one</label></div>';
+    flagWrap.innerHTML = '<div class="urgency-flag plan"><i class="ti ti-world"></i> Showing every national organization across all categories.</div>';
+    var natHtml = '';
+    var natSeen = {};
+    for(var nc=0; nc<CATEGORIES.length; nc++){
+      var ncat = CATEGORIES[nc];
+      var nmatches = [];
+      for(var ni=0; ni<ORGS.length; ni++){
+        var no = ORGS[ni];
+        if(natSeen[no.id]) continue;
+        if(no.cats.indexOf(ncat.id) === -1) continue;
+        if(no.states && no.states.length) continue;
+        nmatches.push(no);
+      }
+      if(nmatches.length === 0) continue;
+      nmatches.sort(function(a,b){ return b.trans - a.trans; });
+      natHtml += '<div class="cat-group"><div class="cat-group-label">'+escapeHtml(ncat.label)+'</div>';
+      for(var nk=0; nk<nmatches.length; nk++){ natHtml += orgCardHtml(nmatches[nk]); natSeen[nmatches[nk].id] = true; }
+      natHtml += '</div>';
+    }
+    container.innerHTML = natHtml || '<div class="no-results">No organizations found yet.</div>';
     return;
   }
 
