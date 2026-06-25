@@ -104,6 +104,21 @@
   }
   .badge.left{color:var(--navy); border-color:rgba(31,58,92,0.35); background:rgba(31,58,92,0.07);}
   .badge.right{color:var(--brick); border-color:rgba(168,65,47,0.35); background:rgba(168,65,47,0.07);}
+  .badge.center{color:var(--gold); border-color:rgba(143,100,24,0.35); background:rgba(143,100,24,0.07);}
+  .faction-label.center{color:var(--gold);}
+  .faction-label.center .faction-dot{background:var(--gold);}
+
+  /* Media org chip indicators */
+  .media-chips{display:flex; gap:7px; flex-wrap:wrap; margin:8px 0 10px;}
+  .media-chip{
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:10.5px; font-family:'DM Mono',monospace; letter-spacing:0.02em;
+    border-radius:100px; padding:4px 10px; border:1px solid; white-space:nowrap;
+  }
+  .media-chip i{font-size:12px;}
+  .chip-green{color:var(--green); border-color:rgba(61,122,87,0.35); background:rgba(61,122,87,0.08);}
+  .chip-amber{color:var(--gold); border-color:rgba(143,100,24,0.35); background:rgba(143,100,24,0.08);}
+  .chip-brick{color:var(--brick); border-color:rgba(168,65,47,0.35); background:rgba(168,65,47,0.08);}
 
   .research-toggle{margin-top:12px;}
   .research-toggle input{position:absolute; opacity:0; pointer-events:none;}
@@ -136,6 +151,24 @@
     border:1px solid var(--border-d); background:var(--paper2); border-radius:100px; padding:7px 14px;
   }
   .suite-links-row a:hover{border-color:var(--green); color:var(--green);}
+
+  /* Category view */
+  .cat-group{margin-bottom:34px;}
+  .cat-header{
+    display:flex; align-items:center; gap:12px;
+    background:var(--paper2); border:1px solid var(--border-d); border-left:4px solid var(--navy);
+    border-radius:10px; padding:14px 18px; margin-bottom:16px;
+  }
+  .cat-header-icon{font-size:19px; color:var(--navy); flex-shrink:0;}
+  .cat-header-title{
+    font-family:'Libre Caslon Display', serif; font-size:16px;
+    font-weight:400; color:var(--ink); letter-spacing:-0.01em;
+  }
+  .cat-header-desc{font-size:12px; color:var(--ink3); margin-top:2px;}
+  .cat-header-count{
+    font-family:'DM Mono',monospace; font-size:11px; color:var(--ink3);
+    margin-left:auto; letter-spacing:0.03em; white-space:nowrap; flex-shrink:0;
+  }
 
   select{
     width:100%; background:var(--paper2); border:1px solid var(--border-d); border-radius:8px;
@@ -189,7 +222,7 @@
     background:var(--paper2); border:1px solid var(--border-d); border-radius:10px;
     padding:18px; margin:22px 0 26px;
   }
-  .scope-row{display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:end;}
+  .scope-row{display:grid; grid-template-columns:1fr 1fr auto; gap:14px; align-items:end;}
   .scope-group{display:flex; flex-direction:column; gap:6px;}
   .scope-label{
     display:flex; align-items:center; gap:6px;
@@ -253,15 +286,15 @@
     <div><strong>Thanks — your suggestion was submitted.</strong> Every submission is reviewed before anything is added to the site, so it won't appear immediately.</div>
   </div>
 
-  <div class="intro-note">
-    This topic has two distinct political traditions: <strong>left-leaning consumer advocacy</strong> (state PIRGs, antitrust groups, food cooperatives) and <strong>right-leaning free-market institutes</strong> that oppose corporate subsidies, regulatory capture, and "competitor's veto" laws that protect incumbents from local competition. Both are included. At the national level the loudest advocacy leans left. At the state level, free-market think tanks often challenge the same incumbent advantages — hospital certificate-of-need laws, occupational licensing barriers, corporate stadium subsidies — from a deregulation and property-rights angle. <strong>Current focus areas include:</strong> hospital and pharmaceutical consolidation driving healthcare cost spikes, private-equity acquisition of housing driving rent increases and displacement, corporate consolidation in food and agriculture squeezing family farmers and creating grocery deserts in communities corporate chains find unprofitable, and regulatory capture allowing large corporations to block smaller competitors and community businesses. Food cooperative advocacy organizations are primarily left-leaning at the national level; the right-leaning counterpart — deregulation and competition policy for agricultural markets — is represented by some state-level free-market institutes.
-  </div>
-
   <div class="scope-bar">
     <div class="scope-row">
       <div class="scope-group">
         <label class="scope-label"><i class="ti ti-map-pin"></i> Browse by scope</label>
         <select id="scopeSelect" class="scope-select"></select>
+      </div>
+      <div class="scope-group">
+        <label class="scope-label"><i class="ti ti-tag"></i> Filter by category</label>
+        <select id="catSelect" class="scope-select"></select>
       </div>
       <div class="scope-group">
         <label class="scope-label"><i class="ti ti-layout-columns"></i> View</label>
@@ -274,6 +307,10 @@
   </div>
 
   <div id="resultsContainer"></div>
+
+  <div class="intro-note">
+    This topic has two distinct political traditions: <strong>left-leaning consumer advocacy</strong> (state PIRGs, antitrust groups, food cooperatives) and <strong>right-leaning free-market institutes</strong> that oppose corporate subsidies, regulatory capture, and "competitor's veto" laws that protect incumbents from local competition. Both are included. At the national level the loudest advocacy leans left. At the state level, free-market think tanks often challenge the same incumbent advantages — hospital certificate-of-need laws, occupational licensing barriers, corporate stadium subsidies — from a deregulation and property-rights angle. <strong>Current focus areas include:</strong> hospital and pharmaceutical consolidation driving healthcare cost spikes, private-equity acquisition of housing driving rent increases and displacement, corporate consolidation in food and agriculture squeezing family farmers and creating grocery deserts in communities corporate chains find unprofitable, and regulatory capture allowing large corporations to block smaller competitors and community businesses. Food cooperative advocacy organizations are primarily left-leaning at the national level; the right-leaning counterpart — deregulation and competition policy for agricultural markets — is represented by some state-level free-market institutes. <strong>Also covered here: independent news media.</strong> Corporate acquisition of local news — through hedge fund and private equity buyouts of family-owned newspapers — is itself a communities-before-shareholders story. This page includes verified non-corporate, independently owned news organizations annotated with three icon indicators for each outlet: <i class="ti ti-scale" style="color:var(--green);font-size:13px;vertical-align:-1px;"></i> <strong>editorial independence</strong>, <i class="ti ti-eye" style="color:var(--green);font-size:13px;vertical-align:-1px;"></i> <strong>funding transparency</strong>, and <i class="ti ti-lock-open" style="color:var(--green);font-size:13px;vertical-align:-1px;"></i> <strong>cost of access</strong> — with green/amber/brick indicating high / partial / limited on each dimension.
+  </div>
 
   <a class="crosslink" href="rights_connector_constitution.html">
     <div class="title"><i class="ti ti-gavel"></i> Looking for organizations on constitutional defense instead?</div>
@@ -367,11 +404,48 @@ var STATES = [
   {code:'WI',name:'Wisconsin'},{code:'WY',name:'Wyoming'}
 ];
 
-var FACTION_LABELS = {left:'Left-leaning', right:'Right-leaning'};
-var BADGE_LABELS = {left:'Left-leaning', right:'Right-leaning'};
+var FACTION_LABELS = {left:'Left-leaning', right:'Right-leaning', center:'Independent / Nonpartisan'};
+var BADGE_LABELS = {left:'Left-leaning', right:'Right-leaning', center:'Independent / Nonpartisan'};
 
 var currentScope = 'national';
 var currentView = 'faction';
+var currentCat = 'all';
+
+var CAT_MAP = {
+  'ncg':'food','fci':'food','ncbaclusa':'food','nfu':'food','heal-food':'food','usfwc':'food',
+  'ilsr':'antitrust','aelp':'antitrust','omi':'antitrust','roosevelt':'antitrust','groundwork':'antitrust','americancompass':'antitrust',
+  'publiccitizen':'consumer','consumerfed':'consumer','communitycatalyst':'consumer',
+  'nfib':'consumer','jobcreators':'consumer','atr':'consumer',
+  'competitiveenterprise':'consumer','mercatus':'consumer','heritage':'consumer','rstreet':'consumer'
+};
+var CAT_LABELS = {
+  news:        'Independent News Media',
+  antitrust:   'Antitrust & Corporate Power',
+  consumer:    'Consumer & Market Advocacy',
+  food:        'Food Systems & Cooperative Economy',
+  pirg:        'State Consumer Advocacy',
+  statepolicy: 'State Free-Market Policy Institutes',
+  military:    'Military & Veteran Economic Issues'
+};
+var CAT_ICONS = {
+  news:        'ti-news',
+  antitrust:   'ti-building',
+  consumer:    'ti-users',
+  food:        'ti-basket',
+  pirg:        'ti-map-pin',
+  statepolicy: 'ti-building-bank',
+  military:    'ti-shield'
+};
+var CAT_DESC = {
+  news:        'Non-corporate, independently owned and operated news organizations',
+  antitrust:   'Focused on monopoly power, market concentration, and corporate consolidation',
+  consumer:    'Broad market accountability, financial protection, and competition policy',
+  food:        'Cooperative food systems, family farming, and food sovereignty',
+  pirg:        'State-level consumer watchdogs across the PIRG network',
+  statepolicy: 'State-level free-market institutes challenging incumbent-protecting regulation',
+  military:    'Economic advocacy for veterans, service members, and military families'
+};
+var CAT_ORDER = ['news','antitrust','consumer','food','pirg','statepolicy','military'];
 
 var ORGS = [
   // ── NATIONAL ────────────────────────────────────────────────
@@ -469,7 +543,43 @@ var ORGS = [
   {id:'sutherland-ut', name:'Sutherland Institute', badge:'right', type:'Policy + advocacy', scope:'State', states:['UT'], url:'https://www.sutherlandinstitute.org', desc:'Utah policy institute arguing for regulatory reform, occupational licensing reduction, and free-market approaches that reduce incumbent corporations\' structural advantages over Utah workers and community businesses.', trans:3, note:'Conservative/free-market orientation; SPN affiliate.'},
   {id:'tji-va', name:'Thomas Jefferson Institute for Public Policy', badge:'right', type:'Think tank', scope:'State', states:['VA'], url:'https://www.thomasjeffersoninst.org', desc:'Virginia free-market policy institute focused on deregulation, competition, and reducing corporate welfare that channels political favoritism toward large incumbents at the expense of Virginia workers and communities.', trans:3, note:'Conservative/libertarian orientation; SPN affiliate.'},
   {id:'cardinal-wv', name:'Cardinal Institute for West Virginia Policy', badge:'right', type:'Think tank', scope:'State', states:['WV'], url:'https://cardinalinstitute.com', desc:'West Virginia free-market think tank arguing that economic freedom, property rights, and reduced occupational licensing barriers enable local entrepreneurs to compete with incumbent corporate interests — central to its vision of a "West Virginia Miracle."', trans:3, note:'Conservative/libertarian orientation; SPN affiliate; Charleston-based.'},
-  {id:'wlg-wy', name:'Wyoming Liberty Group', badge:'right', type:'Policy + advocacy', scope:'State', states:['WY'], url:'https://wyliberty.org', desc:'Wyoming free-market research organization focused on reducing regulatory burdens and government intervention that creates uneven competition between large incumbent corporations and the local entrepreneurs and workers who form Wyoming\'s economic foundation.', trans:3, note:'Conservative/libertarian orientation; SPN affiliate.'}
+  {id:'wlg-wy', name:'Wyoming Liberty Group', badge:'right', type:'Policy + advocacy', scope:'State', states:['WY'], url:'https://wyliberty.org', desc:'Wyoming free-market research organization focused on reducing regulatory burdens and government intervention that creates uneven competition between large incumbent corporations and the local entrepreneurs and workers who form Wyoming\'s economic foundation.', trans:3, note:'Conservative/libertarian orientation; SPN affiliate.'},
+
+  // ── NATIONAL — Independent news media (nonpartisan) ─────────
+  // Icon chips: editorial independence · funding transparency · cost of access
+  // chip-green = high/fully disclosed/free · chip-amber = partial/mixed · chip-brick = limited/opaque/paid
+
+  {id:'propublica', name:'ProPublica', badge:'center', type:'Nonprofit investigative journalism', scope:'National', url:'https://www.propublica.org', desc:'Pulitzer Prize–winning nonprofit investigative newsroom covering government, business, and corporate accountability. Free to all readers; content published under Creative Commons license for redistribution. One of the most-cited independent investigative operations in the U.S., with reporters tracking corporate malfeasance, environmental harm, and regulatory capture across industries.', trans:5, note:'501(c)(3) nonprofit; publishes full major-donor list annually; funded by foundations including MacArthur, Ford, and Sandler. Form 990 publicly available. Editorial decisions made independently of funders by institutional design.', newsOrg:true, objectivity:1, funding_clarity:1, access:'free'},
+  {id:'marshallproject', name:'The Marshall Project', badge:'center', type:'Nonprofit investigative journalism', scope:'National', url:'https://www.themarshallproject.org', desc:'Nonpartisan nonprofit newsroom covering criminal justice, incarceration, and the U.S. prison system. Partners with 140+ local and national news outlets, making all content freely available for redistribution. Covers private prison corporate management, bail industry lobbying, and how mass incarceration shapes community economic life.', trans:5, note:'501(c)(3) nonprofit; publishes annual report and full funder list; foundation-funded (Knight, Arnold, MacArthur). National Press Foundation award winner. Explicitly nonpartisan editorial charter.', newsOrg:true, objectivity:1, funding_clarity:1, access:'free'},
+  {id:'themarkup', name:'The Markup', badge:'center', type:'Nonprofit data journalism', scope:'National', url:'https://themarkup.org', desc:'Data-driven nonprofit newsroom holding technology accountable for how algorithms and digital platforms affect people and communities. Investigates how tech corporations shape housing, credit access, healthcare delivery, and information. Publishes underlying code and datasets alongside each story; free to all.', trans:5, note:'501(c)(3) nonprofit; funded by Craig Newmark Philanthropies and other foundations; publishes funder information publicly. One of the few newsrooms that releases full datasets for independent verification of every investigation.', newsOrg:true, objectivity:1, funding_clarity:1, access:'free'},
+  {id:'muckrock', name:'MuckRock', badge:'center', type:'Nonprofit FOIA journalism', scope:'National', url:'https://www.muckrock.com', desc:'Nonprofit journalism platform that has filed more than 100,000 public records requests, making government transparency accessible to reporters, researchers, and everyday citizens. Free basic tools; fee-based for high-volume filers. Publishes all resulting documents publicly — a structural resource for holding government contractors and agencies accountable.', trans:4, note:'Nonprofit newsroom; foundation and member funded. Journalism output is verifiable through government document release. Organizational financial detail is limited in public disclosure.', newsOrg:true, objectivity:1, funding_clarity:2, access:'mixed'},
+  {id:'fern', name:'Food & Environment Reporting Network', badge:'center', type:'Nonprofit investigative journalism', scope:'National', url:'https://thefern.org', desc:'Nonprofit investigative newsroom covering food systems, agriculture, and environmental health — territory that commercial media consistently underfunds. Partners with major outlets (New York Times, The Guardian, NPR) and makes all content freely available. Covers corporate consolidation in agriculture, factory farming\'s community health impact, and agribusiness capture of federal food policy.', trans:4, note:'501(c)(3) nonprofit; publishes funder list; foundation-funded (Pew, Wellspring). Established journalism partnerships reinforce editorial independence. Founded 2012.', newsOrg:true, objectivity:1, funding_clarity:1, access:'free'},
+  {id:'revealnews', name:'Reveal / Center for Investigative Reporting', badge:'center', type:'Nonprofit investigative journalism', scope:'National', url:'https://revealnews.org', desc:'The oldest nonprofit investigative newsroom in the U.S. (founded 1977) — producing audio journalism, podcasts, and written investigations on corporate accountability, civil rights, labor, and government transparency. Content freely redistributable; investigative reporting published through public radio partners nationwide. Past investigations have exposed corporate wage theft, toxic workplace cover-ups, and regulatory failure.', trans:4, note:'501(c)(3) nonprofit; files Form 990; funded by foundations (Ford, Knight, MacArthur). Multi-platform editorial operation; journalism mission continues following internal restructuring.', newsOrg:true, objectivity:1, funding_clarity:1, access:'mixed'},
+  {id:'insideclimatenews', name:'Inside Climate News', badge:'center', type:'Nonprofit investigative journalism', scope:'National', url:'https://insideclimatenews.org', desc:'Pulitzer Prize–winning nonprofit newsroom investigating climate change, fossil fuel industry practices, and corporate and political forces shaping environmental policy. Founded 2007; broke the landmark investigation revealing ExxonMobil\'s internal climate research alongside decades of public denial. Covers fossil fuel lobbying, community health impacts of extraction, and regulatory capture at state and federal levels.', trans:4, note:'501(c)(3) nonprofit; publishes list of major funders; foundation-funded. Pulitzer Prize for National Reporting (2013). Funder list published on website. Science-driven journalism on a contested policy topic.', newsOrg:true, objectivity:1, funding_clarity:1, access:'free'},
+
+  // ── NATIONAL — Independent news media (left-leaning) ────────
+  {id:'democracynow', name:'Democracy Now!', badge:'left', type:'Nonprofit independent media', scope:'National', url:'https://www.democracynow.org', desc:'Daily independent news program broadcast since 1996 on 1,500+ radio and TV stations globally. Covers labor rights, corporate accountability, civil rights, environmental justice, and U.S. foreign policy. Accepts no corporate advertising, no government funding, and no corporate underwriting — entirely listener and viewer supported. Free to stream, download, and redistribute.', trans:4, note:'Produced by DCTV Inc (nonprofit); listener/viewer funded with no corporate advertising or government grants. Clear left/progressive editorial orientation. Founded by Amy Goodman; long track record of independent production.', newsOrg:true, objectivity:2, funding_clarity:2, access:'free'},
+  {id:'motherjones', name:'Mother Jones', badge:'left', type:'Nonprofit investigative journalism', scope:'National', url:'https://www.motherjones.com', desc:'Nonprofit investigative news organization covering politics, corporate accountability, civil liberties, and environmental policy since 1976. Has broken major stories on corporate power — private prison lobbying, tobacco industry internal documents, private equity workforce practices. Funded by reader donations and foundations; accepts no advertising from political or industry interests.', trans:4, note:'Published by Foundation for National Progress (501(c)(3)); files Form 990; mix of foundation and reader funding. Progressive orientation is explicit rather than obscured. Pulitzer finalist; National Magazine Award winner.', newsOrg:true, objectivity:2, funding_clarity:2, access:'mixed'},
+  {id:'theintercept', name:'The Intercept', badge:'left', type:'Independent investigative journalism', scope:'National', url:'https://theintercept.com', desc:'Independent investigative publication covering national security, surveillance, corporate power, and political accountability. Founded in 2014 with NSA documents; has since expanded to cover immigration enforcement, pharmaceutical industry lobbying, and financial industry abuses. Not owned by a corporate media conglomerate — published by First Look Media.', trans:4, note:'Published by First Look Media, a nonprofit funded primarily by eBay founder Pierre Omidyar — a significant funder who should be noted. Progressive/left editorial orientation. Editorial independence stated and generally practiced, though proximity to a single major funder warrants disclosure.', newsOrg:true, objectivity:2, funding_clarity:2, access:'free'},
+  {id:'capitalandmain', name:'Capital & Main', badge:'left', type:'Nonprofit investigative journalism', scope:'National', url:'https://capitalandmain.com', desc:'Nonprofit newsroom specializing in investigative reporting on economic inequality, labor rights, corporate consolidation, and environmental justice. Covers private equity acquisition of housing and healthcare, worker organizing, and the political economy of wealth concentration. Free to all; content licensed for redistribution. Particularly strong on corporate power and California economic policy.', trans:4, note:'501(c)(3) nonprofit; publishes donor/funder acknowledgments; foundation funded. Progressive orientation is consistent with its stated mission. Founded 2013.', newsOrg:true, objectivity:2, funding_clarity:1, access:'free'},
+  {id:'thenation', name:'The Nation', badge:'left', type:'Independent political magazine', scope:'National', url:'https://www.thenation.com', desc:'America\'s oldest continuously published weekly magazine (founded 1865), covering politics, labor, civil rights, and economic justice for 160 years. Independently owned — not part of a corporate media conglomerate. Has covered corporate consolidation, Wall Street\'s capture of democratic institutions, and the political economy of inequality since before those terms were political rhetoric.', trans:3, note:'Independently published by The Nation Company; not a nonprofit; limited formal financial disclosure as a private company. Progressive orientation explicit and longstanding. Reader/subscriber funded with some advertising.', newsOrg:true, objectivity:2, funding_clarity:2, access:'mixed'},
+  {id:'inthesetimes', name:'In These Times', badge:'left', type:'Nonprofit independent media', scope:'National', url:'https://inthesetimes.com', desc:'Independent magazine covering labor, democracy, and social justice since 1976. Published by the Institute for Public Affairs (501(c)(3)); focused on workers, unions, and economic power. Covers corporate wage theft, union-busting campaigns, and community economic displacement — among the most undercovered beats in mainstream media. No corporate advertising.', trans:3, note:'Published by Institute for Public Affairs (501(c)(3)); files Form 990; reader and foundation funded. Explicitly labor/worker-oriented editorial stance. Chicago-based; founded 1976 with broad labor movement support.', newsOrg:true, objectivity:2, funding_clarity:2, access:'mixed'},
+  {id:'thelever', name:'The Lever', badge:'left', type:'Independent investigative journalism', scope:'National', url:'https://www.levernews.com', desc:'Investigative outlet founded by journalist David Sirota focused on corporate lobbying, political corruption, pharmaceutical pricing, and the revolving door between government and industry. Covers how corporate money shapes legislation at the expense of workers and communities. Free newsletters with some subscriber-only content.', trans:3, note:'Public benefit corporation (not a 501(c)(3)); subscriber-funded. Clear progressive/left editorial orientation. Founded 2022; growing subscriber base. Less formal financial disclosure than established nonprofits, but organizational structure is publicly stated.', newsOrg:true, objectivity:2, funding_clarity:2, access:'mixed'},
+  {id:'truthout', name:'Truthout', badge:'left', type:'Nonprofit independent media', scope:'National', url:'https://truthout.org', desc:'Nonprofit reader-funded news and commentary covering politics, social justice, and environmental policy since 2001. Accepts no corporate advertising or government funding; sustained entirely by reader donations. Covers union organizing, corporate malfeasance, immigration enforcement, and the social costs of economic inequality.', trans:3, note:'501(c)(3) nonprofit; reader-funded with no corporate advertising. Form 990 available but donor breakdown is limited. Progressive orientation is explicit. Founded 2001.', newsOrg:true, objectivity:2, funding_clarity:2, access:'free'},
+
+  // ── NATIONAL — Independent news media (right-leaning) ───────
+  {id:'americanconservative', name:'The American Conservative', badge:'right', type:'Independent political magazine', scope:'National', url:'https://www.theamericanconservative.com', desc:'Independent conservative magazine (founded 2002) that critiques neoconservatism, corporate globalism, and Wall Street capitalism from a traditionalist right perspective. Has consistently opposed corporate consolidation, financialization, and shareholder primacy — arguing these represent a betrayal of genuine conservatism and of community economic life. Not owned by a corporate media conglomerate.', trans:3, note:'Independent magazine; traditional/paleoconservative orientation explicitly distinct from libertarian or corporate-Republican alignment. Private company; limited formal financial disclosure. Founded by Patrick Buchanan and Scott McConnell.', newsOrg:true, objectivity:2, funding_clarity:2, access:'mixed'},
+  {id:'thedispatch', name:'The Dispatch', badge:'right', type:'Independent journalism', scope:'National', url:'https://thedispatch.com', desc:'Independent center-right journalism organization founded in 2019 by former Weekly Standard editors and writers. Subscriber-funded with no corporate ownership or external investors dictating editorial direction. Known for fact-based reporting on politics, foreign policy, and civic life from a principled center-right perspective. Maintains an explicit commitment to accuracy over partisan narrative.', trans:4, note:'Private company; subscriber-funded; no corporate ownership or outside investor control. Center-right orientation; explicitly non-MAGA conservative. Subscriber base drives revenue; financials as a private company not publicly disclosed.', newsOrg:true, objectivity:1, funding_clarity:2, access:'mixed'},
+  {id:'thebulwark', name:'The Bulwark', badge:'right', type:'Independent journalism', scope:'National', url:'https://thebulwark.com', desc:'Independent center-right media organization covering politics with a focus on democratic institutions and civic norms. Founded by former conservative magazine editors and journalists. Subscriber and reader-funded; no corporate ownership. Covers foreign policy, democratic accountability, and civic life from an anti-authoritarian conservative perspective.', trans:3, note:'Organized under Bullworks Media; subscriber-funded; no corporate media ownership. Center-right/anti-Trump conservative orientation. Limited formal financial disclosure as a private company. Founded 2019.', newsOrg:true, objectivity:1, funding_clarity:2, access:'mixed'},
+  {id:'reason', name:'Reason', badge:'right', type:'Nonprofit libertarian journalism', scope:'National', url:'https://reason.com', desc:'Libertarian magazine published since 1968 covering economic freedom, civil liberties, deregulation, and limited government. Published by the Reason Foundation (501(c)(3)). Not corporate-owned; argues against government-granted monopolies, regulatory capture, and corporate welfare from a market-competition angle. Free to read online.', trans:4, note:'Published by Reason Foundation (501(c)(3)); files Form 990; historically funded by Koch network foundations — an important disclosure for users assessing coverage of corporate concentration issues specifically. Libertarian orientation is explicit.', newsOrg:true, objectivity:2, funding_clarity:2, access:'free'},
+  {id:'nationalreview', name:'National Review', badge:'right', type:'Independent conservative magazine', scope:'National', url:'https://www.nationalreview.com', desc:'America\'s oldest conservative magazine (founded 1955 by William F. Buckley Jr.), independently published and not part of a corporate media conglomerate. Covers politics, economics, culture, and foreign policy from a traditional conservative perspective. Has published ongoing internal debates on shareholder capitalism, financialization, and the role of markets in community stability — representing the more intellectually diverse strain of conservatism.', trans:3, note:'Independently published magazine; private company; limited formal financial disclosure beyond subscription and advertising revenue. National Review Institute (affiliated nonprofit) files Form 990 separately. Traditional conservative orientation.', newsOrg:true, objectivity:2, funding_clarity:2, access:'mixed'},
+
+  // ── STATE — Independent nonprofit news outlets ───────────────
+  {id:'texastribune', name:'Texas Tribune', badge:'center', type:'Nonprofit state journalism', scope:'State', states:['TX'], url:'https://www.texastribune.org', desc:'Award-winning nonprofit, nonpartisan news organization covering Texas politics and public policy — fully free to read, with content licensed for redistribution by any newsroom. Founded 2009; widely considered one of the most successful state-level nonprofit news models in the U.S. Covers corporate lobbying of the Texas legislature, utility deregulation failures, and the intersection of the oil and gas industry with public policy.', trans:5, note:'501(c)(3) nonprofit; publishes detailed annual donor/sponsor list including corporate sponsors (with a stated editorial firewall); funded by foundations, individual members, and journalism events. Explicitly nonpartisan charter. Multiple journalism awards; Pulitzer finalist.', newsOrg:true, objectivity:1, funding_clarity:1, access:'free'},
+  {id:'calmatters', name:'CalMatters', badge:'center', type:'Nonprofit state journalism', scope:'State', states:['CA'], url:'https://calmatters.org', desc:'California nonprofit newsroom covering state politics, policy, and public affairs — free to all readers and licensed for redistribution to local California newsrooms. Covers corporate lobbying of the state legislature, housing and rent policy, healthcare consolidation, and the political economy of California\'s major industries. Founded 2015; now a major source of California accountability journalism.', trans:5, note:'501(c)(3) nonprofit; publishes detailed donor list; foundation and reader funded. Explicitly nonpartisan; supported by foundations across the political spectrum. Content distribution partnership with California local outlets statewide.', newsOrg:true, objectivity:1, funding_clarity:1, access:'free'},
+  {id:'spotlightpa', name:'Spotlight PA', badge:'center', type:'Nonprofit state journalism', scope:'State', states:['PA'], url:'https://www.spotlightpa.org', desc:'Nonprofit newsroom covering Pennsylvania state government and accountability journalism, distributed through 90+ local news partners at no cost. Investigates the Pennsylvania legislature, corporate lobbying, and public institutions — filling the accountability journalism gap left by the collapse of legacy statehouse coverage following corporate consolidation of Pennsylvania news. Free to all readers.', trans:5, note:'501(c)(3) nonprofit; publishes detailed funder list; funded by foundations (Lenfest, Knight) and individual members. Explicit editorial independence charter. Distributed through PA Local News Network. Founded 2019.', newsOrg:true, objectivity:1, funding_clarity:1, access:'free'},
+  {id:'bridgemi', name:'Bridge Michigan', badge:'center', type:'Nonprofit state journalism', scope:'State', states:['MI'], url:'https://www.bridgemi.com', desc:'Michigan nonprofit newsroom covering state policy, politics, health, education, and environment since 2009. Free to all readers; content available for republication by partner newsrooms. Investigates Michigan\'s auto and petrochemical industry lobbying, environmental enforcement failures, and school funding equity. One of the older and more established state-level nonprofit news operations in the country.', trans:4, note:'Published by the Center for Michigan (501(c)(3)); files Form 990; foundation-funded (Kresge, Knight). Explicitly nonpartisan editorial mission. Founded 2009.', newsOrg:true, objectivity:1, funding_clarity:1, access:'free'},
+  {id:'ctmirror', name:'Connecticut Mirror', badge:'center', type:'Nonprofit state journalism', scope:'State', states:['CT'], url:'https://ctmirror.org', desc:'Nonprofit newsroom covering Connecticut state government, policy, and public affairs since 2010. Free to all readers; foundation and reader funded. Covers healthcare policy, corporate tax policy, housing, and legislative accountability. A model of the new nonprofit local accountability journalism filling gaps created by corporate newsroom consolidation in Connecticut.', trans:4, note:'501(c)(3) nonprofit; files Form 990; foundation-funded (Hartford, Westport community foundations). Explicitly nonpartisan; covers both parties\' governance. Founded 2010.', newsOrg:true, objectivity:1, funding_clarity:1, access:'free'}
 ];
 
 function escapeHtml(str){
@@ -483,6 +593,50 @@ function badgeHtmlFor(org){
   return '<span class="badge '+org.badge+'">'+BADGE_LABELS[org.badge]+'</span>';
 }
 
+function mediaChipsHtml(org) {
+  var OBJ_CONFIG = [
+    null,
+    {cls:'chip-green', icon:'ti-scale', label:'High editorial independence'},
+    {cls:'chip-amber', icon:'ti-scale', label:'Stated editorial lean'},
+    {cls:'chip-brick', icon:'ti-scale', label:'Clear ideological orientation'}
+  ];
+  var FUND_CONFIG = [
+    null,
+    {cls:'chip-green', icon:'ti-eye', label:'Funding fully disclosed'},
+    {cls:'chip-amber', icon:'ti-eye', label:'Partial funding disclosure'},
+    {cls:'chip-brick', icon:'ti-eye', label:'Limited funding disclosure'}
+  ];
+  var ACCESS_CONFIG = {
+    'free':  {cls:'chip-green', icon:'ti-lock-open', label:'Free &amp; open access'},
+    'mixed': {cls:'chip-amber', icon:'ti-lock-open', label:'Free + paid mix'},
+    'paid':  {cls:'chip-brick', icon:'ti-lock',      label:'Subscription required'}
+  };
+  var html = '<div class="media-chips">';
+  if(org.objectivity && OBJ_CONFIG[org.objectivity]) {
+    var oc = OBJ_CONFIG[org.objectivity];
+    html += '<span class="media-chip '+oc.cls+'" title="Objectivity"><i class="ti '+oc.icon+'"></i>'+oc.label+'</span>';
+  }
+  if(org.funding_clarity && FUND_CONFIG[org.funding_clarity]) {
+    var fc2 = FUND_CONFIG[org.funding_clarity];
+    html += '<span class="media-chip '+fc2.cls+'" title="Funding transparency"><i class="ti '+fc2.icon+'"></i>'+fc2.label+'</span>';
+  }
+  if(org.access && ACCESS_CONFIG[org.access]) {
+    var ac = ACCESS_CONFIG[org.access];
+    html += '<span class="media-chip '+ac.cls+'" title="Access"><i class="ti '+ac.icon+'"></i>'+ac.label+'</span>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function getCat(org) {
+  if(org.newsOrg) return 'news';
+  if(org.scope === 'Military') return 'military';
+  if(org.type === 'Consumer advocacy') return 'pirg';
+  if(CAT_MAP[org.id]) return CAT_MAP[org.id];
+  if(org.scope === 'State') return 'statepolicy';
+  return 'consumer';
+}
+
 function orgCardHtml(org){
   var researchId = 'research-' + org.id;
   var html = '<div class="org-card">' +
@@ -491,6 +645,7 @@ function orgCardHtml(org){
       badgeHtmlFor(org) +
     '</div>' +
     '<div class="org-desc">'+escapeHtml(org.desc)+'</div>' +
+    (org.newsOrg ? mediaChipsHtml(org) : '') +
     '<div class="org-actions">' +
       '<a class="org-link" href="'+org.url+'" target="_blank" rel="noopener" data-org-id="'+org.id+'" data-org-name="'+escapeHtml(org.name)+'"><i class="ti ti-external-link"></i> Visit site</a>' +
     '</div>' +
@@ -523,6 +678,15 @@ function buildScopeOptions(){
   sel.innerHTML = html;
 }
 
+function buildCatOptions(){
+  var sel = document.getElementById('catSelect');
+  var html = '<option value="all">All categories</option>';
+  for(var i=0;i<CAT_ORDER.length;i++){
+    html += '<option value="'+CAT_ORDER[i]+'">'+CAT_LABELS[CAT_ORDER[i]]+'</option>';
+  }
+  sel.innerHTML = html;
+}
+
 function renderByScopeAndView(){
   var container = document.getElementById('resultsContainer');
   var orgs = [];
@@ -542,6 +706,14 @@ function renderByScopeAndView(){
     }
   }
 
+  if(currentCat !== 'all'){
+    var catFiltered = [];
+    for(var fi=0;fi<orgs.length;fi++){
+      if(getCat(orgs[fi]) === currentCat) catFiltered.push(orgs[fi]);
+    }
+    orgs = catFiltered;
+  }
+
   if(orgs.length === 0){
     var label = currentScope === 'national' ? 'national' :
       currentScope === 'MILVET' ? 'military / law enforcement' :
@@ -552,14 +724,15 @@ function renderByScopeAndView(){
 
   var html = '';
   if(currentView === 'faction'){
-    var byFaction = {left:[], right:[]};
+    var byFaction = {left:[], right:[], center:[]};
     for(var j=0;j<orgs.length;j++){
       var badge = orgs[j].badge;
       if(byFaction[badge]) byFaction[badge].push(orgs[j]);
     }
     byFaction.left.sort(function(a,b2){ return b2.trans - a.trans; });
     byFaction.right.sort(function(a,b2){ return b2.trans - a.trans; });
-    var order = ['left','right'];
+    byFaction.center.sort(function(a,b2){ return b2.trans - a.trans; });
+    var order = ['center','left','right'];
     for(var k=0;k<order.length;k++){
       var key = order[k];
       var group = byFaction[key];
@@ -586,11 +759,17 @@ function checkSubmissionBanner(){
 }
 
 buildScopeOptions();
+buildCatOptions();
 renderByScopeAndView();
 checkSubmissionBanner();
 
 document.getElementById('scopeSelect').addEventListener('change', function(e){
   currentScope = e.target.value;
+  renderByScopeAndView();
+});
+
+document.getElementById('catSelect').addEventListener('change', function(e){
+  currentCat = e.target.value;
   renderByScopeAndView();
 });
 
@@ -654,12 +833,20 @@ document.addEventListener('click', function(e) {
   }
 });
 
-/* ── Filter tracking (2d): scope + view ── */
+/* ── Filter tracking (2d): scope + category + view ── */
 var _rcScopeEl = document.getElementById('scopeSelect');
 if (_rcScopeEl) {
   _rcScopeEl.addEventListener('change', function(e) {
     var val = e.target.value || 'national';
     rcTrack('scope:' + val, 'Scope: ' + val, '', RC_PAGE_ID + '-filters');
+  });
+}
+
+var _rcCatEl = document.getElementById('catSelect');
+if (_rcCatEl) {
+  _rcCatEl.addEventListener('change', function(e) {
+    var val = e.target.value || 'all';
+    rcTrack('cat:' + val, 'Category: ' + val, '', RC_PAGE_ID + '-filters');
   });
 }
 
