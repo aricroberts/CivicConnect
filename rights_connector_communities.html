@@ -678,11 +678,25 @@ function buildScopeOptions(){
   sel.innerHTML = html;
 }
 
-function buildCatOptions(){
+function buildCatOptions(scopeFilter){
+  // Only show categories that have at least one org in the current scope
+  var available = {};
+  for(var i=0;i<ORGS.length;i++){
+    var o = ORGS[i];
+    var inScope = false;
+    if(scopeFilter === 'national' && o.scope === 'National') inScope = true;
+    else if(scopeFilter === 'MILVET' && o.scope === 'Military') inScope = true;
+    else if(scopeFilter && scopeFilter !== 'national' && scopeFilter !== 'MILVET'
+            && o.scope === 'State' && o.states && o.states.indexOf(scopeFilter) !== -1) inScope = true;
+    else if(!scopeFilter) inScope = true;
+    if(inScope) available[getCat(o)] = true;
+  }
   var sel = document.getElementById('catSelect');
   var html = '<option value="all">All categories</option>';
   for(var i=0;i<CAT_ORDER.length;i++){
-    html += '<option value="'+CAT_ORDER[i]+'">'+CAT_LABELS[CAT_ORDER[i]]+'</option>';
+    if(available[CAT_ORDER[i]]){
+      html += '<option value="'+CAT_ORDER[i]+'">'+CAT_LABELS[CAT_ORDER[i]]+'</option>';
+    }
   }
   sel.innerHTML = html;
 }
@@ -759,12 +773,14 @@ function checkSubmissionBanner(){
 }
 
 buildScopeOptions();
-buildCatOptions();
+buildCatOptions(currentScope);
 renderByScopeAndView();
 checkSubmissionBanner();
 
 document.getElementById('scopeSelect').addEventListener('change', function(e){
   currentScope = e.target.value;
+  currentCat = 'all';
+  buildCatOptions(currentScope);
   renderByScopeAndView();
 });
 
