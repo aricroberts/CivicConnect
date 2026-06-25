@@ -240,6 +240,50 @@
   }
   .official-link:hover{background:rgba(31,58,92,0.12);}
 
+  /* ── Advocacy tools block ── */
+  .tools-block{
+    background:var(--paper2); border:1px solid var(--border-d);
+    border-radius:14px; padding:26px 24px; margin-top:28px;
+  }
+  .tools-block .eyebrow{margin-bottom:8px; display:block;}
+  .tools-block h3{
+    font-family:'Libre Caslon Display', serif; font-size:20px;
+    font-weight:400; margin-bottom:6px;
+  }
+  .tools-block .desc{font-size:13.5px; color:var(--ink2); margin-bottom:20px; max-width:580px;}
+  .tools-subsection{margin-bottom:22px;}
+  .tools-sublabel{
+    font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink3); margin-bottom:12px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .tool-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .tool-card{
+    border:1px solid var(--border-d); background:var(--paper);
+    border-radius:10px; padding:14px 16px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .tool-card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
+  .tool-name{font-size:15px; font-weight:700; color:var(--ink);}
+  .tool-tag{
+    font-family:'DM Mono',monospace; font-size:10.5px; letter-spacing:0.04em;
+    text-transform:uppercase; padding:3px 8px; border-radius:100px;
+    white-space:nowrap; flex-shrink:0;
+  }
+  .tool-tag.calls{background:rgba(61,122,87,0.1); color:var(--green); border:1px solid rgba(61,122,87,0.25);}
+  .tool-tag.sms{background:rgba(143,100,24,0.09); color:var(--gold); border:1px solid rgba(143,100,24,0.25);}
+  .tool-tag.messaging{background:rgba(31,58,92,0.09); color:var(--navy); border:1px solid rgba(31,58,92,0.22);}
+  .tool-tag.tracking{background:rgba(168,65,47,0.08); color:var(--brick); border:1px solid rgba(168,65,47,0.22);}
+  .tool-tag.official{background:rgba(31,58,92,0.15); color:var(--navy); border:1px solid rgba(31,58,92,0.35);}
+  .tool-desc{font-size:13px; color:var(--ink2); line-height:1.45; flex:1;}
+  .tool-link{
+    display:inline-flex; align-items:center; gap:6px; text-decoration:none;
+    font-size:13px; font-weight:600; color:var(--navy);
+    border:1px solid rgba(31,58,92,0.3); background:rgba(31,58,92,0.06);
+    border-radius:7px; padding:8px 13px; align-self:flex-start; margin-top:2px;
+  }
+  .tool-link:hover{background:rgba(31,58,92,0.12);}
+
   /* ── Suite links footer ── */
   .suite-links{margin-top:46px; padding-top:24px; border-top:1px solid var(--border);}
   .suite-links .label{
@@ -265,6 +309,7 @@
     .select-row{flex-direction:column;}
     .btn-lookup{justify-content:center;}
     .rep-top{flex-direction:column;}
+    .tool-grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -356,6 +401,104 @@
          target="_blank" rel="noopener" class="official-link">
         <i class="ti ti-building-arch"></i> Contact your senators (senate.gov)
       </a>
+    </div>
+  </div>
+
+  <!-- ── Advocacy tools ───────────────────────────────────────── -->
+  <div class="tools-block">
+    <span class="eyebrow mono">Take action on specific bills</span>
+    <h3 class="serif">Constituent advocacy tools &amp; platforms</h3>
+    <p class="desc">Found a bill you care about? These tools help you reach your representatives directly — with a script, a written message, or a text from your phone.</p>
+
+    <div class="tools-subsection">
+      <div class="tools-sublabel"><i class="ti ti-speakerphone"></i> Contact your representatives</div>
+      <div class="tool-grid">
+
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-name">5Calls</span>
+            <span class="tool-tag calls">Calls</span>
+          </div>
+          <p class="tool-desc">Scripted call guides and direct office numbers for active legislative issues. Enter your location — 5Calls finds your reps and walks you through the conversation.</p>
+          <a href="https://5calls.org" target="_blank" rel="noopener" class="tool-link">
+            <i class="ti ti-external-link"></i> 5calls.org
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-name">Resistbot</span>
+            <span class="tool-tag sms">SMS / Chat</span>
+          </div>
+          <p class="tool-desc">Text <strong>RESIST</strong> to 50409. Converts your message into a letter, fax, or call delivered to your federal and state representatives — in under two minutes. No script provided; you write your own.</p>
+          <a href="https://resist.bot" target="_blank" rel="noopener" class="tool-link">
+            <i class="ti ti-external-link"></i> resist.bot
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-name">Democracy.io</span>
+            <span class="tool-tag messaging">Messaging</span>
+          </div>
+          <p class="tool-desc">One form that emails all your federal legislators simultaneously. Backed by EFF developers. No account required — just your address and your message.</p>
+          <a href="https://democracy.io" target="_blank" rel="noopener" class="tool-link">
+            <i class="ti ti-external-link"></i> democracy.io
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tools-subsection" style="margin-bottom:0;">
+      <div class="tools-sublabel"><i class="ti ti-file-description"></i> Track bills &amp; legislation</div>
+      <div class="tool-grid">
+
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-name">Congress.gov</span>
+            <span class="tool-tag official">Official</span>
+          </div>
+          <p class="tool-desc">The Library of Congress's tracker for all federal legislation, floor schedules, committee activity, and voting records. Always current, always authoritative.</p>
+          <a href="https://congress.gov" target="_blank" rel="noopener" class="tool-link">
+            <i class="ti ti-external-link"></i> congress.gov
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-name">GovTrack</span>
+            <span class="tool-tag tracking">Tracking</span>
+          </div>
+          <p class="tool-desc">Independent federal bill tracking with voting records, passage probability scores, missed-vote rates, and email alerts for legislation you care about.</p>
+          <a href="https://www.govtrack.us" target="_blank" rel="noopener" class="tool-link">
+            <i class="ti ti-external-link"></i> govtrack.us
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-name">OpenStates</span>
+            <span class="tool-tag tracking">State Bills</span>
+          </div>
+          <p class="tool-desc">Track bills and legislators across all 50 state legislatures — for when the issue is happening closer to home. Operated by Plural Policy; free bill tracking still available.</p>
+          <a href="https://openstates.org" target="_blank" rel="noopener" class="tool-link">
+            <i class="ti ti-external-link"></i> openstates.org
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-top">
+            <span class="tool-name">LegiScan</span>
+            <span class="tool-tag tracking">State Bills</span>
+          </div>
+          <p class="tool-desc">Impartial, nonpartisan bill tracking across all 50 state legislatures plus Congress. Custom tracking lists, email alerts, and session calendars for 2026.</p>
+          <a href="https://legiscan.com" target="_blank" rel="noopener" class="tool-link">
+            <i class="ti ti-external-link"></i> legiscan.com
+          </a>
+        </div>
+
+      </div>
     </div>
   </div>
 
