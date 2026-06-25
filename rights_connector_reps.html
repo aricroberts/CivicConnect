@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<link rel="icon" type="image/png" href="representative_connector.png">
+<title>Your Representatives · Rights Connector · AricCivicLabs</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6EFDC; --paper2:#FFFBF1; --paper3:#EFE5C9;
+    --ink:#2A2018; --ink2:#6E5F4A; --ink3:#746352;
+    --navy:#1F3A5C; --navy-l:#2F5380; --brick:#A8412F; --brick-l:#C25A45;
+    --gold:#8F6418; --gold-l:#C99A40; --green:#3D7A57; --green-l:#4F9268;
+    --border:#E2D2A8; --border-d:#D3C193;
+    --dem:#1A56A0; --rep:#B82020; --ind:#7A5A1A;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{color-scheme:light; background-color:#F6EFDC; min-height:100%;}
+  body{
+    background-color:#F6EFDC; color:var(--ink);
+    font-family:'DM Sans', sans-serif; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh; min-height:100dvh;
+  }
+  .serif{font-family:'Libre Caslon Display', serif;}
+  .mono{font-family:'DM Mono', monospace;}
+  .container{max-width:840px; margin:0 auto; padding:28px 20px 90px;}
+
+  /* ── Hero ── */
+  header{padding:6px 0 22px;}
+  .hero{
+    background:var(--paper2); border:1px solid var(--border-d);
+    border-top:7px solid var(--gold);
+    border-radius:14px; padding:34px 28px 30px; margin-bottom:4px;
+    text-align:center; display:flex; flex-direction:column; align-items:center;
+  }
+  .hero-icon{
+    width:72px; height:72px; background:rgba(143,100,24,0.1); border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:20px; color:var(--gold); font-size:36px;
+  }
+  .eyebrow{
+    font-family:'DM Mono', monospace; font-size:11.5px; letter-spacing:0.09em;
+    text-transform:uppercase; color:var(--navy); margin-bottom:10px; font-weight:500;
+  }
+  h1{
+    font-family:'Libre Caslon Display', serif; font-size:42px; line-height:1.06;
+    font-weight:400; letter-spacing:-0.01em; margin-bottom:12px; color:var(--ink);
+  }
+  .subhead{color:var(--ink2); font-size:16px; max-width:540px;}
+  .rule{
+    height:3px; margin:20px 0 0; width:100%; border-radius:2px;
+    background:linear-gradient(90deg, var(--navy) 0%, var(--navy) 46%, var(--gold) 50%, var(--gold-l) 54%, var(--gold-l) 100%);
+  }
+  .hero-logo{width:200px; height:auto; margin-bottom:20px;}
+  .free-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.05em;
+    text-transform:uppercase; background:rgba(61,122,87,0.1); color:var(--green);
+    border:1px solid rgba(61,122,87,0.3); border-radius:100px;
+    padding:5px 11px; margin-top:14px;
+  }
+
+  /* ── Pillar nav ── */
+  .pillar-nav{display:flex; gap:8px; flex-wrap:wrap; margin:22px 0 6px;}
+  .pillar-nav a{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:13px; font-weight:600; text-decoration:none; color:var(--ink2);
+    border:1px solid var(--border-d); background:var(--paper2); border-radius:100px;
+    padding:8px 16px; transition:border-color .15s, color .15s;
+  }
+  .pillar-nav a:hover{border-color:var(--navy); color:var(--navy);}
+  .pillar-nav a.active{background:var(--gold); border-color:var(--gold); color:var(--paper2);}
+
+  /* ── Privacy banner ── */
+  .privacy-banner{
+    display:flex; gap:10px; align-items:flex-start;
+    background:var(--paper2); border:1px solid var(--border); border-radius:10px;
+    padding:13px 15px; margin-top:20px; font-size:13px; color:var(--ink2);
+  }
+  .privacy-banner i{color:var(--green); font-size:16px; margin-top:1px; flex-shrink:0;}
+
+  /* ── State picker ── */
+  .state-picker{
+    background:var(--paper2); border:1px solid var(--border-d); border-radius:14px;
+    padding:26px 24px; margin:24px 0 0;
+  }
+  .state-picker h2{
+    font-family:'Libre Caslon Display', serif; font-size:21px;
+    font-weight:400; margin-bottom:6px;
+  }
+  .state-picker .hint{font-size:13.5px; color:var(--ink2); margin-bottom:18px;}
+  .select-row{display:flex; gap:10px; align-items:stretch;}
+  select{
+    flex:1; background:var(--paper2); border:1px solid var(--border-d); border-radius:8px;
+    padding:12px 36px 12px 14px; color:var(--ink); font-size:15px; font-family:inherit;
+    appearance:none; -webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23746352' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 12px center;
+  }
+  select:focus{outline:2px solid var(--navy); outline-offset:0; border-color:var(--navy);}
+  .btn-lookup{
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    background:var(--navy); color:var(--paper2); font-weight:600; font-size:14.5px;
+    border:none; border-radius:9px; padding:12px 22px; white-space:nowrap;
+    font-family:inherit;
+  }
+  .btn-lookup:hover{background:var(--navy-l);}
+  .btn-lookup:disabled{opacity:0.5; cursor:not-allowed;}
+
+  /* ── Notices ── */
+  .notice{
+    display:flex; gap:10px; align-items:flex-start;
+    border-radius:10px; padding:13px 16px; font-size:13px; margin-top:14px;
+  }
+  .notice i{flex-shrink:0; font-size:15px; margin-top:1px;}
+  .notice.gold{
+    background:rgba(143,100,24,0.08); border:1px solid rgba(143,100,24,0.28);
+    color:var(--gold);
+  }
+  .notice.brick{
+    background:rgba(168,65,47,0.08); border:1px solid rgba(168,65,47,0.28);
+    color:var(--brick);
+  }
+
+  /* ── Loading ── */
+  .loading{
+    text-align:center; padding:44px 20px; color:var(--ink2); font-size:14px;
+  }
+  .spinner{
+    display:inline-block; width:26px; height:26px;
+    border:2px solid var(--border-d); border-top-color:var(--gold);
+    border-radius:50%; animation:spin .7s linear infinite; margin-bottom:12px;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* ── Results ── */
+  #resultsArea{display:none;}
+  .results-header{
+    display:flex; justify-content:space-between; align-items:baseline;
+    flex-wrap:wrap; gap:8px; margin:28px 0 20px; padding-top:24px;
+    border-top:1px solid var(--border);
+  }
+  .results-header h2{
+    font-family:'Libre Caslon Display', serif; font-size:26px; font-weight:400;
+  }
+  .results-meta{
+    font-family:'DM Mono',monospace; font-size:11px; color:var(--ink3);
+    text-transform:uppercase; letter-spacing:0.05em;
+  }
+
+  .chamber-block{margin-bottom:32px;}
+  .chamber-label{
+    display:flex; align-items:center; gap:8px;
+    font-family:'DM Mono',monospace; font-size:11.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink3);
+    margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid var(--border-d);
+  }
+  .chamber-label i{font-size:14px;}
+
+  /* ── Rep card ── */
+  .rep-card{
+    border:1px solid var(--border-d); background:var(--paper2);
+    border-radius:12px; padding:18px 20px; margin-bottom:12px;
+  }
+  .rep-top{
+    display:flex; justify-content:space-between;
+    align-items:flex-start; gap:12px; flex-wrap:wrap;
+  }
+  .rep-name{
+    font-family:'Libre Caslon Display', serif;
+    font-size:21px; font-weight:400; line-height:1.2;
+  }
+  .rep-role{
+    font-family:'DM Mono',monospace; font-size:12px;
+    color:var(--ink3); margin-top:5px;
+  }
+  .party-badge{
+    font-family:'DM Mono',monospace; font-size:11.5px; font-weight:600;
+    letter-spacing:0.04em; padding:5px 12px; border-radius:100px;
+    white-space:nowrap; flex-shrink:0; align-self:flex-start; margin-top:2px;
+  }
+  .party-badge.dem{
+    background:rgba(26,86,160,0.1); color:var(--dem);
+    border:1px solid rgba(26,86,160,0.3);
+  }
+  .party-badge.rep{
+    background:rgba(184,32,32,0.1); color:var(--rep);
+    border:1px solid rgba(184,32,32,0.3);
+  }
+  .party-badge.ind{
+    background:rgba(122,90,26,0.1); color:var(--ind);
+    border:1px solid rgba(122,90,26,0.28);
+  }
+  .party-badge.other{
+    background:rgba(100,100,100,0.08); color:#555;
+    border:1px solid rgba(100,100,100,0.2);
+  }
+
+  .rep-actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; align-items:center;}
+  .btn-contact{
+    display:inline-flex; align-items:center; gap:7px; text-decoration:none;
+    font-size:13.5px; font-weight:600; color:var(--paper2);
+    background:var(--brick); border-radius:8px; padding:9px 16px;
+  }
+  .btn-contact:hover{background:var(--brick-l);}
+  .btn-website{
+    display:inline-flex; align-items:center; gap:7px; text-decoration:none;
+    font-size:13.5px; font-weight:600; color:var(--paper2);
+    background:var(--navy); border-radius:8px; padding:9px 16px;
+  }
+  .btn-website:hover{background:var(--navy-l);}
+  .rep-phone{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:13px; color:var(--ink3); font-family:'DM Mono',monospace;
+  }
+  .rep-phone i{font-size:14px;}
+
+  /* ── Official fallback (always visible) ── */
+  .official-block{
+    background:var(--paper2); border:1px solid var(--border-d);
+    border-radius:14px; padding:26px 24px; margin-top:28px;
+  }
+  .official-block .eyebrow{margin-bottom:8px; display:block;}
+  .official-block h3{
+    font-family:'Libre Caslon Display', serif; font-size:20px;
+    font-weight:400; margin-bottom:6px;
+  }
+  .official-block .desc{font-size:13.5px; color:var(--ink2); margin-bottom:18px; max-width:540px;}
+  .official-links{display:flex; gap:10px; flex-wrap:wrap;}
+  .official-link{
+    display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+    font-size:13.5px; font-weight:600; color:var(--navy);
+    border:1px solid rgba(31,58,92,0.35); background:rgba(31,58,92,0.06);
+    border-radius:9px; padding:10px 16px;
+  }
+  .official-link:hover{background:rgba(31,58,92,0.12);}
+
+  /* ── Suite links footer ── */
+  .suite-links{margin-top:46px; padding-top:24px; border-top:1px solid var(--border);}
+  .suite-links .label{
+    font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink3); margin-bottom:12px;
+  }
+  .suite-links-row{display:flex; gap:9px; flex-wrap:wrap;}
+  .suite-links-row a{
+    font-size:13px; font-weight:600; color:var(--ink2); text-decoration:none;
+    border:1px solid var(--border-d); background:var(--paper2);
+    border-radius:100px; padding:7px 14px;
+  }
+  .suite-links-row a:hover{border-color:var(--navy); color:var(--navy);}
+
+  footer{
+    margin-top:24px; padding-top:18px; border-top:1px solid var(--border);
+    font-size:12px; color:var(--ink3); line-height:1.7;
+  }
+  footer a{color:var(--ink2);}
+
+  @media(max-width:580px){
+    h1{font-size:30px;}
+    .select-row{flex-direction:column;}
+    .btn-lookup{justify-content:center;}
+    .rep-top{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="hero">
+      <img class="hero-logo" src="representative_connector.png" alt="Representative Connector logo">
+      <div class="eyebrow">AricCivicLabs · Civic Participation &amp; Rights Access</div>
+      <h1 class="serif">Your Representatives</h1>
+      <p class="subhead">Find your U.S. senators and House representatives — with verified contact links so you can reach them directly.</p>
+      <span class="free-badge"><i class="ti ti-heart"></i> Always free — no account, no paywall</span>
+      <div class="rule"></div>
+    </div>
+
+    <nav class="pillar-nav">
+      <a href="rights_connector.html"><i class="ti ti-compass"></i> Find an organization</a>
+      <a href="rights_connector_constitution.html"><i class="ti ti-gavel"></i> Defending the Constitution</a>
+      <a href="rights_connector_communities.html"><i class="ti ti-building-community"></i> Communities over shareholders</a>
+      <a href="rights_connector_reps.html" class="active"><i class="ti ti-building-bank"></i> Your representatives</a>
+    </nav>
+
+    <div class="privacy-banner">
+      <i class="ti ti-shield-lock"></i>
+      <div>Nothing you do here is saved, sent to a server, or tracked to you. Your state selection loads from a public, read-only database. Nothing is logged about your visit.</div>
+    </div>
+  </header>
+
+  <!-- ── State picker ─────────────────────────────────────────── -->
+  <div class="state-picker">
+    <h2 class="serif">Find your representatives</h2>
+    <p class="hint">Select your state to see your two U.S. senators and all House representatives, with direct contact links.</p>
+    <div class="select-row">
+      <select id="stateSelect">
+        <option value="">— Select your state —</option>
+      </select>
+      <button class="btn-lookup" id="lookupBtn" onclick="loadReps()" disabled>
+        <i class="ti ti-search"></i> Look up
+      </button>
+    </div>
+    <!-- DB-empty notice (shown when table has no data) -->
+    <div id="dbEmptyNotice" style="display:none;" class="notice gold">
+      <i class="ti ti-alert-triangle"></i>
+      <span>The representative database hasn't been populated yet. Run <strong>populate_reps.py</strong> with your Supabase service role key to load current data from the @unitedstates project. Until then, use the official lookup tools below.</span>
+    </div>
+    <!-- Error notice -->
+    <div id="errorNotice" style="display:none;" class="notice brick">
+      <i class="ti ti-alert-circle"></i>
+      <span id="errorMsg">Unable to load data. Check your connection and try again, or use the official links below.</span>
+    </div>
+  </div>
+
+  <!-- ── Loading ─────────────────────────────────────────────── -->
+  <div id="loadingState" style="display:none;" class="loading">
+    <div class="spinner"></div>
+    <div>Loading representatives&hellip;</div>
+  </div>
+
+  <!-- ── Results ─────────────────────────────────────────────── -->
+  <div id="resultsArea">
+    <div class="results-header">
+      <h2 id="resultsTitle" class="serif"></h2>
+      <span id="resultsMeta" class="results-meta mono"></span>
+    </div>
+
+    <div class="chamber-block" id="senateBlock">
+      <div class="chamber-label"><i class="ti ti-building-arch"></i> U.S. Senate</div>
+      <div id="senateCards"></div>
+    </div>
+
+    <div class="chamber-block" id="houseBlock">
+      <div class="chamber-label"><i class="ti ti-building-community"></i> U.S. House of Representatives</div>
+      <div id="houseCards"></div>
+    </div>
+  </div>
+
+  <!-- ── Official fallback — always visible ──────────────────── -->
+  <div class="official-block">
+    <span class="eyebrow mono">Official federal lookup tools</span>
+    <h3 class="serif">Always current, always authoritative</h3>
+    <p class="desc">These official tools have real-time data regardless of when the database above was last updated. Use them to confirm current details or find representatives not yet in this database.</p>
+    <div class="official-links">
+      <a href="https://www.house.gov/representatives/find-your-representative"
+         target="_blank" rel="noopener" class="official-link">
+        <i class="ti ti-building-community"></i> Find your House rep (house.gov)
+      </a>
+      <a href="https://www.senate.gov/senators/senators-contact.htm"
+         target="_blank" rel="noopener" class="official-link">
+        <i class="ti ti-building-arch"></i> Contact your senators (senate.gov)
+      </a>
+    </div>
+  </div>
+
+  <!-- ── Suite nav ────────────────────────────────────────────── -->
+  <div class="suite-links">
+    <div class="label">More from AricCivicLabs</div>
+    <div class="suite-links-row">
+      <a href="https://aricciviclabs.org">AricCivicLabs.org</a>
+      <a href="https://receipts.aricciviclabs.org">receipts.</a>
+      <a href="https://transitions.aricciviclabs.org">Transitions</a>
+      <a href="https://inable.aricciviclabs.org">InAble</a>
+      <a href="https://meshforce.aricciviclabs.org">MeshForce</a>
+      <a href="https://theseam.aricciviclabs.org/seam.html">The Seam</a>
+    </div>
+  </div>
+
+  <footer>
+    Representative data sourced from the <a href="https://theunitedstates.io" target="_blank" rel="noopener">@unitedstates project</a>, a nonpartisan community-maintained dataset used by GovTrack, ProPublica, and others.
+    Always verify current contact information at <a href="https://senate.gov" target="_blank" rel="noopener">senate.gov</a> and <a href="https://house.gov" target="_blank" rel="noopener">house.gov</a>.
+    Not affiliated with or endorsed by any government entity. Not legal advice.
+    <a href="https://aricciviclabs.org/legal.html">Legal &amp; privacy</a>
+  </footer>
+
+</div><!-- /container -->
+
+<script>
+var SUPABASE_URL  = 'https://epntzskzmdlfqyosscbc.supabase.co';
+var SUPABASE_ANON = 'sb_publishable_i5pUA7v3H5UOPifMLTcLtA_zJO12EnK';
+
+var STATE_LIST = [
+  ['AL','Alabama'],['AK','Alaska'],['AZ','Arizona'],['AR','Arkansas'],
+  ['CA','California'],['CO','Colorado'],['CT','Connecticut'],['DE','Delaware'],
+  ['FL','Florida'],['GA','Georgia'],['HI','Hawaii'],['ID','Idaho'],
+  ['IL','Illinois'],['IN','Indiana'],['IA','Iowa'],['KS','Kansas'],
+  ['KY','Kentucky'],['LA','Louisiana'],['ME','Maine'],['MD','Maryland'],
+  ['MA','Massachusetts'],['MI','Michigan'],['MN','Minnesota'],['MS','Mississippi'],
+  ['MO','Missouri'],['MT','Montana'],['NE','Nebraska'],['NV','Nevada'],
+  ['NH','New Hampshire'],['NJ','New Jersey'],['NM','New Mexico'],['NY','New York'],
+  ['NC','North Carolina'],['ND','North Dakota'],['OH','Ohio'],['OK','Oklahoma'],
+  ['OR','Oregon'],['PA','Pennsylvania'],['RI','Rhode Island'],['SC','South Carolina'],
+  ['SD','South Dakota'],['TN','Tennessee'],['TX','Texas'],['UT','Utah'],
+  ['VT','Vermont'],['VA','Virginia'],['WA','Washington'],['WV','West Virginia'],
+  ['WI','Wisconsin'],['WY','Wyoming'],['DC','District of Columbia']
+];
+
+function buildStateOptions() {
+  var sel = document.getElementById('stateSelect');
+  for (var i = 0; i < STATE_LIST.length; i++) {
+    var opt = document.createElement('option');
+    opt.value = STATE_LIST[i][0];
+    opt.textContent = STATE_LIST[i][1];
+    sel.appendChild(opt);
+  }
+  sel.addEventListener('change', function() {
+    document.getElementById('lookupBtn').disabled = !this.value;
+    if (this.value) loadReps();
+  });
+}
+
+function findStateName(code) {
+  for (var i = 0; i < STATE_LIST.length; i++) {
+    if (STATE_LIST[i][0] === code) return STATE_LIST[i][1];
+  }
+  return code;
+}
+
+function esc(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function partyClass(party) {
+  if (!party) return 'other';
+  var p = party.toLowerCase();
+  if (p.indexOf('democrat') !== -1) return 'dem';
+  if (p.indexOf('republican') !== -1) return 'rep';
+  if (p.indexOf('independent') !== -1) return 'ind';
+  return 'other';
+}
+
+function partyLabel(party) {
+  if (!party) return '?';
+  var p = party.toLowerCase();
+  if (p.indexOf('democrat') !== -1) return 'D · Democrat';
+  if (p.indexOf('republican') !== -1) return 'R · Republican';
+  if (p.indexOf('independent') !== -1) return 'I · Independent';
+  return party;
+}
+
+function roleLabel(rec) {
+  if (rec.chamber === 'senate') {
+    var rank = rec.state_rank
+      ? (rec.state_rank.charAt(0).toUpperCase() + rec.state_rank.slice(1) + ' Senator')
+      : 'U.S. Senator';
+    return rank;
+  }
+  if (rec.district === 0 || rec.district === null) return 'At-Large Representative';
+  return 'Representative · District ' + rec.district;
+}
+
+function buildCard(rec) {
+  var pClass = partyClass(rec.party);
+  var pLabel = partyLabel(rec.party);
+  var role   = roleLabel(rec);
+  var name   = rec.full_name || (rec.first_name + ' ' + rec.last_name);
+  var verified = rec.last_verified ? 'Verified ' + rec.last_verified : '';
+
+  var h = '<div class="rep-card">';
+  h += '<div class="rep-top">';
+  h += '<div>';
+  h += '<div class="rep-name serif">' + esc(name) + '</div>';
+  h += '<div class="rep-role mono">' + esc(role);
+  if (verified) h += ' &nbsp;·&nbsp; ' + esc(verified);
+  h += '</div>';
+  h += '</div>';
+  h += '<span class="party-badge ' + pClass + '">' + esc(pLabel) + '</span>';
+  h += '</div>';
+
+  h += '<div class="rep-actions">';
+  if (rec.contact_form_url) {
+    h += '<a href="' + esc(rec.contact_form_url) + '" target="_blank" rel="noopener" class="btn-contact">'
+      +  '<i class="ti ti-message"></i> Contact form</a>';
+  }
+  if (rec.website_url) {
+    h += '<a href="' + esc(rec.website_url) + '" target="_blank" rel="noopener" class="btn-website">'
+      +  '<i class="ti ti-external-link"></i> Official website</a>';
+  }
+  if (rec.phone) {
+    h += '<span class="rep-phone"><i class="ti ti-phone"></i>' + esc(rec.phone) + '</span>';
+  }
+  h += '</div>';
+  h += '</div>';
+  return h;
+}
+
+function setLoading(on) {
+  document.getElementById('loadingState').style.display = on ? 'block' : 'none';
+  document.getElementById('lookupBtn').disabled = on;
+}
+
+function showError(msg) {
+  setLoading(false);
+  document.getElementById('errorMsg').textContent = msg;
+  document.getElementById('errorNotice').style.display = 'flex';
+  document.getElementById('resultsArea').style.display = 'none';
+}
+
+function checkTableEmpty() {
+  /* Called when a state returns 0 results — distinguish "table empty" from
+     "no reps for this state" (shouldn't happen but handles edge cases). */
+  fetch(SUPABASE_URL + '/rest/v1/' + 'rc_representatives?is_active=eq.true&limit=1&select=id', {
+    headers: {
+      'apikey': SUPABASE_ANON,
+      'Authorization': 'Bearer ' + SUPABASE_ANON
+    }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if (!data || data.length === 0) {
+      document.getElementById('dbEmptyNotice').style.display = 'flex';
+    } else {
+      // Table has data but nothing for this state — show results area with empty message
+      document.getElementById('senateCards').innerHTML =
+        '<p style="color:var(--ink3);font-size:13.5px;padding:10px 0 4px;">No senator records found for this state. Run <code>populate_reps.py</code> to update the database.</p>';
+      document.getElementById('houseCards').innerHTML = '';
+      document.getElementById('resultsArea').style.display = 'block';
+    }
+  })
+  .catch(function(){
+    document.getElementById('dbEmptyNotice').style.display = 'flex';
+  });
+}
+
+function loadReps() {
+  var stateCode = document.getElementById('stateSelect').value;
+  if (!stateCode) return;
+
+  /* Reset UI */
+  document.getElementById('resultsArea').style.display = 'none';
+  document.getElementById('errorNotice').style.display = 'none';
+  document.getElementById('dbEmptyNotice').style.display = 'none';
+  setLoading(true);
+
+  /* Query: senators first (chamber desc: 'senate' > 'house'), senior before
+     junior (state_rank desc: 's' > 'j'), then house by district ascending. */
+  var url = SUPABASE_URL + '/rest/v1/rc_representatives'
+    + '?state_code=eq.' + encodeURIComponent(stateCode)
+    + '&is_active=eq.true'
+    + '&order=chamber.desc,state_rank.desc.nullslast,district.asc.nullslast'
+    + '&limit=100';
+
+  fetch(url, {
+    headers: {
+      'apikey': SUPABASE_ANON,
+      'Authorization': 'Bearer ' + SUPABASE_ANON
+    }
+  })
+  .then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
+  .then(function(data) {
+    setLoading(false);
+
+    if (!data || data.length === 0) {
+      checkTableEmpty();
+      return;
+    }
+
+    var senators = [];
+    var reps = [];
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].chamber === 'senate') senators.push(data[i]);
+      else reps.push(data[i]);
+    }
+
+    var stateName = data[0].state_name || findStateName(stateCode);
+    var verDate   = data[0].last_verified || '';
+    var metaParts = [];
+    metaParts.push(senators.length + ' senator' + (senators.length !== 1 ? 's' : ''));
+    metaParts.push(reps.length + ' representative' + (reps.length !== 1 ? 's' : ''));
+    if (verDate) metaParts.push('verified ' + verDate);
+
+    document.getElementById('resultsTitle').textContent = stateName;
+    document.getElementById('resultsMeta').textContent  = metaParts.join(' · ');
+
+    /* Senate cards */
+    var senHtml = '';
+    if (senators.length === 0) {
+      senHtml = '<p style="color:var(--ink3);font-size:13.5px;padding:8px 0;">No senator data found — re-run populate_reps.py to update.</p>';
+    } else {
+      for (var j = 0; j < senators.length; j++) senHtml += buildCard(senators[j]);
+    }
+    document.getElementById('senateCards').innerHTML = senHtml;
+
+    /* House cards */
+    var houseHtml = '';
+    if (reps.length === 0) {
+      houseHtml = '<p style="color:var(--ink3);font-size:13.5px;padding:8px 0;">No House representative data found — re-run populate_reps.py to update.</p>';
+    } else {
+      for (var k = 0; k < reps.length; k++) houseHtml += buildCard(reps[k]);
+    }
+    document.getElementById('houseCards').innerHTML = houseHtml;
+
+    document.getElementById('resultsArea').style.display = 'block';
+
+    /* Smooth scroll to results */
+    var el = document.getElementById('resultsArea');
+    if (el && el.scrollIntoView) el.scrollIntoView({behavior:'smooth', block:'start'});
+  })
+  .catch(function() {
+    showError('Unable to load representative data. Check your connection and try again, or use the official links below.');
+  });
+}
+
+buildStateOptions();
+</script>
+</body>
+</html>
