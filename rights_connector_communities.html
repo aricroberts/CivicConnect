@@ -238,7 +238,6 @@
       <a href="rights_connector.html"><i class="ti ti-compass"></i> Find an organization</a>
       <a href="rights_connector_constitution.html"><i class="ti ti-gavel"></i> Defending the Constitution</a>
       <a href="rights_connector_communities.html" class="active"><i class="ti ti-building-community"></i> Communities over shareholders</a>
-      <a href="rights_connector_reps.html"><i class="ti ti-building-bank"></i> Your representatives</a>
     </nav>
 
     <div class="privacy-banner">
@@ -278,15 +277,6 @@
   <a class="crosslink" href="rights_connector_constitution.html">
     <div class="title"><i class="ti ti-gavel"></i> Looking for organizations on constitutional defense instead?</div>
     <div class="desc">Visit the Defending the Constitution page →</div>
-  </a>
-  <a class="crosslink" href="rights_connector_reps.html">
-    <div style="display:flex; gap:14px; align-items:center;">
-      <img src="representative_connector.png" alt="" style="width:54px; height:auto; flex-shrink:0; border-radius:6px;">
-      <div>
-        <div class="title"><i class="ti ti-building-bank"></i> Looking for your elected representatives?</div>
-        <div class="desc">Find your U.S. senators and House representatives by state with verified contact links →</div>
-      </div>
-    </div>
   </a>
 
   <div class="submit-section">
@@ -452,7 +442,7 @@ function orgCardHtml(org){
     '</div>' +
     '<div class="org-desc">'+escapeHtml(org.desc)+'</div>' +
     '<div class="org-actions">' +
-      '<a class="org-link" href="'+org.url+'" target="_blank" rel="noopener"><i class="ti ti-external-link"></i> Visit site</a>' +
+      '<a class="org-link" href="'+org.url+'" target="_blank" rel="noopener" data-org-id="'+org.id+'" data-org-name="'+escapeHtml(org.name)+'"><i class="ti ti-external-link"></i> Visit site</a>' +
     '</div>' +
     '<div class="research-toggle">' +
       '<input type="checkbox" id="'+researchId+'">' +
@@ -563,6 +553,74 @@ for(var vi=0;vi<viewBtns.length;vi++){
     currentView = e.target.getAttribute('data-view');
     renderByScopeAndView();
   });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Rights Connector — Supabase click + filter tracking
+   Page: rc-communities
+   ═══════════════════════════════════════════════════════════ */
+var RC_SUPA_URL  = 'https://epntzskzmdlfqyosscbc.supabase.co';
+var RC_SUPA_ANON = 'sb_publishable_i5pUA7v3H5UOPifMLTcLtA_zJO12EnK';
+var RC_PAGE_ID   = 'rc-communities';
+
+function rcSlugify(str) {
+  return (str || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function rcTrack(key, name, url, pageOverride) {
+  try {
+    fetch(RC_SUPA_URL + '/rest/v1/rpc/increment_click', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': RC_SUPA_ANON,
+        'Authorization': 'Bearer ' + RC_SUPA_ANON
+      },
+      body: JSON.stringify({
+        p_key:  key,
+        p_name: name,
+        p_url:  url || '',
+        p_page: pageOverride || RC_PAGE_ID
+      })
+    }).catch(function(){});
+  } catch(e) {}
+}
+
+/* ── Org link click tracking (event delegation) ── */
+document.addEventListener('click', function(e) {
+  var link = e.target.closest ? e.target.closest('[data-org-id]') : null;
+  if (!link) {
+    var t = e.target;
+    while (t && t !== document) {
+      if (t.getAttribute && t.getAttribute('data-org-id')) { link = t; break; }
+      t = t.parentNode;
+    }
+  }
+  if (link) {
+    var orgId   = link.getAttribute('data-org-id')   || rcSlugify(link.getAttribute('data-org-name'));
+    var orgName = link.getAttribute('data-org-name') || orgId;
+    var orgUrl  = link.href || '';
+    rcTrack(orgId, orgName, orgUrl);
+  }
+});
+
+/* ── Filter tracking (2d): scope + view ── */
+var _rcScopeEl = document.getElementById('scopeSelect');
+if (_rcScopeEl) {
+  _rcScopeEl.addEventListener('change', function(e) {
+    var val = e.target.value || 'national';
+    rcTrack('scope:' + val, 'Scope: ' + val, '', RC_PAGE_ID + '-filters');
+  });
+}
+
+var _rcViewBtns = document.querySelectorAll('.view-btn');
+for (var _vi = 0; _vi < _rcViewBtns.length; _vi++) {
+  _rcViewBtns[_vi].addEventListener('click', (function(btn) {
+    return function() {
+      var view = btn.getAttribute('data-view') || 'unknown';
+      rcTrack('view:' + view, 'View: ' + view, '', RC_PAGE_ID + '-filters');
+    };
+  })(_rcViewBtns[_vi]));
 }
 
 

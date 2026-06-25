@@ -138,7 +138,7 @@
   .spotlight-section{margin:34px 0 8px; padding-top:26px; border-top:1px solid var(--border);}
   .spotlight-section h2{font-family:'Libre Caslon Display', serif; font-size:19px; font-weight:400; margin-bottom:4px;}
   .spotlight-section .hint{font-size:13px; color:var(--ink3); margin-bottom:16px;}
-  .spotlight-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .spotlight-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
   .spotlight-card{
     display:block; text-decoration:none; color:var(--ink);
     border:1px solid var(--border-d); background:var(--paper2); border-radius:12px;
@@ -148,7 +148,6 @@
   .spotlight-card .icon{font-size:20px; color:var(--navy); margin-bottom:10px; display:block;}
   .spotlight-card .title{font-weight:600; font-size:14.5px; margin-bottom:5px;}
   .spotlight-card .desc{font-size:12.5px; color:var(--ink3); line-height:1.5;}
-  .spotlight-card img{width:64px; height:auto; margin-bottom:10px; display:block;}
   @media (max-width:560px){ .spotlight-grid{grid-template-columns:1fr;} }
 
   .urgency-flag{
@@ -323,7 +322,6 @@
       <a href="rights_connector.html" class="active"><i class="ti ti-compass"></i> Find an organization</a>
       <a href="rights_connector_constitution.html"><i class="ti ti-gavel"></i> Defending the Constitution</a>
       <a href="rights_connector_communities.html"><i class="ti ti-building-community"></i> Communities over shareholders</a>
-      <a href="rights_connector_reps.html"><i class="ti ti-building-bank"></i> Your representatives</a>
     </nav>
 
     <div class="privacy-banner">
@@ -382,7 +380,7 @@
 
       <div class="spotlight-section">
         <h2>Looking for something more specific?</h2>
-        <p class="hint">These topics each have their own dedicated page.</p>
+        <p class="hint">These two topics get their own dedicated pages, since they don't fit a single urgency-driven situation.</p>
         <div class="spotlight-grid">
           <a class="spotlight-card" href="rights_connector_constitution.html">
             <i class="ti ti-gavel icon"></i>
@@ -393,11 +391,6 @@
             <i class="ti ti-building-community icon"></i>
             <div class="title">Supporting communities instead of shareholders</div>
             <div class="desc">Organizations working against corporate consolidation and for local economic power.</div>
-          </a>
-          <a class="spotlight-card" href="rights_connector_reps.html">
-            <img src="representative_connector.png" alt="Representative Connector">
-            <div class="title">Contact your representatives</div>
-            <div class="desc">Find your U.S. senators and House representatives by state with verified phone numbers and direct contact links.</div>
           </a>
         </div>
       </div>
@@ -1078,7 +1071,7 @@ function orgCardHtml(org){
     '</div>' +
     '<div class="org-desc">'+escapeHtml(org.desc)+'</div>' +
     '<div class="org-actions">' +
-      '<a class="org-link" href="'+org.url+'" target="_blank" rel="noopener"><i class="ti ti-external-link"></i> Visit site</a>' +
+      '<a class="org-link" href="'+org.url+'" target="_blank" rel="noopener" data-org-id="'+org.id+'" data-org-name="'+escapeHtml(org.name)+'"><i class="ti ti-external-link"></i> Visit site</a>' +
     '</div>' +
     '<div class="research-toggle">' +
       '<input type="checkbox" id="'+researchId+'">' +
@@ -1327,7 +1320,7 @@ function buildPrepData(){
 
 function prepOrgMiniHtml(org){
   return '<div class="prep-org-mini">' +
-    '<div class="name"><a href="'+org.url+'" target="_blank" rel="noopener">'+escapeHtml(org.name)+'</a></div>' +
+    '<div class="name"><a href="'+org.url+'" target="_blank" rel="noopener" data-org-id="'+org.id+'" data-org-name="'+escapeHtml(org.name)+'">'+escapeHtml(org.name)+'</a></div>' +
     '<div class="meta">'+escapeHtml(org.type)+' &middot; '+escapeHtml(org.scope)+' &middot; Transparency '+org.trans+'/6</div>' +
     '<div class="desc">'+escapeHtml(org.desc)+'</div>' +
   '</div>';
@@ -1559,6 +1552,89 @@ document.getElementById('step-quiz').addEventListener('change', function(){
 document.getElementById('genPrepBtn').addEventListener('click', generatePrepPacket);
 document.getElementById('downloadPrepBtn').addEventListener('click', downloadPrepDoc);
 document.getElementById('copyPrepBtn').addEventListener('click', copyPrepSummary);
+
+/* ═══════════════════════════════════════════════════════════
+   Rights Connector — Supabase click + filter tracking
+   Page: rc-hub
+   ═══════════════════════════════════════════════════════════ */
+var RC_SUPA_URL  = 'https://epntzskzmdlfqyosscbc.supabase.co';
+var RC_SUPA_ANON = 'sb_publishable_i5pUA7v3H5UOPifMLTcLtA_zJO12EnK';
+var RC_PAGE_ID   = 'rc-hub';
+
+function rcSlugify(str) {
+  return (str || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function rcTrack(key, name, url, pageOverride) {
+  try {
+    fetch(RC_SUPA_URL + '/rest/v1/rpc/increment_click', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': RC_SUPA_ANON,
+        'Authorization': 'Bearer ' + RC_SUPA_ANON
+      },
+      body: JSON.stringify({
+        p_key:  key,
+        p_name: name,
+        p_url:  url || '',
+        p_page: pageOverride || RC_PAGE_ID
+      })
+    }).catch(function(){});
+  } catch(e) {}
+}
+
+/* ── Org link click tracking (event delegation on results container) ── */
+document.addEventListener('click', function(e) {
+  var link = e.target.closest ? e.target.closest('[data-org-id]') : null;
+  if (!link) {
+    /* IE-safe fallback */
+    var t = e.target;
+    while (t && t !== document) {
+      if (t.getAttribute && t.getAttribute('data-org-id')) { link = t; break; }
+      t = t.parentNode;
+    }
+  }
+  if (link) {
+    var orgId   = link.getAttribute('data-org-id')   || rcSlugify(link.getAttribute('data-org-name'));
+    var orgName = link.getAttribute('data-org-name') || orgId;
+    var orgUrl  = link.href || '';
+    rcTrack(orgId, orgName, orgUrl);
+  }
+});
+
+/* ── Filter tracking (2d): category + urgency + state ── */
+function rcTrackFilters() {
+  var cat   = getSelected('category');
+  var urg   = getSelected('urgency') || 'plan';
+  var state = document.getElementById('stateInput') ? document.getElementById('stateInput').value : '';
+  if (cat) {
+    rcTrack('cat:' + cat, 'Category: ' + cat, '', RC_PAGE_ID + '-filters');
+  }
+  if (urg) {
+    rcTrack('urg:' + urg, 'Urgency: ' + urg, '', RC_PAGE_ID + '-filters');
+  }
+  if (state) {
+    rcTrack('state:' + state, 'State: ' + state, '', RC_PAGE_ID + '-filters');
+  }
+}
+
+/* Hook into the existing render triggers */
+var _origStepResults = document.getElementById('step-results');
+if (_origStepResults) {
+  _origStepResults.addEventListener('change', function() {
+    if (this.checked) { rcTrackFilters(); }
+  });
+}
+var _origStepState = document.getElementById('step-state-results');
+if (_origStepState) {
+  _origStepState.addEventListener('change', function() {
+    if (this.checked) {
+      var state = document.getElementById('stateInput') ? document.getElementById('stateInput').value : '';
+      if (state) { rcTrack('state:' + state, 'State browse: ' + state, '', RC_PAGE_ID + '-filters'); }
+    }
+  });
+}
 
 </script>
 </body>
