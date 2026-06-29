@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Epilepsy Resources &amp; Support Guide · AricCivicLabs</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6EFDC; --paper2:#FFFBF1; --paper3:#EFE5C9;
+    --ink:#2A2018; --ink2:#6E5F4A; --ink3:#746352;
+    --navy:#1F3A5C; --navy-l:#2F5380;
+    --purple:#7B5EA7; --purple-l:#9578C2; --purple-bg:rgba(123,94,167,0.08);
+    --brick:#A8412F; --brick-l:#C25A45;
+    --gold:#8F6418; --gold-l:#C99A40; --green:#3D7A57; --green-l:#4F9268;
+    --border:#E2D2A8; --border-d:#D3C193;
+  }
+/* ── ACL Eco Bar ── */
+.acl-eco-bar{display:flex;align-items:center;padding:0 28px;height:34px;background:rgba(0,0,0,0.022);border-bottom:1px solid rgba(0,0,0,0.09);}
+.acl-eco-org{font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500;color:rgba(0,0,0,0.42);text-decoration:none;white-space:nowrap;flex-shrink:0;}
+.acl-eco-org:hover{color:rgba(0,0,0,0.72);}
+.acl-eco-div{flex:1;height:1px;background:rgba(0,0,0,0.09);margin:0 16px;}
+.acl-eco-links{display:flex;gap:18px;flex-shrink:0;}
+.acl-eco-links a{font-family:'DM Mono',monospace;font-size:10.5px;color:rgba(0,0,0,0.28);text-decoration:none;white-space:nowrap;transition:color .15s;}
+.acl-eco-links a:hover{color:rgba(0,0,0,0.62);}
+.acl-eco-here{font-family:'DM Mono',monospace;font-size:10.5px;color:rgba(0,0,0,0.55);white-space:nowrap;}
+@media(max-width:640px){.acl-eco-bar{display:none;}}
+/* ── ACL Suite Footer ── */
+.acl-suite-footer{border-top:1px solid rgba(0,0,0,0.1);padding:28px 28px 24px;background:rgba(0,0,0,0.025);}
+.acl-suite-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 24px;max-width:900px;margin:0 auto 20px;}
+.acl-suite-label{font-family:'DM Mono',monospace;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(0,0,0,0.28);margin-bottom:9px;}
+.acl-suite-col a{display:block;font-size:12px;font-weight:500;color:rgba(0,0,0,0.38);text-decoration:none;margin-bottom:4px;transition:color .15s;}
+.acl-suite-col a:hover{color:rgba(0,0,0,0.72);}
+.acl-suite-here{display:block;font-size:12px;font-weight:500;color:rgba(0,0,0,0.58);margin-bottom:4px;}
+.acl-suite-meta{border-top:1px solid rgba(0,0,0,0.08);padding-top:14px;display:flex;align-items:center;gap:10px;font-size:10.5px;color:rgba(0,0,0,0.3);max-width:900px;margin:0 auto;flex-wrap:wrap;}
+.acl-suite-meta a{color:rgba(0,0,0,0.38);text-decoration:none;transition:color .15s;}
+.acl-suite-meta a:hover{color:rgba(0,0,0,0.7);}
+.acl-m-dot{color:rgba(0,0,0,0.13);}
+@media(max-width:640px){.acl-suite-grid{grid-template-columns:1fr 1fr;}}
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{color-scheme:light; background-color:#F6EFDC; min-height:100%;}
+  body{background-color:#F6EFDC; color:var(--ink); font-family:'DM Sans',sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased; min-height:100vh; min-height:100dvh;}
+  .container{max-width:840px; margin:0 auto; padding:28px 20px 90px;}
+
+  header{padding:6px 0 22px;}
+  .hero{
+    background:var(--paper2); border:1px solid var(--border-d); border-top:7px solid var(--purple);
+    border-radius:14px; padding:34px 28px 30px; margin-bottom:4px;
+    text-align:center; display:flex; flex-direction:column; align-items:center;
+  }
+  .hero-icon{
+    width:74px; height:74px; border-radius:50%; background:var(--purple-bg);
+    border:2px solid rgba(123,94,167,0.22); display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px;
+  }
+  .hero-icon i{font-size:36px; color:var(--purple);}
+  .eyebrow{font-family:'DM Mono',monospace; font-size:11.5px; letter-spacing:0.09em; text-transform:uppercase; color:var(--purple); margin-bottom:10px; font-weight:500;}
+  h1{font-family:'Libre Caslon Display',serif; font-size:40px; line-height:1.08; font-weight:400; letter-spacing:-0.01em; margin-bottom:12px; color:var(--ink);}
+  .subhead{color:var(--ink2); font-size:15.5px; max-width:560px; line-height:1.6;}
+  .rule{height:3px; margin:20px 0 0; width:100%; border-radius:2px; background:linear-gradient(90deg, var(--purple) 0%, var(--purple) 40%, var(--gold-l) 50%, var(--navy) 60%, var(--navy) 100%);}
+
+  .free-badge{display:inline-flex; align-items:center; gap:6px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.05em; text-transform:uppercase; background:rgba(61,122,87,0.1); color:var(--green); border:1px solid rgba(61,122,87,0.3); border-radius:100px; padding:5px 11px; margin-top:14px;}
+
+  .privacy-banner{display:flex; gap:10px; align-items:flex-start; background:var(--paper2); border:1px solid var(--border); border-radius:10px; padding:13px 15px; margin-top:20px; font-size:13px; color:var(--ink2);}
+  .privacy-banner i{color:var(--green); font-size:16px; margin-top:1px;}
+
+  /* ── Stats Row ── */
+  .stats-row{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:26px 0 20px;}
+  .stat-card{background:var(--paper2); border:1px solid var(--border-d); border-radius:10px; padding:14px 16px; text-align:center;}
+  .stat-num{font-family:'Libre Caslon Display',serif; font-size:30px; color:var(--purple); margin-bottom:2px; line-height:1;}
+  .stat-label{font-size:12px; color:var(--ink2); line-height:1.4;}
+  @media(max-width:520px){.stats-row{grid-template-columns:1fr 1fr;} .stats-row .stat-card:last-child{grid-column:span 2;}}
+
+  /* ── Seizure First Aid Box ── */
+  .first-aid-box{background:rgba(168,65,47,0.06); border:2px solid rgba(168,65,47,0.28); border-radius:12px; padding:18px 20px; margin:22px 0;}
+  .fa-title{font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:var(--brick); font-weight:600; margin-bottom:12px; display:flex; align-items:center; gap:7px;}
+  .fa-title i{font-size:17px;}
+  .fa-steps{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;}
+  .fa-step{background:var(--paper2); border:1px solid var(--border); border-radius:8px; padding:10px 12px; font-size:13px; color:var(--ink2); line-height:1.45; display:flex; gap:8px; align-items:flex-start;}
+  .fa-num{font-family:'DM Mono',monospace; font-size:10.5px; font-weight:600; color:var(--brick); background:rgba(168,65,47,0.1); border-radius:4px; padding:1px 6px; flex-shrink:0; margin-top:1px;}
+  .fa-911{background:rgba(168,65,47,0.12); border:1px solid rgba(168,65,47,0.22); border-radius:8px; padding:10px 14px; font-size:12.5px; color:var(--ink2); margin-top:2px; line-height:1.55;}
+  .fa-911 strong{color:var(--brick);}
+  @media(max-width:560px){.fa-steps{grid-template-columns:1fr;}}
+
+  /* ── Intro Note / Tips ── */
+  .intro-note{background:var(--paper2); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin:16px 0 22px; font-size:13.5px; color:var(--ink2); line-height:1.6;}
+  .intro-note strong{color:var(--ink);}
+  .tip-box{background:var(--purple-bg); border:1px solid rgba(123,94,167,0.18); border-radius:10px; padding:13px 16px; font-size:13px; color:var(--ink2); margin:16px 0; line-height:1.55; display:flex; gap:10px; align-items:flex-start;}
+  .tip-box i{color:var(--purple); font-size:16px; margin-top:1px; flex-shrink:0;}
+  .local-note{background:rgba(143,100,24,0.07); border:1px solid rgba(143,100,24,0.22); border-radius:10px; padding:13px 16px; font-size:13px; color:var(--ink2); margin:16px 0; line-height:1.55; display:flex; gap:10px; align-items:flex-start;}
+  .local-note i{color:var(--gold); font-size:17px; margin-top:1px; flex-shrink:0;}
+
+  /* ── CSS-Only Tab Navigation ── */
+  .tab-radio{display:none;}
+  .tab-bar{display:flex; flex-wrap:wrap; gap:7px; margin:28px 0 22px; padding-bottom:20px; border-bottom:1px solid var(--border);}
+  .tab-btn{display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-size:13px; font-weight:600; color:var(--ink2); border:1px solid var(--border-d); background:var(--paper2); border-radius:100px; padding:8px 16px; transition:border-color .15s, color .15s, background .15s; user-select:none;}
+  .tab-btn:hover{border-color:var(--purple); color:var(--purple);}
+  .tab-btn i{font-size:14px;}
+
+  #t1:checked ~ .tab-bar label[for="t1"],
+  #t2:checked ~ .tab-bar label[for="t2"],
+  #t3:checked ~ .tab-bar label[for="t3"],
+  #t4:checked ~ .tab-bar label[for="t4"],
+  #t5:checked ~ .tab-bar label[for="t5"],
+  #t6:checked ~ .tab-bar label[for="t6"],
+  #t7:checked ~ .tab-bar label[for="t7"],
+  #t8:checked ~ .tab-bar label[for="t8"],
+  #t9:checked ~ .tab-bar label[for="t9"],
+  #t10:checked ~ .tab-bar label[for="t10"]
+  {background:var(--purple); border-color:var(--purple); color:#FFFBF1;}
+
+  .panels .tab-panel{display:none;}
+  #t1:checked ~ .panels #p1{display:block;}
+  #t2:checked ~ .panels #p2{display:block;}
+  #t3:checked ~ .panels #p3{display:block;}
+  #t4:checked ~ .panels #p4{display:block;}
+  #t5:checked ~ .panels #p5{display:block;}
+  #t6:checked ~ .panels #p6{display:block;}
+  #t7:checked ~ .panels #p7{display:block;}
+  #t8:checked ~ .panels #p8{display:block;}
+  #t9:checked ~ .panels #p9{display:block;}
+  #t10:checked ~ .panels #p10{display:block;}
+
+  /* ── Panel Header ── */
+  .panel-head{display:flex; align-items:flex-start; gap:12px; margin-bottom:16px; padding-bottom:14px; border-bottom:2px solid var(--border-d);}
+  .panel-head-icon{font-size:24px; color:var(--purple); flex-shrink:0; margin-top:2px;}
+  .panel-head h2{font-family:'Libre Caslon Display',serif; font-size:23px; font-weight:400; margin-bottom:3px;}
+  .panel-head .count{font-family:'DM Mono',monospace; font-size:10.5px; color:var(--ink3); text-transform:uppercase; letter-spacing:0.05em;}
+  .panel-intro{font-size:13.5px; color:var(--ink2); margin-bottom:22px; line-height:1.6; border-bottom:1px solid var(--border); padding-bottom:18px;}
+
+  /* ── Org Cards ── */
+  .org-card{border:1px solid var(--border-d); background:var(--paper2); border-radius:12px; padding:16px 18px; margin-bottom:12px; transition:border-color .15s;}
+  .org-card:hover{border-color:rgba(123,94,167,0.32);}
+  .org-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .org-name{font-size:15px; font-weight:600; color:var(--ink);}
+  .org-type{font-family:'DM Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink3); margin-top:3px;}
+  .org-desc{font-size:13.5px; color:var(--ink2); margin:9px 0 12px; line-height:1.55;}
+  .org-actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+  .org-link{display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:#FFFBF1; background:var(--purple); border-radius:7px; padding:8px 14px; text-decoration:none;}
+  .org-link:hover{background:var(--purple-l);}
+  .org-link-sec{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--navy); background:transparent; border:1px solid rgba(31,58,92,0.28); border-radius:7px; padding:7px 13px; text-decoration:none;}
+  .org-link-sec:hover{border-color:var(--navy); background:rgba(31,58,92,0.05);}
+  .org-phone{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:500; color:var(--ink2); border:1px solid var(--border-d); border-radius:7px; padding:7px 12px; text-decoration:none; font-family:'DM Mono',monospace;}
+  .org-phone:hover{border-color:var(--purple); color:var(--purple);}
+  .badge{font-family:'DM Mono',monospace; font-size:10.5px; padding:4px 9px; border-radius:100px; border:1px solid var(--border-d); color:var(--ink3);}
+  .badge.federal{color:var(--navy); border-color:rgba(31,58,92,0.3); background:rgba(31,58,92,0.07);}
+  .badge.free{color:var(--green); border-color:rgba(61,122,87,0.35); background:rgba(61,122,87,0.08);}
+  .badge.hotline{color:var(--brick); border-color:rgba(168,65,47,0.3); background:rgba(168,65,47,0.07);}
+  .badge.national{color:var(--purple); border-color:rgba(123,94,167,0.3); background:rgba(123,94,167,0.07);}
+  .badge.state{color:var(--gold); border-color:rgba(143,100,24,0.3); background:rgba(143,100,24,0.07);}
+
+  /* ── Section Sub-Labels ── */
+  .sec-label{font-family:'DM Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink3); margin:24px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--border);}
+
+  /* ── Email capture ── */
+  .email-capture-block{--ec-accent:#7B5EA7;--ec-success:#3D7A57;background:var(--paper2);border:1px solid var(--border-d);border-radius:8px;padding:.875rem 1rem;margin-top:24px;}
+  .email-capture-block .ec-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);margin:0 0 8px;display:flex;align-items:center;gap:5px;}
+  .email-capture-block .ec-row{display:flex;gap:7px;align-items:stretch;margin-bottom:7px;flex-wrap:wrap;}
+  .email-capture-block .ec-input{flex:1;min-width:180px;font-size:13px;background:var(--paper);border:1px solid var(--border-d);border-radius:6px;padding:7px 10px;color:var(--ink);font-family:inherit;}
+  .email-capture-block .ec-input:focus{outline:none;border-color:var(--ec-accent);}
+  .email-capture-block .ec-btn{font-size:12px;font-weight:600;padding:7px 14px;background:var(--ec-accent);border:none;border-radius:6px;color:#FFFBF1;cursor:pointer;font-family:inherit;white-space:nowrap;}
+  .email-capture-block .ec-btn:hover{opacity:.88;}
+  .email-capture-block .ec-consent{display:flex;align-items:flex-start;gap:7px;cursor:pointer;user-select:none;border:1px solid rgba(61,122,87,0.3);border-radius:6px;padding:7px 9px;background:rgba(61,122,87,0.06);}
+  .email-capture-block .ec-consent input[type=checkbox]{margin-top:2px;flex-shrink:0;accent-color:var(--green);cursor:pointer;}
+  .email-capture-block .ec-consent span{font-size:11px;color:var(--ink2);line-height:1.5;}
+  .email-capture-block .ec-status{font-size:11px;margin-top:5px;min-height:14px;}
+
+  /* ── Submit Section ── */
+  .submit-section{margin-top:38px; border-top:1px solid var(--border); padding-top:26px;}
+  .submit-section h3{font-family:'Libre Caslon Display',serif; font-size:19px; font-weight:400; margin-bottom:4px;}
+  .submit-section .hint{font-size:13px; color:var(--ink3); margin-bottom:14px;}
+  .submit-toggle-checkbox{position:absolute; opacity:0; pointer-events:none;}
+  .submit-form-wrap{display:none; margin-top:18px;}
+  #submitToggle:checked ~ .submit-form-wrap{display:block;}
+  .field{margin-bottom:12px;}
+  .field label{display:block; font-size:12.5px; color:var(--ink2); margin-bottom:5px; font-weight:500;}
+  input[type=text]{width:100%; background:var(--paper2); border:1px solid var(--border-d); border-radius:8px; padding:11px 13px; color:var(--ink); font-size:14px; font-family:inherit;}
+  input[type=text]:focus{outline:2px solid var(--purple); border-color:var(--purple);}
+  textarea{width:100%; background:var(--paper2); border:1px solid var(--border-d); border-radius:8px; padding:12px 13px; color:var(--ink); font-size:13.5px; font-family:inherit; resize:vertical;}
+  textarea:focus{outline:2px solid var(--purple); border-color:var(--purple);}
+  .btn-primary{display:inline-flex; align-items:center; gap:8px; cursor:pointer; background:var(--purple); color:#FFFBF1; font-weight:600; font-size:14px; border:none; border-radius:9px; padding:13px 22px; margin-top:6px; font-family:inherit;}
+  .btn-primary:hover{background:var(--purple-l);}
+  .btn-outline{display:inline-flex; align-items:center; gap:8px; cursor:pointer; background:transparent; color:var(--ink2); font-weight:600; font-size:13px; border:1px solid var(--border-d); border-radius:8px; padding:9px 16px; font-family:inherit;}
+  .btn-outline:hover{border-color:var(--purple); color:var(--purple);}
+  .success-banner{display:none; gap:10px; align-items:flex-start; background:rgba(61,122,87,0.1); border:1px solid rgba(61,122,87,0.3); border-radius:10px; padding:13px 15px; margin:20px 0; font-size:13.5px; color:var(--ink);}
+  .success-banner.show{display:flex;}
+  .success-banner i{color:var(--green); font-size:18px; margin-top:1px;}
+  .gotcha-field{position:absolute; left:-9999px; opacity:0;}
+
+  footer{margin-top:44px; padding-top:16px; border-top:1px solid var(--border); font-size:12px; color:var(--ink3);}
+  footer a{color:var(--ink2);}
+
+  @media(max-width:600px){
+    h1{font-size:30px;}
+    .hero{padding:24px 18px 22px;}
+    .tab-btn{font-size:12px; padding:7px 13px;}
+    .panel-head h2{font-size:20px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ACL Eco Bar -->
+<div class="acl-eco-bar">
+  <a href="https://aricciviclabs.org" class="acl-eco-org">AricCivicLabs.Org</a>
+  <span class="acl-eco-div"></span>
+  <div class="acl-eco-links">
+    <a href="https://receipts.aricciviclabs.org">receipts.</a>
+    <a href="https://transitions.aricciviclabs.org">Transitions</a>
+    <a href="https://inable.aricciviclabs.org">InAble</a>
+    <a href="https://meshforce.aricciviclabs.org">MeshForce</a>
+    <a href="https://theseam.aricciviclabs.org/seam.html">The Seam</a>
+    <span class="acl-eco-here">Epilepsy Resources</span>
+  </div>
+</div>
+
+<div class="container">
+<header>
+  <div class="hero">
+    <div class="hero-icon"><i class="ti ti-brain"></i></div>
+    <div class="eyebrow">Pillar 4 · Civic Participation &amp; Rights Access · Always Free</div>
+    <h1>Epilepsy Resources<br>&amp; Support Guide</h1>
+    <p class="subhead">Connecting people living with epilepsy — and those who love and support them — to housing, healthcare, financial benefits, transportation, education, employment, legal rights, and community.</p>
+    <span class="free-badge"><i class="ti ti-lock-open"></i> No paywall · No ads · No sign-in</span>
+    <div class="rule"></div>
+  </div>
+
+  <div class="privacy-banner">
+    <i class="ti ti-shield-check"></i>
+    <span>This guide is funded by AricCivicLabs' paid tools (Pillars 1–3) so it can remain permanently free. No sponsor has any influence on which organizations are listed. All organizations are human-verified against live sources — no AI-generated entries. If you find a broken link, email <a href="mailto:hello@aricciviclabs.org">hello@aricciviclabs.org</a>.</span>
+  </div>
+</header>
+
+<!-- CSS-only tab radios (must come before tab-bar and panels) -->
+<input type="radio" class="tab-radio" id="t1" name="tabs" checked>
+<input type="radio" class="tab-radio" id="t2" name="tabs">
+<input type="radio" class="tab-radio" id="t3" name="tabs">
+<input type="radio" class="tab-radio" id="t4" name="tabs">
+<input type="radio" class="tab-radio" id="t5" name="tabs">
+<input type="radio" class="tab-radio" id="t6" name="tabs">
+<input type="radio" class="tab-radio" id="t7" name="tabs">
+<input type="radio" class="tab-radio" id="t8" name="tabs">
+<input type="radio" class="tab-radio" id="t9" name="tabs">
+<input type="radio" class="tab-radio" id="t10" name="tabs">
+
+<!-- Tab Bar -->
+<div class="tab-bar">
+  <label class="tab-btn" for="t1"><i class="ti ti-compass"></i> Overview</label>
+  <label class="tab-btn" for="t2"><i class="ti ti-stethoscope"></i> Healthcare</label>
+  <label class="tab-btn" for="t3"><i class="ti ti-coin"></i> Financial Help</label>
+  <label class="tab-btn" for="t4"><i class="ti ti-home"></i> Housing</label>
+  <label class="tab-btn" for="t5"><i class="ti ti-car"></i> Transportation</label>
+  <label class="tab-btn" for="t6"><i class="ti ti-school"></i> Education</label>
+  <label class="tab-btn" for="t7"><i class="ti ti-briefcase"></i> Employment</label>
+  <label class="tab-btn" for="t8"><i class="ti ti-users"></i> Community</label>
+  <label class="tab-btn" for="t9"><i class="ti ti-heart"></i> Caregivers</label>
+  <label class="tab-btn" for="t10"><i class="ti ti-scale"></i> Legal</label>
+</div>
+
+<!-- Panels -->
+<div class="panels">
+
+<!-- ═══════ PANEL 1: OVERVIEW ═══════ -->
+<div class="tab-panel" id="p1">
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num">3.4M</div>
+      <div class="stat-label">Americans living with epilepsy</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">1 in 26</div>
+      <div class="stat-label">People will develop epilepsy in their lifetime</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">70%</div>
+      <div class="stat-label">Cases can be controlled with medication</div>
+    </div>
+  </div>
+
+  <div class="intro-note">
+    <strong>Epilepsy is the 4th most common neurological disorder in the U.S.</strong> It doesn't discriminate by age, race, or background — and for families living with it, the challenges go far beyond managing seizures. This guide gathers the best national resources across every dimension of life with epilepsy: medical, financial, housing, transportation, school, work, legal rights, and emotional support.
+    <br><br>
+    Use the tabs above to navigate by category. Every organization listed has been verified against its live website. Many are free or low-cost. When in doubt, the <strong>Epilepsy Foundation HelpLine (1-800-332-1000)</strong> can connect you to local resources in any state.
+  </div>
+
+  <!-- Seizure First Aid -->
+  <div class="first-aid-box">
+    <div class="fa-title"><i class="ti ti-alert-triangle"></i> Seizure First Aid — What To Do</div>
+    <div class="fa-steps">
+      <div class="fa-step"><span class="fa-num">1</span><span>Stay calm. Stay with the person through the seizure.</span></div>
+      <div class="fa-step"><span class="fa-num">2</span><span>Keep them safe. Move away sharp objects. Cushion their head.</span></div>
+      <div class="fa-step"><span class="fa-num">3</span><span>Time it. Note when the seizure starts and ends.</span></div>
+      <div class="fa-step"><span class="fa-num">4</span><span>Do NOT put anything in their mouth. Do not restrain them.</span></div>
+      <div class="fa-step"><span class="fa-num">5</span><span>Gently roll them on their side after convulsions stop.</span></div>
+      <div class="fa-step"><span class="fa-num">6</span><span>Stay until they are fully awake, aware, and safe.</span></div>
+    </div>
+    <div class="fa-911"><strong>Call 911 if:</strong> the seizure lasts more than 5 minutes · the person doesn't regain consciousness · a second seizure follows immediately · they are injured, pregnant, or have diabetes · it is their first known seizure · the seizure happens in water.</div>
+  </div>
+
+  <div class="tip-box">
+    <i class="ti ti-phone"></i>
+    <span><strong>Epilepsy Foundation HelpLine:</strong> Call <strong>1-800-332-1000</strong> (English) or <strong>1-866-748-8008</strong> (Español), Monday–Friday 9AM–5PM ET. Specialists can connect you with local chapters, financial assistance, support groups, and community programs in your state. Online: <a href="https://www.epilepsy.com/helpline" target="_blank" rel="noopener">epilepsy.com/helpline</a></span>
+  </div>
+
+  <div class="local-note">
+    <i class="ti ti-map-pin"></i>
+    <span><strong>Call 211 for local help.</strong> In most of the U.S., dialing <strong>211</strong> (or visiting <a href="https://211.org" target="_blank" rel="noopener">211.org</a>) connects you to a trained specialist who can find local transportation assistance, food, housing, and emergency financial help in your county or city — not just national programs.</span>
+  </div>
+
+  <div class="email-capture-block" id="ecBlock">
+    <div class="ec-label"><i class="ti ti-mail"></i> Stay informed — resource updates &amp; new programs</div>
+    <div class="ec-row">
+      <input class="ec-input" id="ecEmail" type="email" placeholder="you@example.com" autocomplete="email">
+      <button class="ec-btn" id="ecBtn">Notify Me</button>
+    </div>
+    <label class="ec-consent">
+      <input type="checkbox" id="ecConsent">
+      <span>I agree to receive occasional AricCivicLabs updates about new resources and civic tools. No spam. Unsubscribe anytime.</span>
+    </label>
+    <div class="ec-status" id="ecStatus"></div>
+  </div>
+
+</div>
+<!-- /p1 -->
+
+<!-- ═══════ PANEL 2: HEALTHCARE ═══════ -->
+<div class="tab-panel" id="p2">
+  <div class="panel-head">
+    <i class="panel-head-icon ti ti-stethoscope"></i>
+    <div>
+      <h2>Healthcare &amp; Medical</h2>
+      <div class="count">8 organizations · national &amp; federal</div>
+    </div>
+  </div>
+  <div class="panel-intro">Medical care is the foundation. These organizations help you find specialists, understand treatment options, afford medication, and navigate insurance challenges.</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Epilepsy Foundation</div>
+        <div class="org-type">National Nonprofit · HelpLine · Local Chapters</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">The leading national epilepsy organization. Their HelpLine (1-800-332-1000) connects patients and families with information specialists, local chapter programs, medication assistance, seizure first aid training, support groups, summer camps for kids, and SUDEP prevention resources. Available in English and Spanish.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.epilepsy.com" target="_blank" rel="noopener" data-org-id="epilepsy-foundation" data-org-name="Epilepsy Foundation"><i class="ti ti-external-link"></i> epilepsy.com</a>
+      <a class="org-phone" href="tel:18003321000"><i class="ti ti-phone"></i> 1-800-332-1000</a>
+      <a class="org-phone" href="tel:18667488008"><i class="ti ti-language"></i> Español: 1-866-748-8008</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">CDC Epilepsy Program</div>
+        <div class="org-type">Federal · Public Health · Research &amp; Data</div>
+      </div>
+      <span class="badge federal">Federal</span>
+    </div>
+    <div class="org-desc">The Centers for Disease Control and Prevention's epilepsy program provides public health data, seizure first aid resources, information for schools and workplaces, and a national network of public health resources for people living with epilepsy.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.cdc.gov/epilepsy" target="_blank" rel="noopener" data-org-id="cdc-epilepsy" data-org-name="CDC Epilepsy Program"><i class="ti ti-external-link"></i> cdc.gov/epilepsy</a>
+      <span class="badge free">Free</span>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">American Epilepsy Society (AES)</div>
+        <div class="org-type">Professional Medical Society · Find a Specialist</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">The professional society for epilepsy clinicians and researchers. Their website includes a tool to find board-certified epileptologists and epilepsy centers near you, plus resources on treatment advances and clinical trials.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.aesnet.org" target="_blank" rel="noopener" data-org-id="aes" data-org-name="American Epilepsy Society"><i class="ti ti-external-link"></i> aesnet.org</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">NINDS — National Institute of Neurological Disorders &amp; Stroke</div>
+        <div class="org-type">Federal · NIH · Research &amp; Clinical Trials</div>
+      </div>
+      <span class="badge federal">Federal · NIH</span>
+    </div>
+    <div class="org-desc">The primary federal agency funding epilepsy research. NINDS maintains plain-language condition information, clinical trial listings, and links to ongoing research programs. ClinicalTrials.gov (also federal) lists open trials for experimental treatments.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.ninds.nih.gov" target="_blank" rel="noopener" data-org-id="ninds" data-org-name="NINDS NIH"><i class="ti ti-external-link"></i> ninds.nih.gov</a>
+      <a class="org-link-sec" href="https://www.clinicaltrials.gov" target="_blank" rel="noopener">ClinicalTrials.gov</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Brain &amp; Life</div>
+        <div class="org-type">Patient Education · American Academy of Neurology</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">Published by the American Academy of Neurology, Brain &amp; Life is a trusted patient resource covering neurological conditions including epilepsy. Features practical guides on living with epilepsy, medication management, and current research in plain language.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.brainandlife.org" target="_blank" rel="noopener" data-org-id="brain-life" data-org-name="Brain and Life Magazine"><i class="ti ti-external-link"></i> brainandlife.org</a>
+      <span class="badge free">Free</span>
+    </div>
+  </div>
+
+  <div class="sec-label">Medication Affordability</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">NeedyMeds</div>
+        <div class="org-type">Medication Assistance · Search by Drug Name</div>
+      </div>
+      <span class="badge free">Free</span>
+    </div>
+    <div class="org-desc">Search by medication name to find patient assistance programs offered by drug manufacturers. Covers most major anti-seizure medications (ASMs). Also lists low-cost or free clinics and government programs. Free to search, no registration required.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.needymeds.org" target="_blank" rel="noopener" data-org-id="needymeds" data-org-name="NeedyMeds"><i class="ti ti-external-link"></i> needymeds.org</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">The Assistance Fund (TAF)</div>
+        <div class="org-type">Copay Assistance · Epilepsy Program</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">An independent charitable foundation that helps patients with the out-of-pocket costs of epilepsy medications — copayments, coinsurance, and deductibles. Call their helpline to check eligibility and apply. Available to insured patients who can't afford their share of costs.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.tafcares.org" target="_blank" rel="noopener" data-org-id="taf" data-org-name="The Assistance Fund"><i class="ti ti-external-link"></i> tafcares.org</a>
+      <a class="org-phone" href="tel:18553590339"><i class="ti ti-phone"></i> 855-359-0339</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Patient Advocate Foundation</div>
+        <div class="org-type">Insurance Appeals · Medical Debt · Case Management</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">A national nonprofit that provides case management services for people with chronic, life-threatening, or debilitating conditions. They help patients resolve insurance coverage problems, navigate debt crisis, and access available financial assistance. Free case managers available.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.patientadvocate.org" target="_blank" rel="noopener" data-org-id="paf" data-org-name="Patient Advocate Foundation"><i class="ti ti-external-link"></i> patientadvocate.org</a>
+      <span class="badge free">Free Case Managers</span>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <i class="ti ti-info-circle"></i>
+    <span>The Epilepsy Foundation's HelpLine can search their database for local medication assistance programs specific to your state. Call <strong>1-800-332-1000</strong> or use their online search at <a href="https://www.epilepsy.com/patient-assistance" target="_blank" rel="noopener">epilepsy.com/patient-assistance</a>.</span>
+  </div>
+</div>
+<!-- /p2 -->
+
+<!-- ═══════ PANEL 3: BENEFITS ═══════ -->
+<div class="tab-panel" id="p3">
+  <div class="panel-head">
+    <i class="panel-head-icon ti ti-coin"></i>
+    <div>
+      <h2>Financial Help</h2>
+      <div class="count">7 programs · federal &amp; national</div>
+    </div>
+  </div>
+  <div class="panel-intro">Epilepsy may qualify you or your child for federal disability income, health insurance, and savings programs. Start with Benefits.gov to see what you qualify for, then apply directly through each program.</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Benefits.gov — Federal Benefits Screener</div>
+        <div class="org-type">Federal · Find Benefits You Qualify For</div>
+      </div>
+      <span class="badge federal">Federal</span>
+    </div>
+    <div class="org-desc">The official U.S. government tool for finding federal benefits programs you may be eligible for. Answer a few questions and get a personalized list of programs — including disability, healthcare, housing, food, and more. A good first step before applying anywhere.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.benefits.gov" target="_blank" rel="noopener" data-org-id="benefits-gov" data-org-name="Benefits.gov"><i class="ti ti-external-link"></i> benefits.gov</a>
+      <span class="badge free">Free</span>
+    </div>
+  </div>
+
+  <div class="sec-label">Disability Income</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Social Security Disability Insurance (SSDI)</div>
+        <div class="org-type">Federal · Work-History-Based Disability Income</div>
+      </div>
+      <span class="badge federal">Federal · SSA</span>
+    </div>
+    <div class="org-desc">Epilepsy is specifically listed under SSA Blue Book Listing 11.02 as a qualifying disability condition. SSDI pays monthly benefits to adults who have worked and paid Social Security taxes and whose epilepsy prevents them from working. Eligibility depends on seizure frequency, treatment compliance, and functional impact. Medicare begins 24 months after SSDI approval. Apply online or call 1-800-772-1213.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.ssa.gov/disability" target="_blank" rel="noopener" data-org-id="ssdi" data-org-name="SSDI Social Security Disability"><i class="ti ti-external-link"></i> ssa.gov/disability</a>
+      <a class="org-phone" href="tel:18007721213"><i class="ti ti-phone"></i> 1-800-772-1213</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Supplemental Security Income (SSI)</div>
+        <div class="org-type">Federal · Needs-Based · No Work History Required</div>
+      </div>
+      <span class="badge federal">Federal · SSA</span>
+    </div>
+    <div class="org-desc">SSI is a needs-based program for disabled individuals with limited income and resources. Unlike SSDI, no work history is required — making it the primary path for children with epilepsy and adults who haven't worked enough to qualify for SSDI. Uses the same medical criteria (Listing 11.02). Qualifying for SSI often also unlocks Medicaid in most states.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.ssa.gov/ssi" target="_blank" rel="noopener" data-org-id="ssi" data-org-name="SSI Supplemental Security Income"><i class="ti ti-external-link"></i> ssa.gov/ssi</a>
+      <a class="org-phone" href="tel:18007721213"><i class="ti ti-phone"></i> 1-800-772-1213</a>
+    </div>
+  </div>
+
+  <div class="sec-label">Health Insurance</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Medicare</div>
+        <div class="org-type">Federal · Health Insurance for Disabled Individuals</div>
+      </div>
+      <span class="badge federal">Federal</span>
+    </div>
+    <div class="org-desc">People who are approved for SSDI become eligible for Medicare after a 24-month waiting period. Medicare covers hospital visits, outpatient care, and Part D covers prescription drugs including anti-seizure medications. If you can't afford Medicare premiums, Extra Help (Low Income Subsidy) may assist with Part D costs.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.medicare.gov" target="_blank" rel="noopener" data-org-id="medicare" data-org-name="Medicare"><i class="ti ti-external-link"></i> medicare.gov</a>
+      <a class="org-phone" href="tel:18004339900"><i class="ti ti-phone"></i> 1-800-MEDICARE</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Medicaid</div>
+        <div class="org-type">Federal/State · Health Coverage + Transportation Benefit</div>
+      </div>
+      <span class="badge federal">Federal / State</span>
+    </div>
+    <div class="org-desc">Low-income health insurance administered by each state. If you qualify for SSI, you generally qualify for Medicaid automatically. A critical Medicaid benefit for epilepsy patients: Non-Emergency Medical Transportation (NEMT), which provides free rides to medical appointments for Medicaid enrollees who have no other way to get there.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.medicaid.gov" target="_blank" rel="noopener" data-org-id="medicaid" data-org-name="Medicaid"><i class="ti ti-external-link"></i> medicaid.gov</a>
+    </div>
+  </div>
+
+  <div class="sec-label">Savings &amp; Tax Benefits</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">ABLE National Resource Center</div>
+        <div class="org-type">ABLE Accounts · Tax-Advantaged Savings</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">ABLE accounts are tax-advantaged savings accounts for people with disabilities (onset before age 26). Funds can be used for disability-related expenses including medical care, transportation, housing, education, and assistive technology — without affecting SSI or Medicaid eligibility up to certain limits. The ABLE NRC helps you find and open an account.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.ablenrc.org" target="_blank" rel="noopener" data-org-id="able-nrc" data-org-name="ABLE National Resource Center"><i class="ti ti-external-link"></i> ablenrc.org</a>
+      <span class="badge free">Free to Open</span>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">National Disability Institute</div>
+        <div class="org-type">Financial Empowerment · VITA Tax Prep · ABLE Guidance</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">NDI works to improve financial wellness for people with disabilities. They offer free tax preparation through IRS VITA sites for low-income disabled individuals, guidance on ABLE accounts, and financial planning resources. Many people with disabilities leave significant tax credits unclaimed — NDI helps change that.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.ndi-inc.org" target="_blank" rel="noopener" data-org-id="ndi" data-org-name="National Disability Institute"><i class="ti ti-external-link"></i> ndi-inc.org</a>
+      <span class="badge free">Free VITA Tax Sites</span>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <i class="ti ti-alert-circle"></i>
+    <span><strong>Documentation matters.</strong> SSA evaluates epilepsy on seizure type, frequency, and functional impact. A seizure diary, witness statements, and detailed medical records from an ongoing treatment relationship are critical to approval. Consider consulting a disability attorney — they work on contingency (no upfront cost) and can significantly improve approval odds.</span>
+  </div>
+</div>
+<!-- /p3 -->
+
+<!-- ═══════ PANEL 4: HOUSING ═══════ -->
+<div class="tab-panel" id="p4">
+  <div class="panel-head">
+    <i class="panel-head-icon ti ti-home"></i>
+    <div>
+      <h2>Housing</h2>
+      <div class="count">5 organizations &amp; programs</div>
+    </div>
+  </div>
+  <div class="panel-intro">Affordable, safe, and accessible housing is foundational. Federal programs exist to help people with disabilities access rental assistance, supportive housing, and accessible modifications.</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">HUD — Housing Choice Voucher (Section 8)</div>
+        <div class="org-type">Federal · Rental Assistance for Low-Income Disabled Individuals</div>
+      </div>
+      <span class="badge federal">Federal · HUD</span>
+    </div>
+    <div class="org-desc">The Housing Choice Voucher Program (Section 8) provides federal rental assistance to low-income individuals and families, including people with disabilities. HUD's Section 811 program specifically funds supportive housing with services for people with significant disabilities. Apply through your local Public Housing Authority (PHA). Waitlists vary by location. HUD's website includes a PHA finder.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.hud.gov" target="_blank" rel="noopener" data-org-id="hud" data-org-name="HUD Housing"><i class="ti ti-external-link"></i> hud.gov</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">National Low Income Housing Coalition</div>
+        <div class="org-type">Housing Advocacy · Renter Resources</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">NLIHC is a leading housing advocacy organization focused on ensuring decent, affordable homes for those with the lowest incomes. Their "Find Help" tool and state-by-state resources can connect you with rental assistance, eviction prevention programs, and affordable housing locators in your area.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://nlihc.org" target="_blank" rel="noopener" data-org-id="nlihc" data-org-name="National Low Income Housing Coalition"><i class="ti ti-external-link"></i> nlihc.org</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">National Council on Independent Living (NCIL)</div>
+        <div class="org-type">Independent Living Centers · Statewide Network</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">NCIL represents a nationwide network of Independent Living Centers (ILCs) — community-based organizations run by and for people with disabilities. ILCs offer housing assistance, benefits counseling, peer support, and transition services. Find your local ILC through NCIL's directory. They advocate for accessible, integrated community living.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://ncil.org" target="_blank" rel="noopener" data-org-id="ncil" data-org-name="National Council on Independent Living"><i class="ti ti-external-link"></i> ncil.org</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">ADA National Network</div>
+        <div class="org-type">Fair Housing Rights · ADA Technical Assistance</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">A network of 10 regional ADA Centers funded by the federal government. They provide free technical assistance on disability rights under the ADA and the Fair Housing Act — including your rights to reasonable accommodations and modifications in housing. Free guidance for landlords, tenants, and housing providers.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://adata.org" target="_blank" rel="noopener" data-org-id="ada-network" data-org-name="ADA National Network"><i class="ti ti-external-link"></i> adata.org</a>
+      <a class="org-phone" href="tel:18009494232"><i class="ti ti-phone"></i> 1-800-949-4232</a>
+      <span class="badge free">Free Consulting</span>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">211 — Local Housing &amp; Emergency Assistance</div>
+        <div class="org-type">Local Connector · Emergency Rental Assistance</div>
+      </div>
+      <span class="badge free">Free · Nationwide</span>
+    </div>
+    <div class="org-desc">Dialing 211 or visiting 211.org connects you to a local specialist who can find emergency rental assistance, utility help, shelter options, and housing programs in your county — including programs not listed on any national database. Available in most of the U.S. Multilingual assistance available.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://211.org" target="_blank" rel="noopener" data-org-id="211" data-org-name="211 Local Services"><i class="ti ti-external-link"></i> 211.org</a>
+      <a class="org-phone" href="tel:211"><i class="ti ti-phone"></i> Dial 211</a>
+    </div>
+  </div>
+</div>
+<!-- /p4 -->
+
+<!-- ═══════ PANEL 5: TRANSPORTATION ═══════ -->
+<div class="tab-panel" id="p5">
+  <div class="panel-head">
+    <i class="panel-head-icon ti ti-car"></i>
+    <div>
+      <h2>Transportation</h2>
+      <div class="count">5 resources · driving laws + accessible transit + medical rides</div>
+    </div>
+  </div>
+  <div class="panel-intro">Transportation is one of the biggest challenges for people with epilepsy. Driving restrictions vary by state. But alternatives exist — from federally-mandated paratransit to Medicaid medical rides to local volunteer programs.</div>
+
+  <div class="first-aid-box" style="background:rgba(123,94,167,0.06); border-color:rgba(123,94,167,0.25);">
+    <div class="fa-title" style="color:var(--purple)"><i class="ti ti-car-off"></i> Driving &amp; Epilepsy — Know Your State's Law</div>
+    <div style="font-size:13.5px; color:var(--ink2); line-height:1.6; margin-bottom:6px;">
+      Every state has different seizure-free waiting period requirements before driving is permitted — typically ranging from 3 to 12 months. Some states require physician reporting; others are self-report. Your doctor and the Epilepsy Foundation can walk you through your state's specific rules before you get behind the wheel.
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Epilepsy Foundation — Driving Laws by State</div>
+        <div class="org-type">State-by-State Driving Requirements · License Guidance</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">The Epilepsy Foundation maintains a comprehensive, up-to-date guide to driving laws for people with epilepsy in all 50 states — including seizure-free waiting periods, physician reporting requirements, and how to restore driving privileges. Essential reading before making any driving decisions. Discuss with your neurologist.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.epilepsy.com/what-is-epilepsy/seizures-and-driving" target="_blank" rel="noopener" data-org-id="epilepsy-driving" data-org-name="Epilepsy Foundation Driving Laws"><i class="ti ti-external-link"></i> epilepsy.com — Driving Laws</a>
+    </div>
+  </div>
+
+  <div class="sec-label">Accessible Transit &amp; Paratransit</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">FTA — ADA Paratransit Rights</div>
+        <div class="org-type">Federal · Americans with Disabilities Act · Public Transit</div>
+      </div>
+      <span class="badge federal">Federal · FTA</span>
+    </div>
+    <div class="org-desc">Under the ADA, transit agencies operating fixed-route bus or rail service must also provide complementary paratransit service for people who cannot use the fixed-route system due to a disability. If seizures prevent you from safely using regular buses or trains, you may qualify. Contact your local transit agency to apply for ADA paratransit eligibility. The Federal Transit Administration oversees compliance.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.transit.dot.gov/ada" target="_blank" rel="noopener" data-org-id="fta-ada" data-org-name="FTA ADA Paratransit"><i class="ti ti-external-link"></i> transit.dot.gov/ada</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Medicaid Non-Emergency Medical Transportation (NEMT)</div>
+        <div class="org-type">Federal/State · Free Medical Rides for Medicaid Enrollees</div>
+      </div>
+      <span class="badge federal">Federal / State</span>
+    </div>
+    <div class="org-desc">If you have Medicaid and have no other way to get to a medical appointment, Medicaid must cover transportation. This is one of the most underused Medicaid benefits for people with epilepsy. Call your Medicaid managed care plan or your state's Medicaid office to find out how to request rides to neurologist appointments, pharmacy pickups, and other medical visits.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.medicaid.gov/medicaid/benefits/nonemergency-medical-transportation/index.html" target="_blank" rel="noopener" data-org-id="medicaid-nemt" data-org-name="Medicaid NEMT Transportation"><i class="ti ti-external-link"></i> Medicaid NEMT</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">NADTC — National Aging &amp; Disability Transportation Center</div>
+        <div class="org-type">Federal Resource · Accessible Transportation Options</div>
+      </div>
+      <span class="badge federal">Federal Resource</span>
+    </div>
+    <div class="org-desc">A federally funded center (FTA + ACL partnership) promoting accessible transportation options for older adults, people with disabilities, and caregivers. Resources on volunteer driver programs, Section 5310 funding, one-call/one-click systems, and local transportation coordination. Note: Their cooperative agreement transitioned in fall 2025 — resources remain publicly available at nadtc.org.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.nadtc.org" target="_blank" rel="noopener" data-org-id="nadtc" data-org-name="NADTC Transportation Center"><i class="ti ti-external-link"></i> nadtc.org</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">211 — Local Transportation &amp; Ride Programs</div>
+        <div class="org-type">Local Connector · Volunteer Drivers · Medical Rides</div>
+      </div>
+      <span class="badge free">Free · Nationwide</span>
+    </div>
+    <div class="org-desc">211 operators know every local volunteer driver program, faith-based ride service, and county transportation program in your area — many of which are not listed in any national database. If you're looking for rides to appointments, grocery stores, or treatment centers, start with 211 before assuming nothing is available locally.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://211.org" target="_blank" rel="noopener" data-org-id="211-transport" data-org-name="211 Local Transportation"><i class="ti ti-external-link"></i> 211.org</a>
+      <a class="org-phone" href="tel:211"><i class="ti ti-phone"></i> Dial 211</a>
+    </div>
+  </div>
+</div>
+<!-- /p5 -->
+
+<!-- ═══════ PANEL 6: EDUCATION ═══════ -->
+<div class="tab-panel" id="p6">
+  <div class="panel-head">
+    <i class="panel-head-icon ti ti-school"></i>
+    <div>
+      <h2>Education</h2>
+      <div class="count">5 organizations · K–12 through higher education</div>
+    </div>
+  </div>
+  <div class="panel-intro">Children and young adults with epilepsy have legally protected rights in every school setting — from kindergarten to college. These organizations help families understand and enforce those rights.</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Epilepsy Foundation — School &amp; Education Guide</div>
+        <div class="org-type">K–12 Guidance · IEPs · 504 Plans · Seizure Action Plans</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">Comprehensive resources for parents and educators: how to develop an Individualized Education Program (IEP) or 504 Plan for a student with epilepsy, what to include in a School Seizure Action Plan, how to talk to teachers, and what rights schools must provide. Printable templates and state-specific guidance available.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.epilepsy.com/caregivers-and-family/school" target="_blank" rel="noopener" data-org-id="epilepsy-school" data-org-name="Epilepsy Foundation School Guide"><i class="ti ti-external-link"></i> epilepsy.com — School Guide</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">PACER Center</div>
+        <div class="org-type">Parent Advocacy · Special Education · IEP Support</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">PACER (Parent Advocacy Coalition for Educational Rights) provides extensive resources to help parents navigate special education law, IEPs, and disability rights in schools. Offers training, publications, and a Technical Assistance for Parent Centers (TASC) network. Their Champions Against Bullying program also addresses disability-related bullying.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.pacer.org" target="_blank" rel="noopener" data-org-id="pacer" data-org-name="PACER Center"><i class="ti ti-external-link"></i> pacer.org</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">IDEA — Individuals with Disabilities Education Act</div>
+        <div class="org-type">Federal Law · Free &amp; Appropriate Public Education</div>
+      </div>
+      <span class="badge federal">Federal Law · OSEP</span>
+    </div>
+    <div class="org-desc">IDEA guarantees students with disabilities the right to a free and appropriate public education (FAPE) in the least restrictive environment. Children with epilepsy whose condition affects their education may qualify for special education services or a 504 Plan. This federal site explains rights, IEP requirements, procedural safeguards, and dispute resolution.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://sites.ed.gov/idea" target="_blank" rel="noopener" data-org-id="idea" data-org-name="IDEA Education Law"><i class="ti ti-external-link"></i> sites.ed.gov/idea</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Understood.org</div>
+        <div class="org-type">IEPs · 504 Plans · School Accommodations · Family Guides</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">Practical, jargon-free guides for parents of students who learn and think differently — including those with epilepsy, ADHD, and other conditions. Covers how to request an IEP evaluation, what to expect at IEP meetings, how to advocate for accommodations, and how to understand your rights in plain language.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.understood.org" target="_blank" rel="noopener" data-org-id="understood" data-org-name="Understood.org"><i class="ti ti-external-link"></i> understood.org</a>
+      <span class="badge free">Free</span>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">ADA.gov — Higher Education Accommodations</div>
+        <div class="org-type">Federal · College &amp; University Disability Rights</div>
+      </div>
+      <span class="badge federal">Federal · DOJ</span>
+    </div>
+    <div class="org-desc">Students with epilepsy at colleges and universities have rights under the ADA and Section 504 of the Rehabilitation Act. Schools must provide reasonable accommodations — such as extended test time, medical leave, housing accommodations, and seizure management plans. ADA.gov explains what schools are required to do and how to file complaints if accommodations are denied.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.ada.gov" target="_blank" rel="noopener" data-org-id="ada-gov-edu" data-org-name="ADA.gov Education"><i class="ti ti-external-link"></i> ada.gov</a>
+    </div>
+  </div>
+</div>
+<!-- /p6 -->
+
+<!-- ═══════ PANEL 7: EMPLOYMENT ═══════ -->
+<div class="tab-panel" id="p7">
+  <div class="panel-head">
+    <i class="panel-head-icon ti ti-briefcase"></i>
+    <div>
+      <h2>Employment</h2>
+      <div class="count">5 organizations · accommodations + rights + job training</div>
+    </div>
+  </div>
+  <div class="panel-intro">People with epilepsy are protected from employment discrimination and entitled to reasonable accommodations under the ADA. Many employers don't know what accommodations are possible — these resources help both employees and employers.</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Job Accommodation Network (JAN)</div>
+        <div class="org-type">Free Consulting · Workplace Accommodation Guidance</div>
+      </div>
+      <span class="badge free">Free · Federal-Funded</span>
+    </div>
+    <div class="org-desc">JAN is a free, confidential service for people with disabilities and their employers. Consultants can help identify specific workplace accommodations for epilepsy — such as flexible scheduling for post-seizure recovery, remote work options, repositioning workstations near exits, or seizure response protocols. JAN's Seizure Disorders guide covers accommodations in detail. Call or search their online database.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://askjan.org" target="_blank" rel="noopener" data-org-id="jan" data-org-name="Job Accommodation Network JAN"><i class="ti ti-external-link"></i> askjan.org</a>
+      <a class="org-phone" href="tel:18005267234"><i class="ti ti-phone"></i> 1-800-526-7234</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">EEOC — Equal Employment Opportunity Commission</div>
+        <div class="org-type">Federal · ADA Enforcement · Discrimination Complaints</div>
+      </div>
+      <span class="badge federal">Federal</span>
+    </div>
+    <div class="org-desc">The EEOC enforces the ADA's employment provisions. If your employer has denied you a reasonable accommodation, fired you because of your epilepsy, or otherwise discriminated against you, you can file a charge with the EEOC. Charges must generally be filed within 180–300 days of the discriminatory act. The EEOC website has specific guidance on epilepsy in the workplace.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.eeoc.gov" target="_blank" rel="noopener" data-org-id="eeoc" data-org-name="EEOC Employment Rights"><i class="ti ti-external-link"></i> eeoc.gov</a>
+      <a class="org-phone" href="tel:18004697684"><i class="ti ti-phone"></i> 1-800-669-4000</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Office of Disability Employment Policy (ODEP)</div>
+        <div class="org-type">Federal · Employer Resources · Disability-Inclusive Workplaces</div>
+      </div>
+      <span class="badge federal">Federal · DOL</span>
+    </div>
+    <div class="org-desc">ODEP is the federal agency focused on increasing employment opportunities for people with disabilities. Their resources include the EARN (Employer Assistance and Resource Network) portal for employers, guidance on inclusive hiring, and the AskEARN.org database of evidence-based disability employment practices. Useful for both job seekers and managers.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.dol.gov/agencies/odep" target="_blank" rel="noopener" data-org-id="odep" data-org-name="ODEP Disability Employment Policy"><i class="ti ti-external-link"></i> dol.gov/agencies/odep</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Vocational Rehabilitation (State VR Programs)</div>
+        <div class="org-type">State Programs · Job Training · Placement · Free Services</div>
+      </div>
+      <span class="badge state">State Programs</span>
+    </div>
+    <div class="org-desc">Every state has a Vocational Rehabilitation (VR) agency that provides free or low-cost services to help people with disabilities prepare for, obtain, maintain, or advance in employment. Services may include job training, assistive technology, education assistance, career counseling, and job placement support. Funded through the federal Rehabilitation Services Administration (RSA). Find your state's VR agency through the RSA website.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://rsa.ed.gov" target="_blank" rel="noopener" data-org-id="rsa-vr" data-org-name="Vocational Rehabilitation RSA"><i class="ti ti-external-link"></i> rsa.ed.gov — Find Your State VR</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Epilepsy Foundation — Employment Resources</div>
+        <div class="org-type">Workplace Rights · Disclosure Guidance · ADA Overview</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">The Epilepsy Foundation's employment section explains your ADA rights at work, how and whether to disclose your epilepsy to an employer, what accommodations to request, and what to do if you face discrimination. Practical guidance for navigating workplace conversations about epilepsy — including how to handle job applications and interviews.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.epilepsy.com/life-with-epilepsy/employment" target="_blank" rel="noopener" data-org-id="epilepsy-employment" data-org-name="Epilepsy Foundation Employment"><i class="ti ti-external-link"></i> epilepsy.com — Employment</a>
+    </div>
+  </div>
+</div>
+<!-- /p7 -->
+
+<!-- ═══════ PANEL 8: COMMUNITY ═══════ -->
+<div class="tab-panel" id="p8">
+  <div class="panel-head">
+    <i class="panel-head-icon ti ti-users"></i>
+    <div>
+      <h2>Community &amp; Support</h2>
+      <div class="count">5 organizations · support groups + peer connection + assistance programs</div>
+    </div>
+  </div>
+  <div class="panel-intro">You are not alone. Epilepsy affects 3.4 million Americans. These organizations offer peer connection, support groups, camps, travel assistance, and community resources for people across the country.</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Epilepsy Foundation — Support Groups &amp; Assistance Programs</div>
+        <div class="org-type">National · Local Chapters · Camps · Travel Assistance</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">The Epilepsy Foundation connects patients and families with local and online support groups, epilepsy camps for children and teens, peer mentor programs, and financial assistance for epilepsy-related travel to medical care. Their local chapters across the country provide community-based programs. The HelpLine (1-800-332-1000) can connect you with your nearest chapter.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.epilepsy.com/programs" target="_blank" rel="noopener" data-org-id="epilepsy-programs" data-org-name="Epilepsy Foundation Programs"><i class="ti ti-external-link"></i> epilepsy.com/programs</a>
+      <a class="org-phone" href="tel:18003321000"><i class="ti ti-phone"></i> 1-800-332-1000</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Epilepsy Alliance America</div>
+        <div class="org-type">National Network · Regional Member Organizations</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">Launched in 2018, Epilepsy Alliance America is a national network of community-based epilepsy organizations dedicated to promoting independence and quality of life for people with epilepsy and their families. Their member organizations provide direct services, support, and advocacy across local communities nationwide. Visit their website to find member organizations in your region.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://epilepsyallianceamerica.org" target="_blank" rel="noopener" data-org-id="eaa" data-org-name="Epilepsy Alliance America"><i class="ti ti-external-link"></i> epilepsyallianceamerica.org</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Veterans with Epilepsy — VA Disability Benefits</div>
+        <div class="org-type">Federal · VA · Service-Connected Disability Claims</div>
+      </div>
+      <span class="badge federal">Federal · VA</span>
+    </div>
+    <div class="org-desc">Veterans whose epilepsy is service-connected may qualify for VA disability compensation, VA health care, and other VA benefits. Epilepsy can develop following traumatic brain injury (TBI), a common service-related condition. The VA also provides caregiver support through the Program of Comprehensive Assistance for Family Caregivers (PCAFC). File a claim at VA.gov or call 1-800-827-1000.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.va.gov/disability" target="_blank" rel="noopener" data-org-id="va-disability" data-org-name="VA Disability Benefits"><i class="ti ti-external-link"></i> va.gov/disability</a>
+      <a class="org-phone" href="tel:18008271000"><i class="ti ti-phone"></i> 1-800-827-1000</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">CURE Epilepsy</div>
+        <div class="org-type">Research Advocacy · Funding · Patient Community</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">CURE Epilepsy (Citizens United for Research in Epilepsy) is a nonprofit focused on funding epilepsy research and advocating for patients. They provide patient resources, a community for those with drug-resistant epilepsy, information on clinical trials, and updates on the latest treatment research. A voice in pushing for better treatments and ultimately a cure.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://cureepilepsy.org" target="_blank" rel="noopener" data-org-id="cure-epilepsy" data-org-name="CURE Epilepsy"><i class="ti ti-external-link"></i> cureepilepsy.org</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">211 — Local Community Services</div>
+        <div class="org-type">Local Connector · Food · Utilities · Crisis Services</div>
+      </div>
+      <span class="badge free">Free · Nationwide</span>
+    </div>
+    <div class="org-desc">211 connects you to local community resources that national organizations can't: emergency food pantries, utility shutoff prevention, crisis counseling, local disability-specific programs, and more. Specialists know your county's resources in real-time. Dial 211 from any phone or visit 211.org to search by ZIP code. Available 24/7 in many areas.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://211.org" target="_blank" rel="noopener" data-org-id="211-community" data-org-name="211 Community Services"><i class="ti ti-external-link"></i> 211.org</a>
+      <a class="org-phone" href="tel:211"><i class="ti ti-phone"></i> Dial 211</a>
+    </div>
+  </div>
+</div>
+<!-- /p8 -->
+
+<!-- ═══════ PANEL 9: CAREGIVERS ═══════ -->
+<div class="tab-panel" id="p9">
+  <div class="panel-head">
+    <i class="panel-head-icon ti ti-heart"></i>
+    <div>
+      <h2>Caregivers &amp; Family</h2>
+      <div class="count">5 organizations · support · respite · practical guidance</div>
+    </div>
+  </div>
+  <div class="panel-intro">Caring for someone with epilepsy is one of the most demanding and often invisible jobs there is. These resources exist specifically to support you — not just the person you care for.</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Epilepsy Foundation — Caregiver &amp; Family Resources</div>
+        <div class="org-type">Seizure Action Plans · Emergency Preparedness · Family Guides</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">The Epilepsy Foundation's caregiver resources include how to create a Seizure Action Plan, what to do in a seizure emergency, how to talk to family members and friends about epilepsy, how to support a child in school, and how to take care of yourself as a caregiver. Also covers resources for siblings and for aging parents caring for adult children with epilepsy.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.epilepsy.com/caregivers-and-family" target="_blank" rel="noopener" data-org-id="epilepsy-caregivers" data-org-name="Epilepsy Foundation Caregivers"><i class="ti ti-external-link"></i> epilepsy.com — Caregivers</a>
+      <a class="org-phone" href="tel:18003321000"><i class="ti ti-phone"></i> 1-800-332-1000</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">ARCH National Respite Network</div>
+        <div class="org-type">Respite Care · Find Local Relief Services</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">ARCH supports the development of quality respite care for families of children and adults with disabilities or special needs. Their National Respite Locator helps caregivers find respite care services in their state — temporary relief that allows caregivers to rest, recover, and prevent burnout. Many programs are low-cost or subsidized. Caregiver burnout is a serious health risk — respite matters.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://archrespite.org" target="_blank" rel="noopener" data-org-id="arch-respite" data-org-name="ARCH National Respite Network"><i class="ti ti-external-link"></i> archrespite.org</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Caregiver Action Network</div>
+        <div class="org-type">Peer Support · Advocacy · Caregiver Community</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">A national nonprofit serving family caregivers of all conditions. CAN offers peer-to-peer support, a caregiver help desk, and advocacy resources. Their focus on the emotional and practical reality of caregiving makes this a strong resource for caregivers of people with chronic neurological conditions like epilepsy. Free membership includes access to online community and resources.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://caregiveraction.org" target="_blank" rel="noopener" data-org-id="can" data-org-name="Caregiver Action Network"><i class="ti ti-external-link"></i> caregiveraction.org</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Family Caregiver Alliance</div>
+        <div class="org-type">Fact Sheets · State Resources · Caregiver Self-Care</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">FCA provides extensive, research-based resources for family caregivers — including condition-specific fact sheets, state-by-state program guides, legal planning resources, and information on financial help for caregivers. Their National Center on Caregiving develops programs and policies to support caregivers across the country. A particularly strong source for legal and financial planning.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.caregiver.org" target="_blank" rel="noopener" data-org-id="fca" data-org-name="Family Caregiver Alliance"><i class="ti ti-external-link"></i> caregiver.org</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Child Neurology Foundation</div>
+        <div class="org-type">Pediatric Epilepsy · Family Navigation · Condition Guides</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">For families of children with epilepsy and other neurological conditions. The Child Neurology Foundation provides educational resources, family guides by diagnosis, a webinar library, and a community where parents can connect with others navigating similar journeys. Their disease-specific resources on childhood epilepsy syndromes (Dravet, LGS, infantile spasms, etc.) are particularly helpful for rare epilepsies.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.childneurologyfoundation.org" target="_blank" rel="noopener" data-org-id="cnf" data-org-name="Child Neurology Foundation"><i class="ti ti-external-link"></i> childneurologyfoundation.org</a>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <i class="ti ti-heart-handshake"></i>
+    <span><strong>Caregiver health matters.</strong> Caregiver burnout is a medical condition, not a personal failure. Reaching out for respite, peer support, or your own counseling is not giving up — it's what makes sustained caregiving possible. Your needs are real. ARCH's respite locator and CAN's help desk are good first calls.</span>
+  </div>
+</div>
+<!-- /p9 -->
+
+<!-- ═══════ PANEL 10: LEGAL ═══════ -->
+<div class="tab-panel" id="p10">
+  <div class="panel-head">
+    <i class="panel-head-icon ti ti-scale"></i>
+    <div>
+      <h2>Legal &amp; Advocacy</h2>
+      <div class="count">5 organizations · rights · enforcement · representation</div>
+    </div>
+  </div>
+  <div class="panel-intro">People with epilepsy have legally protected rights in employment, housing, education, public accommodations, and healthcare. These organizations provide the knowledge and legal resources to enforce those rights.</div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">ADA.gov — Official ADA Information</div>
+        <div class="org-type">Federal · Department of Justice · Your Legal Rights</div>
+      </div>
+      <span class="badge federal">Federal · DOJ</span>
+    </div>
+    <div class="org-desc">The official source for information on the Americans with Disabilities Act. Covers your rights in employment, state and local government, public accommodations, transportation, and telecommunications. Includes guidance on filing ADA complaints, understanding what "reasonable accommodation" means, and how the law applies to people with epilepsy specifically. Free.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.ada.gov" target="_blank" rel="noopener" data-org-id="ada-gov-legal" data-org-name="ADA.gov Legal Rights"><i class="ti ti-external-link"></i> ada.gov</a>
+      <a class="org-phone" href="tel:18008144200"><i class="ti ti-phone"></i> 1-800-514-0301</a>
+      <span class="badge free">Free</span>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">National Disability Rights Network (NDRN)</div>
+        <div class="org-type">Protection &amp; Advocacy · Free Legal Help by State</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">NDRN is the membership organization for the federally mandated Protection and Advocacy (P&A) network — one free legal advocacy organization in every U.S. state and territory. P&A agencies provide legal representation, investigation of abuse and neglect, and systemic advocacy for people with disabilities. Find your state's P&A through NDRN's directory.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.ndrn.org" target="_blank" rel="noopener" data-org-id="ndrn" data-org-name="National Disability Rights Network"><i class="ti ti-external-link"></i> ndrn.org — Find Your State P&amp;A</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">ADA National Network</div>
+        <div class="org-type">Technical Assistance · ADA Questions · Regional Centers</div>
+      </div>
+      <span class="badge free">Free · Federal-Funded</span>
+    </div>
+    <div class="org-desc">Ten regional ADA Centers funded by the federal government provide free technical assistance on ADA compliance — to both people with disabilities and the organizations that serve them. If you have a question about your ADA rights in a specific situation (at a hospital, school, employer, or public place), call the center for your region. Free, confidential, and nonpartisan.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://adata.org" target="_blank" rel="noopener" data-org-id="ada-network-legal" data-org-name="ADA National Network Legal"><i class="ti ti-external-link"></i> adata.org</a>
+      <a class="org-phone" href="tel:18009494232"><i class="ti ti-phone"></i> 1-800-949-4232</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Disability Rights Advocates</div>
+        <div class="org-type">Nonprofit Legal Organization · Systemic Litigation</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">DRA is a leading national nonprofit disability rights legal center that pursues high-impact cases on behalf of people with disabilities. They focus on systemic change — taking on cases involving employment, education, housing, healthcare access, and public accommodations that affect large numbers of disabled people. Not a helpline for individual cases, but a source for understanding large-scale advocacy efforts.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://dralegal.org" target="_blank" rel="noopener" data-org-id="dra" data-org-name="Disability Rights Advocates"><i class="ti ti-external-link"></i> dralegal.org</a>
+    </div>
+  </div>
+
+  <div class="org-card">
+    <div class="org-top">
+      <div>
+        <div class="org-name">Epilepsy Foundation — Advocacy &amp; Policy</div>
+        <div class="org-type">Legislative Advocacy · State Policy · Grassroots Action</div>
+      </div>
+      <span class="badge national">National</span>
+    </div>
+    <div class="org-desc">The Epilepsy Foundation advocates at the federal and state level on issues including drug affordability, driving laws, school policies, and research funding. Their advocacy section explains current legislative priorities, how to contact your representatives, and how to get involved in epilepsy advocacy efforts in your state. The National Plan for Epilepsy Act (S.494/H.R.1189) is their current legislative priority.</div>
+    <div class="org-actions">
+      <a class="org-link" href="https://www.epilepsy.com/advocacy" target="_blank" rel="noopener" data-org-id="epilepsy-advocacy" data-org-name="Epilepsy Foundation Advocacy"><i class="ti ti-external-link"></i> epilepsy.com/advocacy</a>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <i class="ti ti-gavel"></i>
+    <span><strong>Not sure where to start?</strong> Call the ADA National Network at <strong>1-800-949-4232</strong> for free, confidential guidance on any ADA rights question. For legal representation in disability cases, your state's Protection &amp; Advocacy organization (found through NDRN) provides free legal help for people with disabilities.</span>
+  </div>
+</div>
+<!-- /p10 -->
+
+</div>
+<!-- /panels -->
+
+<!-- Submit an Organization -->
+<div class="submit-section">
+  <h3>Know a resource we're missing?</h3>
+  <p class="hint">Submit a verified organization or program. We review submissions before adding — all org data must be confirmed against a live source (no fabricated entries).</p>
+
+  <div class="success-banner" id="submitBanner">
+    <i class="ti ti-circle-check"></i>
+    <div>Thank you — we'll review this submission. Verified resources are added to the guide.</div>
+  </div>
+
+  <input type="checkbox" class="submit-toggle-checkbox" id="submitToggle">
+  <label class="btn-outline" for="submitToggle"><i class="ti ti-plus"></i> Suggest a Resource</label>
+
+  <div class="submit-form-wrap">
+    <form id="submitForm" action="https://formspree.io/f/mbdbkznw" method="POST">
+      <input type="text" name="website" class="gotcha-field" tabindex="-1" autocomplete="off">
+      <div class="field">
+        <label for="fOrgName">Organization or Program Name</label>
+        <input type="text" id="fOrgName" name="org_name" placeholder="e.g. CURE Epilepsy" required>
+      </div>
+      <div class="field">
+        <label for="fOrgURL">Website URL</label>
+        <input type="text" id="fOrgURL" name="org_url" placeholder="https://..." required>
+      </div>
+      <div class="field">
+        <label for="fCategory">Category (Housing, Employment, etc.)</label>
+        <input type="text" id="fCategory" name="category" placeholder="e.g. Transportation, Financial Benefits">
+      </div>
+      <div class="field">
+        <label for="fDesc">Brief description (what does it offer?)</label>
+        <textarea id="fDesc" name="description" rows="3" placeholder="What does this organization offer to people with epilepsy?"></textarea>
+      </div>
+      <input type="hidden" name="source" value="epilepsy_resources">
+      <button class="btn-primary" type="submit"><i class="ti ti-send"></i> Submit Resource</button>
+    </form>
+  </div>
+</div>
+
+</div>
+<!-- /container -->
+
+<!-- ACL Suite Footer -->
+<div class="acl-suite-footer">
+  <div class="acl-suite-grid">
+    <div class="acl-suite-col">
+      <div class="acl-suite-label">Work-Life Enablement</div>
+      <a href="https://receipts.aricciviclabs.org">receipts.</a>
+      <a href="https://transitions.aricciviclabs.org">Transitions</a>
+    </div>
+    <div class="acl-suite-col">
+      <div class="acl-suite-label">Social Enablement</div>
+      <a href="https://inable.aricciviclabs.org">InAble</a>
+    </div>
+    <div class="acl-suite-col">
+      <div class="acl-suite-label">Workforce Management</div>
+      <a href="https://meshforce.aricciviclabs.org">MeshForce</a>
+      <a href="https://theseam.aricciviclabs.org/seam.html">The Seam</a>
+    </div>
+    <div class="acl-suite-col">
+      <div class="acl-suite-label">Civic &amp; Rights · Free</div>
+      <a href="https://aricciviclabs.org/rights_connector.html">Rights Connector</a>
+      <a href="https://aricciviclabs.org/rights_connector_constitution.html">The Constitution</a>
+      <a href="https://aricciviclabs.org/rights_connector_communities.html">Communities</a>
+      <span class="acl-suite-here">Epilepsy Resources</span>
+    </div>
+  </div>
+  <div class="acl-suite-meta">
+    <a href="https://aricciviclabs.org">AricCivicLabs.Org</a>
+    <span class="acl-m-dot">·</span>
+    <a href="https://aricciviclabs.org/legal.html">Privacy &amp; Terms</a>
+    <span class="acl-m-dot">·</span>
+    <span>© 2026 AricCivicLabs.Org</span>
+  </div>
+</div>
+
+<div class="container" style="padding-top:0; padding-bottom:24px;">
+  <footer>
+    Resource information verified June 2026. Organizations change their programs and contact details — always confirm specifics on the organization's own website. This guide is not legal, medical, or financial advice. AricCivicLabs is a California sole proprietorship, not a law firm or medical provider.
+  </footer>
+</div>
+
+<script>
+/* ── Email Capture ── */
+function captureEmail(email, optedIn, source) {
+  if (!email || email.indexOf('@') === -1 || email.indexOf('.') === -1) return false;
+  email = email.trim().toLowerCase();
+  try { sessionStorage.setItem('rcpts_user_email', email); } catch(e) {}
+  if (optedIn) {
+    try {
+      fetch('https://epntzskzmdlfqyosscbc.supabase.co/functions/v1/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer sb_publishable_i5pUA7v3H5UOPifMLTcLtA_zJO12EnK' },
+        body: JSON.stringify({ email: email, source: source || 'epilepsy_resources' })
+      }).catch(function(){});
+    } catch(e) {}
+  }
+  return true;
+}
+
+var ecBtn = document.getElementById('ecBtn');
+if (ecBtn) {
+  ecBtn.addEventListener('click', function() {
+    var emailEl = document.getElementById('ecEmail');
+    var consentEl = document.getElementById('ecConsent');
+    var statusEl = document.getElementById('ecStatus');
+    if (!emailEl || !consentEl || !statusEl) return;
+    var email = emailEl.value.trim();
+    var opted = consentEl.checked;
+    if (!email || email.indexOf('@') === -1) {
+      statusEl.textContent = 'Please enter a valid email address.';
+      statusEl.style.color = '#A8412F';
+      return;
+    }
+    if (!opted) {
+      statusEl.textContent = 'Please check the consent box to subscribe.';
+      statusEl.style.color = '#A8412F';
+      return;
+    }
+    captureEmail(email, true, 'epilepsy_resources');
+    statusEl.textContent = 'You\'re subscribed. Thank you!';
+    statusEl.style.color = '#3D7A57';
+    emailEl.value = '';
+    consentEl.checked = false;
+  });
+}
+
+/* ── Submit Form ── */
+var submitForm = document.getElementById('submitForm');
+if (submitForm) {
+  submitForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var data = new FormData(submitForm);
+    fetch(submitForm.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(function(r) {
+      var banner = document.getElementById('submitBanner');
+      if (banner) { banner.classList.add('show'); }
+      submitForm.reset();
+    }).catch(function() {
+      var banner = document.getElementById('submitBanner');
+      if (banner) { banner.classList.add('show'); }
+    });
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
+   Rights Connector — Supabase click tracking
+   Page: epilepsy-resources
+   ═══════════════════════════════════════════════════════ */
+var RC_SUPA_URL  = 'https://epntzskzmdlfqyosscbc.supabase.co';
+var RC_SUPA_ANON = 'sb_publishable_i5pUA7v3H5UOPifMLTcLtA_zJO12EnK';
+var RC_PAGE_ID   = 'epilepsy-resources';
+
+function rcSlugify(str) {
+  return (str || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function rcTrack(key, name, url, pageOverride) {
+  try {
+    fetch(RC_SUPA_URL + '/rest/v1/rpc/increment_click', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': RC_SUPA_ANON,
+        'Authorization': 'Bearer ' + RC_SUPA_ANON
+      },
+      body: JSON.stringify({
+        p_key:  key,
+        p_name: name,
+        p_url:  url || '',
+        p_page: pageOverride || RC_PAGE_ID
+      })
+    }).catch(function(){});
+  } catch(e) {}
+}
+
+/* Org link click tracking (event delegation) */
+document.addEventListener('click', function(e) {
+  var link = null;
+  var t = e.target;
+  while (t && t !== document) {
+    if (t.getAttribute && t.getAttribute('data-org-id')) { link = t; break; }
+    t = t.parentNode;
+  }
+  if (link) {
+    var orgId   = link.getAttribute('data-org-id')   || rcSlugify(link.getAttribute('data-org-name') || '');
+    var orgName = link.getAttribute('data-org-name') || orgId;
+    var orgUrl  = link.href || '';
+    rcTrack(orgId, orgName, orgUrl);
+  }
+});
+</script>
+</body>
+</html>
