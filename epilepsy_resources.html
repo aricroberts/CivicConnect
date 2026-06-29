@@ -65,7 +65,11 @@
 
   .free-badge{display:inline-flex; align-items:center; gap:6px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.05em; text-transform:uppercase; background:rgba(61,122,87,0.1); color:var(--green); border:1px solid rgba(61,122,87,0.3); border-radius:100px; padding:5px 11px; margin-top:14px;}
 
-  .privacy-banner{display:flex; gap:10px; align-items:flex-start; background:var(--paper2); border:1px solid var(--border); border-radius:10px; padding:13px 15px; margin-top:20px; font-size:13px; color:var(--ink2);}
+  .pillar-nav{display:flex; gap:8px; flex-wrap:wrap; margin:20px 0 4px;}
+  .pillar-nav a{display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; text-decoration:none; color:var(--ink2); border:1px solid var(--border-d); background:var(--paper2); border-radius:100px; padding:8px 16px; transition:border-color .15s, color .15s;}
+  .pillar-nav a:hover{border-color:var(--purple); color:var(--purple);}
+
+  .privacy-banner{display:flex; gap:10px; align-items:flex-start; background:var(--paper2); border:1px solid var(--border); border-radius:10px; padding:13px 15px; margin-top:16px; font-size:13px; color:var(--ink2);}
   .privacy-banner i{color:var(--green); font-size:16px; margin-top:1px;}
 
   /* ── Stats Row ── */
@@ -228,6 +232,10 @@
     <span class="free-badge"><i class="ti ti-lock-open"></i> No paywall · No ads · No sign-in</span>
     <div class="rule"></div>
   </div>
+
+  <nav class="pillar-nav">
+    <a href="https://civic.aricciviclabs.org/rights_connector.html"><i class="ti ti-arrow-left"></i> Rights Connector Hub</a>
+  </nav>
 
   <div class="privacy-banner">
     <i class="ti ti-shield-check"></i>
@@ -1272,16 +1280,16 @@
     </div>
     <div class="acl-suite-col">
       <div class="acl-suite-label">Civic &amp; Rights · Free</div>
-      <a href="https://aricciviclabs.org/rights_connector.html">Rights Connector</a>
-      <a href="https://aricciviclabs.org/rights_connector_constitution.html">The Constitution</a>
-      <a href="https://aricciviclabs.org/rights_connector_communities.html">Communities</a>
+      <a href="https://civic.aricciviclabs.org/rights_connector.html">Rights Connector</a>
+      <a href="https://civic.aricciviclabs.org/rights_connector_constitution.html">The Constitution</a>
+      <a href="https://civic.aricciviclabs.org/rights_connector_communities.html">Communities</a>
       <span class="acl-suite-here">Epilepsy Resources</span>
     </div>
   </div>
   <div class="acl-suite-meta">
     <a href="https://aricciviclabs.org">AricCivicLabs.Org</a>
     <span class="acl-m-dot">·</span>
-    <a href="https://aricciviclabs.org/legal.html">Privacy &amp; Terms</a>
+    <a href="https://civic.aricciviclabs.org/legal.html">Privacy &amp; Terms</a>
     <span class="acl-m-dot">·</span>
     <span>© 2026 AricCivicLabs.Org</span>
   </div>
