@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<link rel="icon" type="image/png" href="civil_rights_connector.png">
+<title>Civic &amp; Rights Access · AricCivicLabs</title>
+<meta name="description" content="Five free civic tools from AricCivicLabs: find a rights organization for your situation, defend the Constitution, support communities over shareholders, reach your representatives, and find epilepsy support resources. No paywall, no ads, no account.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6EFDC; --paper2:#FFFBF1; --paper3:#EFE5C9;
+    --ink:#2A2018; --ink2:#6E5F4A; --ink3:#746352;
+    --navy:#1F3A5C; --navy-l:#2F5380; --brick:#A8412F; --brick-l:#C25A45;
+    --gold:#8F6418; --gold-l:#C99A40; --green:#3D7A57; --green-l:#4F9268;
+    --purple:#7B5EA7; --purple-l:#9578C2;
+    --border:#E2D2A8; --border-d:#D3C193;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{color-scheme:light; background-color:#F6EFDC; min-height:100%;}
+  body{
+    background-color:#F6EFDC; color:var(--ink);
+    font-family:'DM Sans', sans-serif; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh; min-height:100dvh;
+  }
+  .serif{font-family:'Libre Caslon Display', serif;}
+  .mono{font-family:'DM Mono', monospace;}
+  .container{max-width:980px; margin:0 auto; padding:28px 20px 90px;}
+
+  /* ── ACL Eco Bar ── */
+  .acl-eco-bar{display:flex;align-items:center;padding:0 28px;height:34px;background:rgba(0,0,0,0.022);border-bottom:1px solid rgba(0,0,0,0.09);}
+  .acl-eco-org{font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500;color:rgba(0,0,0,0.42);text-decoration:none;white-space:nowrap;flex-shrink:0;}
+  .acl-eco-org:hover{color:rgba(0,0,0,0.72);}
+  .acl-eco-div{flex:1;height:1px;background:rgba(0,0,0,0.09);margin:0 16px;}
+  .acl-eco-links{display:flex;gap:18px;flex-shrink:0;}
+  .acl-eco-links a{font-family:'DM Mono',monospace;font-size:10.5px;color:rgba(0,0,0,0.28);text-decoration:none;white-space:nowrap;transition:color .15s;}
+  .acl-eco-links a:hover{color:rgba(0,0,0,0.62);}
+  .acl-eco-here{font-family:'DM Mono',monospace;font-size:10.5px;color:rgba(0,0,0,0.55);white-space:nowrap;}
+  @media(max-width:640px){.acl-eco-bar{display:none;}}
+
+  /* ── ACL Suite Footer ── */
+  .acl-suite-footer{border-top:1px solid rgba(0,0,0,0.1);padding:28px 28px 24px;background:rgba(0,0,0,0.025);margin-top:46px;border-radius:14px;}
+  .acl-suite-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 24px;max-width:900px;margin:0 auto 20px;}
+  .acl-suite-label{font-family:'DM Mono',monospace;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(0,0,0,0.28);margin-bottom:9px;}
+  .acl-suite-col a{display:block;font-size:12px;font-weight:500;color:rgba(0,0,0,0.38);text-decoration:none;margin-bottom:4px;transition:color .15s;}
+  .acl-suite-col a:hover{color:rgba(0,0,0,0.72);}
+  .acl-suite-here{display:block;font-size:12px;font-weight:500;color:rgba(0,0,0,0.58);margin-bottom:4px;}
+  .acl-suite-meta{border-top:1px solid rgba(0,0,0,0.08);padding-top:14px;display:flex;align-items:center;gap:10px;font-size:10.5px;color:rgba(0,0,0,0.3);max-width:900px;margin:0 auto;flex-wrap:wrap;}
+  .acl-suite-meta a{color:rgba(0,0,0,0.38);text-decoration:none;transition:color .15s;}
+  .acl-suite-meta a:hover{color:rgba(0,0,0,0.7);}
+  .acl-m-dot{color:rgba(0,0,0,0.13);}
+  @media(max-width:640px){.acl-suite-grid{grid-template-columns:1fr 1fr;}}
+
+  header{padding:6px 0 22px;}
+  .hero{
+    background:var(--paper2); border:1px solid var(--border-d); border-top:7px solid var(--navy);
+    border-radius:14px; padding:40px 28px 34px; margin-bottom:4px;
+    text-align:center; display:flex; flex-direction:column; align-items:center;
+  }
+  .eyebrow{font-family:'DM Mono', monospace; font-size:11.5px; letter-spacing:0.09em; text-transform:uppercase; color:var(--navy); margin-bottom:10px; font-weight:500;}
+  h1{font-family:'Libre Caslon Display', serif; font-size:44px; line-height:1.07; font-weight:400; letter-spacing:-0.01em; margin-bottom:14px; color:var(--ink);}
+  .subhead{color:var(--ink2); font-size:16.5px; max-width:600px; margin:0 auto;}
+  .rule{
+    height:3px; margin:22px 0 0; border-radius:2px;
+    background:linear-gradient(90deg, var(--navy) 0%, var(--navy) 25%, var(--gold) 38%, var(--brick) 50%, var(--purple) 62%, var(--green) 75%, var(--green) 100%);
+  }
+
+  .free-badge-row{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:18px;}
+  .free-badge{
+    display:inline-flex; align-items:center; gap:6px; font-family:'DM Mono',monospace;
+    font-size:11px; letter-spacing:0.05em; text-transform:uppercase;
+    background:rgba(61,122,87,0.1); color:var(--green); border:1px solid rgba(61,122,87,0.3);
+    border-radius:100px; padding:5px 11px;
+  }
+
+  .mission-block{
+    background:var(--paper2); border:1px solid var(--border-d); border-radius:12px;
+    padding:18px 22px; margin-top:18px; font-size:14px; color:var(--ink2); text-align:left;
+    display:flex; gap:12px; align-items:flex-start;
+  }
+  .mission-block i{color:var(--navy); font-size:18px; margin-top:2px; flex-shrink:0;}
+  .mission-block strong{color:var(--ink);}
+
+  .section-label{
+    font-family:'DM Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink3); margin:36px 0 14px; padding-bottom:8px; border-bottom:2px solid var(--border-d);
+  }
+
+  .card-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  @media(max-width:720px){.card-grid{grid-template-columns:1fr;}}
+
+  .civic-card{
+    display:flex; flex-direction:column; gap:12px;
+    background:var(--paper2); border:1px solid var(--border-d); border-radius:14px;
+    padding:24px 24px 22px; text-decoration:none; color:inherit;
+    transition:border-color .15s, transform .15s, box-shadow .15s;
+    position:relative; overflow:hidden;
+  }
+  .civic-card::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:5px; background:var(--accent, var(--navy));
+  }
+  .civic-card:hover{border-color:var(--accent, var(--navy)); transform:translateY(-2px); box-shadow:0 8px 22px rgba(42,32,24,0.08);}
+
+  .civic-card-top{display:flex; align-items:flex-start; gap:14px;}
+  .civic-card-icon{
+    width:52px; height:52px; border-radius:12px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--accent-bg, rgba(31,58,92,0.08));
+  }
+  .civic-card-icon img{width:34px; height:34px; object-fit:contain;}
+  .civic-card-icon i{font-size:26px; color:var(--accent, var(--navy));}
+  .civic-card-title{font-family:'Libre Caslon Display', serif; font-size:21px; font-weight:400; line-height:1.2; margin-bottom:3px; color:var(--ink);}
+  .civic-card-tag{font-family:'DM Mono',monospace; font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--accent, var(--navy)); font-weight:600;}
+  .civic-card-desc{font-size:13.5px; color:var(--ink2); line-height:1.55;}
+  .civic-card-foot{
+    display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:10px;
+    border-top:1px dashed var(--border-d); font-size:12.5px;
+  }
+  .civic-card-stat{color:var(--ink3); font-family:'DM Mono',monospace; font-size:11.5px;}
+  .civic-card-cta{display:inline-flex; align-items:center; gap:5px; color:var(--accent, var(--navy)); font-weight:600;}
+  .civic-card-cta i{font-size:14px; transition:transform .15s;}
+  .civic-card:hover .civic-card-cta i{transform:translateX(3px);}
+
+  .card-rights{--accent:#1F3A5C; --accent-bg:rgba(31,58,92,0.08);}
+  .card-constitution{--accent:#A8412F; --accent-bg:rgba(168,65,47,0.08);}
+  .card-communities{--accent:#3D7A57; --accent-bg:rgba(61,122,87,0.08);}
+  .card-reps{--accent:#8F6418; --accent-bg:rgba(143,100,24,0.1);}
+  .card-epilepsy{--accent:#7B5EA7; --accent-bg:rgba(123,94,167,0.08);}
+
+  .spotlight-card.full{grid-column:1 / -1;}
+
+  .privacy-banner{
+    display:flex; gap:10px; align-items:flex-start;
+    background:var(--paper2); border:1px solid var(--border); border-radius:10px;
+    padding:14px 16px; margin-top:34px; font-size:13px; color:var(--ink2);
+  }
+  .privacy-banner i{color:var(--green); font-size:16px; margin-top:1px; flex-shrink:0;}
+
+  footer{margin-top:24px; font-size:11.5px; color:var(--ink3); text-align:center;}
+</style>
+</head>
+<body>
+
+<!-- ACL Eco Bar -->
+<div class="acl-eco-bar">
+  <a href="https://aricciviclabs.org" class="acl-eco-org">AricCivicLabs.Org</a>
+  <span class="acl-eco-div"></span>
+  <div class="acl-eco-links">
+    <a href="https://receipts.aricciviclabs.org">receipts.</a>
+    <a href="https://transitions.aricciviclabs.org">Transitions</a>
+    <a href="https://inable.aricciviclabs.org">InAble</a>
+    <a href="https://meshforce.aricciviclabs.org">MeshForce</a>
+    <a href="https://theseam.aricciviclabs.org/seam.html">The Seam</a>
+    <span class="acl-eco-here">Civic &amp; Rights</span>
+  </div>
+</div>
+<!-- /ACL Eco Bar -->
+
+<div class="container">
+
+  <header>
+    <div class="hero">
+      <div class="eyebrow">AricCivicLabs · Pillar 4 · Civic Participation &amp; Rights Access</div>
+      <h1>Civic &amp; Rights Access</h1>
+      <p class="subhead">Five free tools that connect Americans to the organizations, representatives, and resources that protect their rights and their communities. Funded by AricCivicLabs' paid tools — never by the people who use these pages.</p>
+      <div class="rule"></div>
+
+      <div class="free-badge-row">
+        <span class="free-badge"><i class="ti ti-lock-open"></i> Always free</span>
+        <span class="free-badge"><i class="ti ti-shield-lock"></i> No tracking</span>
+        <span class="free-badge"><i class="ti ti-ban"></i> No ads, no sponsor influence</span>
+        <span class="free-badge"><i class="ti ti-user-check"></i> No account required</span>
+      </div>
+
+      <div class="mission-block">
+        <i class="ti ti-flag-2"></i>
+        <div><strong>Helping Americans be more American.</strong> Pillar 4 is the civic backbone of AricCivicLabs — built to stay permanently free, with no paywall and no ads, funded directly by revenue from AricCivicLabs' paid tools (receipts., Transitions, InAble, MeshForce, and The Seam). Every organization listed here is human-verified, not AI-generated.</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="section-label">Choose a tool</div>
+
+  <div class="card-grid">
+
+    <a class="civic-card card-rights" href="https://civic.aricciviclabs.org/rights_connector.html">
+      <div class="civic-card-top">
+        <div class="civic-card-icon"><img src="civil_rights_connector.png" alt=""></div>
+        <div>
+          <div class="civic-card-tag">Start here</div>
+          <div class="civic-card-title">Civic Rights Connector</div>
+        </div>
+      </div>
+      <div class="civic-card-desc">Answer a few quick questions about your situation — immigration, housing, healthcare, workplace, benefits, and more — and get matched to organizations that can actually help, plus a free downloadable prep packet.</div>
+      <div class="civic-card-foot">
+        <span class="civic-card-stat">14 categories · 61 organizations</span>
+        <span class="civic-card-cta">Find help <i class="ti ti-arrow-right"></i></span>
+      </div>
+    </a>
+
+    <a class="civic-card card-reps" href="https://civic.aricciviclabs.org/rights_connector_reps.html">
+      <div class="civic-card-top">
+        <div class="civic-card-icon"><img src="representative_connector.png" alt=""></div>
+        <div>
+          <div class="civic-card-tag">Take action</div>
+          <div class="civic-card-title">Representative Connector</div>
+        </div>
+      </div>
+      <div class="civic-card-desc">Look up your U.S. senators and House representative with verified contact links, plus official federal tools for tracking and acting on specific bills.</div>
+      <div class="civic-card-foot">
+        <span class="civic-card-stat">Federal lookup tools</span>
+        <span class="civic-card-cta">Find your reps <i class="ti ti-arrow-right"></i></span>
+      </div>
+    </a>
+
+    <a class="civic-card card-constitution" href="https://civic.aricciviclabs.org/rights_connector_constitution.html">
+      <div class="civic-card-top">
+        <div class="civic-card-icon"><img src="defend_the_constitution.png" alt=""></div>
+        <div>
+          <div class="civic-card-tag">Spotlight</div>
+          <div class="civic-card-title">Defending the Constitution</div>
+        </div>
+      </div>
+      <div class="civic-card-desc">Organizations actively litigating constitutional questions — shown across the political spectrum, since no single group covers every angle.</div>
+      <div class="civic-card-foot">
+        <span class="civic-card-stat">20 organizations</span>
+        <span class="civic-card-cta">Explore <i class="ti ti-arrow-right"></i></span>
+      </div>
+    </a>
+
+    <a class="civic-card card-communities" href="https://civic.aricciviclabs.org/rights_connector_communities.html">
+      <div class="civic-card-top">
+        <div class="civic-card-icon"><img src="communities_before_shareholders.png" alt=""></div>
+        <div>
+          <div class="civic-card-tag">Spotlight</div>
+          <div class="civic-card-title">Communities Before Shareholders</div>
+        </div>
+      </div>
+      <div class="civic-card-desc">Organizations working against corporate consolidation and for local economic power — also shown across the political spectrum.</div>
+      <div class="civic-card-foot">
+        <span class="civic-card-stat">16 organizations</span>
+        <span class="civic-card-cta">Explore <i class="ti ti-arrow-right"></i></span>
+      </div>
+    </a>
+
+    <a class="civic-card card-epilepsy spotlight-card full" href="https://civic.aricciviclabs.org/epilepsy_resources.html" style="grid-column:1 / -1;">
+      <div class="civic-card-top">
+        <div class="civic-card-icon"><i class="ti ti-brain"></i></div>
+        <div>
+          <div class="civic-card-tag">Condition-specific guide</div>
+          <div class="civic-card-title">Epilepsy Resources &amp; Support Guide</div>
+        </div>
+      </div>
+      <div class="civic-card-desc">Connecting people living with epilepsy — and the people who love and support them — to housing, healthcare, financial benefits, transportation, education, employment, legal rights, and community.</div>
+      <div class="civic-card-foot">
+        <span class="civic-card-stat">Housing · Healthcare · Benefits · Employment · Legal</span>
+        <span class="civic-card-cta">Get the guide <i class="ti ti-arrow-right"></i></span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="privacy-banner">
+    <i class="ti ti-shield-lock"></i>
+    <div>Nothing you type on any of these pages is saved, sent to a server, or tracked to you. Org submissions go through a reviewed Formspree form — everything else stays in your browser and disappears when you close the tab.</div>
+  </div>
+
+  <!-- ACL Suite Footer -->
+  <div class="acl-suite-footer">
+    <div class="acl-suite-grid">
+      <div class="acl-suite-col">
+        <div class="acl-suite-label">Work-Life Enablement</div>
+        <a href="https://receipts.aricciviclabs.org">receipts.</a>
+        <a href="https://transitions.aricciviclabs.org">Transitions</a>
+      </div>
+      <div class="acl-suite-col">
+        <div class="acl-suite-label">Social Enablement</div>
+        <a href="https://inable.aricciviclabs.org">InAble</a>
+      </div>
+      <div class="acl-suite-col">
+        <div class="acl-suite-label">Workforce Management</div>
+        <a href="https://meshforce.aricciviclabs.org">MeshForce</a>
+        <a href="https://theseam.aricciviclabs.org/seam.html">The Seam</a>
+      </div>
+      <div class="acl-suite-col">
+        <div class="acl-suite-label">Civic &amp; Rights · Free</div>
+        <span class="acl-suite-here">Civic &amp; Rights Index</span>
+        <a href="https://civic.aricciviclabs.org/rights_connector.html">Rights Connector</a>
+        <a href="https://civic.aricciviclabs.org/rights_connector_reps.html">Your Representatives</a>
+        <a href="https://civic.aricciviclabs.org/rights_connector_constitution.html">The Constitution</a>
+        <a href="https://civic.aricciviclabs.org/rights_connector_communities.html">Communities</a>
+        <a href="https://civic.aricciviclabs.org/epilepsy_resources.html">Epilepsy Resources</a>
+      </div>
+    </div>
+    <div class="acl-suite-meta">
+      <a href="https://aricciviclabs.org">AricCivicLabs.Org</a>
+      <span class="acl-m-dot">·</span>
+      <a href="https://aricciviclabs.org/legal.html">Privacy &amp; Terms</a>
+      <span class="acl-m-dot">·</span>
+      <span>© 2026 AricCivicLabs.Org</span>
+    </div>
+  </div>
+  <!-- /ACL Suite Footer -->
+
+  <footer>
+    Org research current as of June 2026. Organizations restructure intake processes — always confirm details on the organization's own site. Not legal or financial advice.
+  </footer>
+
+</div>
+
+</body>
+</html>
